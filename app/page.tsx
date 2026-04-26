@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import Navigation from '@/components/navigation'
 import Hero from '@/components/hero'
+import SkipLink from '@/components/skip-link'
 import LoadingSkeleton from '@/components/loading-skeleton'
 
 // Dynamic imports with Next.js for proper code splitting in App Router
@@ -19,13 +20,16 @@ const Contact = dynamic(() => import('@/components/contact'), {
 
 export default function Home() {
   return (
-    <main className="min-h-screen scroll-smooth">
+    <>
+      <SkipLink href="#main-content" />
       <Navigation />
+      <main id="main-content" className="min-h-screen scroll-smooth">
       <Hero />
       <Projects />
       <Skills />
       <Experience />
       <Contact />
-    </main>
+      </main>
+    </>
   )
 }

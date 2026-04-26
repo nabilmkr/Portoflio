@@ -32,7 +32,7 @@ export default function Projects() {
   }, [selectedCategory, searchQuery, projects])
 
   return (
-    <section id="projects" className="section-spacing bg-gradient-to-b from-background to-secondary/10 content-visibility-auto">
+    <section id="projects" className="section-spacing bg-gradient-to-b from-background to-secondary/10 content-visibility-auto" aria-labelledby="projects-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Featured Projects</h2>
+          <h2 id="projects-heading" className="text-3xl sm:text-4xl font-bold mb-4">Featured Projects</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Explore my recent work showcasing modern web development practices and innovative solutions.
           </p>
@@ -121,7 +121,13 @@ export default function Projects() {
         </motion.div>
 
         {/* Project Grid */}
-        <div className="grid-responsive-3 gap-responsive-lg">
+        <div
+          className="grid-responsive-3 gap-responsive-lg"
+          role="region"
+          aria-label="Projects list"
+          aria-live="polite"
+          aria-atomic="false"
+        >
           {filteredProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -130,6 +136,11 @@ export default function Projects() {
             />
           ))}
         </div>
+
+        {/* Results count for screen readers */}
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} shown
+        </p>
 
         {/* Empty State */}
         {filteredProjects.length === 0 && (

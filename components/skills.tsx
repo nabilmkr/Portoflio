@@ -61,6 +61,7 @@ export default function Skills() {
     <section
       id="skills"
       className="section-spacing bg-gradient-to-b from-secondary/10 to-background content-visibility-auto"
+      aria-labelledby="skills-heading"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -71,7 +72,7 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Skills & Expertise</h2>
+          <h2 id="skills-heading" className="text-3xl sm:text-4xl font-bold mb-4">Skills & Expertise</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A comprehensive overview of my technical skills and proficiency levels across different
             domains.
@@ -85,6 +86,8 @@ export default function Skills() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex flex-wrap justify-center gap-3 mb-12"
+          role="group"
+          aria-label="Filter skills by category"
         >
           <button
             onClick={() => setSelectedCategory('all')}
@@ -119,11 +122,22 @@ export default function Skills() {
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12"
+          role="list"
+          aria-label="Skills"
+          aria-live="polite"
+          aria-atomic="false"
         >
           {filteredSkills.map((skill, index) => (
-            <SkillBadge key={skill.id} skill={skill} index={index} />
+            <div key={skill.id} role="listitem">
+              <SkillBadge skill={skill} index={index} />
+            </div>
           ))}
         </motion.div>
+
+        {/* Screen reader count announcement */}
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {filteredSkills.length} skill{filteredSkills.length !== 1 ? 's' : ''} shown
+        </p>
 
         {/* Proficiency Summary */}
         <motion.div

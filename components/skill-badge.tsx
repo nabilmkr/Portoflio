@@ -74,7 +74,14 @@ export default function SkillBadge({ skill, index = 0 }: SkillBadgeProps) {
           </div>
 
           {/* Progress Bar */}
-          <div className="h-2 bg-accent rounded-full overflow-hidden">
+          <div
+            className="h-2 bg-accent rounded-full overflow-hidden"
+            role="progressbar"
+            aria-valuenow={skill.proficiency}
+            aria-valuemin={0}
+            aria-valuemax={5}
+            aria-label={`${skill.name} proficiency: ${proficiencyLabel} (${skill.proficiency} out of 5)`}
+          >
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: `${proficiencyPercentage}%` }}

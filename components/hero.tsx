@@ -17,7 +17,7 @@ export default function Hero() {
     <section 
       id="hero" 
       className="min-h-screen-responsive flex items-center justify-center relative overflow-hidden will-change-scroll"
-      aria-label="Hero section with introduction"
+      aria-labelledby="hero-heading"
     >
       {/* Enhanced Background Effects - Glassmorphism + Dark Luxe */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-accent-950 dark:from-primary-950 dark:via-primary-900 dark:to-accent-950 animate-gradient-shift" />
@@ -112,7 +112,7 @@ export default function Hero() {
               stiffness: 80
             }}
           >
-            <h1 className="text-responsive-2xl tracking-tight mb-6">
+            <h1 id="hero-heading" className="text-responsive-2xl tracking-tight mb-6">
               <span className="block text-foreground">Crafting Digital</span>
               <span className="block text-gradient bg-gradient-to-r from-primary-600 via-accent-600 to-primary-400">
                 Experiences

@@ -164,7 +164,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section-spacing bg-gradient-to-b from-secondary/10 to-background content-visibility-auto">
+    <section id="contact" className="section-spacing bg-gradient-to-b from-secondary/10 to-background content-visibility-auto" aria-labelledby="contact-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -173,7 +173,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get In Touch</h2>
+          <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold mb-4">Get In Touch</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
           </p>
@@ -424,28 +424,31 @@ export default function Contact() {
                   )}
                 </button>
 
-                {/* Status Message */}
-                {submitStatus !== 'idle' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={cn(
-                      'p-4 rounded-lg border',
-                      submitStatus === 'success'
-                        ? 'bg-green-500/10 text-green-500 border-green-500/20'
-                        : 'bg-destructive/10 text-destructive border-destructive/20'
-                    )}
-                  >
-                    <div className="flex items-center gap-2">
-                      {submitStatus === 'success' ? (
-                        <CheckCircle className="h-5 w-5" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5" />
+                {/* Status Message - aria-live for screen reader announcements */}
+                <div aria-live="polite" aria-atomic="true">
+                  {submitStatus !== 'idle' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      role="status"
+                      className={cn(
+                        'p-4 rounded-lg border',
+                        submitStatus === 'success'
+                          ? 'bg-green-500/10 text-green-500 border-green-500/20'
+                          : 'bg-destructive/10 text-destructive border-destructive/20'
                       )}
-                      <p>{submitMessage}</p>
-                    </div>
-                  </motion.div>
-                )}
+                    >
+                      <div className="flex items-center gap-2">
+                        {submitStatus === 'success' ? (
+                          <CheckCircle className="h-5 w-5" aria-hidden="true" />
+                        ) : (
+                          <AlertCircle className="h-5 w-5" aria-hidden="true" />
+                        )}
+                        <p>{submitMessage}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
               </form>
             </div>
           </motion.div>

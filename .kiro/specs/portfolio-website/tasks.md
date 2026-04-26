@@ -146,7 +146,7 @@ A modern portfolio website built with Next.js/React, Tailwind CSS, and Framer Mo
     - Add location/map integration if applicable
     - _Requirements: 5.4, 5.5_
 
-- [-] 10. Implement performance optimizations
+- [x] 10. Implement performance optimizations
   - [x] 10.1 Optimize images and assets
     - Implement Next.js Image component with optimization
     - Add WebP format with fallbacks
@@ -165,20 +165,20 @@ A modern portfolio website built with Next.js/React, Tailwind CSS, and Framer Mo
     - Set up performance budget alerts
     - _Requirements: 7.1_
 
-- [ ] 11. Implement accessibility features
-  - [ ] 11.1 Ensure WCAG 2.1 AA compliance
+- [-] 11. Implement accessibility features
+  - [x] 11.1 Ensure WCAG 2.1 AA compliance
     - Implement proper semantic HTML structure
     - Add ARIA labels and roles where needed
     - Ensure keyboard navigation throughout
     - _Requirements: 8.1, 8.2, 8.5_
 
-  - [ ] 11.2 Implement focus management
+  - [x] 11.2 Implement focus management
     - Add visible focus indicators for all interactive elements
     - Implement focus trapping in modals
     - Add skip links for keyboard users
     - _Requirements: 8.2_
 
-  - [ ] 11.3 Ensure color contrast compliance
+  - [x] 11.3 Ensure color contrast compliance
     - Verify minimum contrast ratio of 4.5:1 for normal text
     - Implement color contrast checking
     - Add high contrast mode support

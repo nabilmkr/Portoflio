@@ -543,3 +543,98 @@
     }
   }
 }
+
+/* ============================================================
+   Accessibility: Focus Styles (Task 11.2)
+   Ensure all interactive elements have visible focus rings
+   ============================================================ */
+@layer base {
+  /* Global focus-visible styles for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Remove default outline only when focus-visible is supported */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Ensure buttons and links always show focus rings */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ============================================================
+   Accessibility: High Contrast Mode (Task 11.3)
+   Supports prefers-contrast: high media query
+   ============================================================ */
+@media (prefers-contrast: high) {
+  :root {
+    /* Increase contrast for text */
+    --foreground: 0 0% 0%;
+    --background: 0 0% 100%;
+    --muted-foreground: 0 0% 20%;
+
+    /* Stronger borders */
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+
+    /* High contrast ring for focus */
+    --ring: 0 0% 0%;
+
+    /* High contrast primary */
+    --primary: 222 100% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    /* High contrast destructive */
+    --destructive: 0 100% 35%;
+  }
+
+  .dark {
+    --foreground: 0 0% 100%;
+    --background: 0 0% 0%;
+    --muted-foreground: 0 0% 80%;
+
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 0 0% 100%;
+
+    --primary: 210 100% 80%;
+    --primary-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 65%;
+  }
+
+  /* Ensure focus rings are highly visible in high contrast mode */
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  /* Remove decorative backgrounds that reduce contrast */
+  .glass-effect,
+  .glass-effect-light,
+  .glass-effect-dark,
+  .glass-effect-accent {
+    background: hsl(var(--background));
+    border: 2px solid hsl(var(--border));
+    backdrop-filter: none;
+  }
+
+  /* Ensure text on gradient backgrounds is readable */
+  .text-gradient {
+    background: none;
+    -webkit-text-fill-color: hsl(var(--foreground));
+    color: hsl(var(--foreground));
+  }
+}

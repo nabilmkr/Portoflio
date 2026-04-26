@@ -34,7 +34,7 @@ const getTypeColor = (type: string) => {
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-spacing bg-gradient-to-b from-background to-secondary/10 content-visibility-auto">
+    <section id="experience" className="section-spacing bg-gradient-to-b from-background to-secondary/10 content-visibility-auto" aria-labelledby="experience-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function Experience() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Experience & Education</h2>
+          <h2 id="experience-heading" className="text-3xl sm:text-4xl font-bold mb-4">Experience & Education</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A timeline of my professional journey, education, and certifications.
           </p>
@@ -51,12 +51,13 @@ export default function Experience() {
 
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20" />
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20" aria-hidden="true" />
 
-          <div className="space-y-12">
+          <div className="space-y-12" role="list" aria-label="Experience timeline">
             {experiences.map((experience, index) => (
               <motion.div
                 key={experience.id}
+                role="listitem"
                 initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -67,7 +68,7 @@ export default function Experience() {
                 )}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 z-10">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 z-10" aria-hidden="true">
                   <div className="w-4 h-4 rounded-full bg-primary border-4 border-background" />
                 </div>
 
