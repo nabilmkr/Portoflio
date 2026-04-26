@@ -1,116 +1,139 @@
-# Project Data Structure
+# Content Data
 
-This directory contains the content data for the portfolio website.
+This directory contains the JSON content files for the portfolio website. All content is loaded through the abstraction layer in `lib/content.ts`, which makes it straightforward to migrate to a CMS later without touching any component code.
+
+---
 
 ## Files
 
+| File | Description |
+|---|---|
+| `projects.json` | Portfolio projects |
+| `skills.json` | Technical skills with proficiency levels |
+| `experience.json` | Work experience, education, and certifications |
+
+---
+
+## Content Schemas
+
 ### `projects.json`
-
-Contains all project information for the portfolio showcase section.
-
-#### Project Schema
-
-Each project object contains:
 
 ```typescript
 {
-  id: string                    // Unique identifier for the project
+  id: string                    // Unique slug (kebab-case)
   title: string                 // Project title
-  description: string           // Short description (1-2 sentences)
-  detailedDescription: string   // Longer description for modal view
-  technologies: string[]        // Array of technology names used
-  category: 'web' | 'mobile' | 'design' | 'other'  // Project category
+  description: string           // Short description (1–2 sentences)
+  detailedDescription: string   // Full description for modal view
+  technologies: string[]        // Technology names used
+  category: 'web' | 'mobile' | 'design' | 'other'
   images: Array<{
-    url: string                 // Image path (relative to /public)
-    alt: string                 // Descriptive alt text for accessibility
-    caption?: string            // Optional image caption
+    url: string                 // Path relative to /public
+    alt: string                 // Descriptive alt text (required for accessibility)
+    caption?: string            // Optional caption
   }>
   links: {
-    live?: string               // URL to live demo
-    github?: string             // URL to GitHub repository
-    caseStudy?: string          // URL to case study
+    live?: string               // Live demo URL
+    github?: string             // GitHub repository URL
+    caseStudy?: string          // Case study URL
   }
-  featured: boolean             // Whether to highlight as featured
-  date: string                  // Project date (YYYY-MM-DD format)
+  featured: boolean             // Highlight as featured project
+  date: string                  // YYYY-MM-DD
 }
 ```
 
-#### Adding New Projects
-
-1. Add a new object to the `projects.json` array
-2. Ensure all required fields are populated
-3. Use descriptive alt text for all images (accessibility requirement)
-4. Place project images in `/public/images/projects/`
-5. Use WebP format when possible with fallbacks
-
-#### Image Guidelines
-
-- **Format**: WebP (primary) with JPG/PNG fallbacks
-- **Size**: Optimize for web (typically 1200x675px for thumbnails)
-- **Alt Text**: Descriptive, specific to the image content
-- **Naming**: Use kebab-case (e.g., `ecommerce-1.jpg`)
-
-#### Technology Tags
-
-Use consistent technology names across projects. Common examples:
-- Frontend: React, Vue.js, Next.js, Angular, Svelte
-- Backend: Node.js, Python, Django, Express, FastAPI
-- Styling: Tailwind CSS, CSS-in-JS, SCSS
-- Databases: PostgreSQL, MongoDB, Firebase
-- Tools: TypeScript, Docker, Webpack, Storybook
-
-#### Categories
-
-- **web**: Web applications and websites
-- **mobile**: Mobile apps (iOS, Android, React Native)
-- **design**: Design systems, UI kits, design tools
-- **other**: Other project types
-
-## Usage
-
-### In Components
+### `skills.json`
 
 ```typescript
-import { getAllProjects, getProjectsByCategory, searchProjects } from '@/lib/projects'
-
-// Get all projects
-const projects = getAllProjects()
-
-// Filter by category
-const webProjects = getProjectsByCategory('web')
-
-// Search projects
-const results = searchProjects('React')
+{
+  id: string                    // Unique slug
+  name: string                  // Display name
+  category: 'frontend' | 'backend' | 'tools' | 'design' | 'soft'
+  proficiency: 1 | 2 | 3 | 4 | 5  // 1=Beginner, 5=Expert
+  description?: string          // Short description
+  icon?: string                 // Emoji or icon identifier
+  yearsOfExperience?: number    // Years of experience
+}
 ```
 
-### Data Loading
+### `experience.json`
 
-Projects are loaded statically from `projects.json` at build time. To update projects:
+```typescript
+{
+  id: string                    // Unique slug
+  type: 'work' | 'education' | 'certification'
+  title: string                 // Role or degree title
+  organization: string          // Company or institution name
+  location?: string             // City, country, or "Remote"
+  period: {
+    start: string               // Year (e.g. "2022")
+    end?: string                // Year, omit if current
+    current: boolean            // true if ongoing
+  }
+  description: string[]         // Bullet points describing the role
+  achievements?: string[]       // Notable achievements or awards
+  skillsUsed?: string[]         // Technologies/skills used
+  link?: string                 // Optional external link
+}
+```
 
-1. Edit `data/projects.json`
-2. Rebuild the application (`npm run build`)
-3. Deploy the updated build
+---
 
-## Future Enhancements
+## Adding Content
 
-- **CMS Integration**: Migrate to Contentful, Sanity, or similar for dynamic content management
-- **Database**: Store projects in a database for real-time updates
-- **Admin Panel**: Create an admin interface for non-technical content updates
-- **Image Optimization**: Implement automatic image optimization pipeline
-- **Versioning**: Track project updates and versions
+### New project
 
-## Accessibility
+1. Add an entry to `projects.json`
+2. Place images in `/public/images/projects/` (WebP preferred, 1200×675px)
+3. Rebuild: `npm run build`
 
-All projects must include:
-- Descriptive alt text for all images
-- Clear, concise descriptions
-- Proper semantic HTML structure
-- Keyboard navigation support
-- Screen reader compatibility
+### New skill
 
-## Performance
+1. Add an entry to `skills.json` with a valid `category` and `proficiency` (1–5)
 
-- Images are optimized with Next.js Image component
-- Lazy loading for images below the fold
-- WebP format with fallbacks for browser compatibility
-- Static generation for fast page loads
+### New experience entry
+
+1. Add an entry to `experience.json`; set `period.current: true` and omit `period.end` for ongoing roles
+
+---
+
+## CMS Migration Guide
+
+All content is loaded through `lib/content.ts`. Components import from there, not directly from these JSON files. To migrate to a headless CMS (Contentful, Sanity, Hygraph, etc.):
+
+1. **Keep the TypeScript types** in `lib/types/` — they define the contract between content and UI
+2. **Replace the `import()` calls** in each loader in `lib/content.ts` with `fetch()` calls to your CMS API
+3. **Add a mapping function** to transform the CMS response shape into the existing TypeScript types
+4. **Move credentials** (API keys, space IDs) to environment variables in `.env.local`
+5. **No component changes needed** — the return types stay the same
+
+### Example: Contentful migration for projects
+
+```typescript
+// lib/content.ts — replace getProjects() body with:
+export async function getProjects(): Promise<Project[]> {
+  return safeLoad(async () => {
+    const res = await fetch(
+      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?content_type=project`,
+      { headers: { Authorization: `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}` } }
+    )
+    if (!res.ok) throw new Error(`Contentful error: ${res.status}`)
+    const { items } = await res.json()
+    return items.map(mapContentfulProject) // write your own mapper
+  }, [])
+}
+```
+
+### Recommended CMS options
+
+| CMS | Best for | Free tier |
+|---|---|---|
+| [Contentful](https://www.contentful.com) | Structured content, large teams | 25k records |
+| [Sanity](https://www.sanity.io) | Flexible schemas, real-time | 3 users |
+| [Hygraph](https://hygraph.com) | GraphQL-first | 1M API ops/month |
+| [Notion API](https://developers.notion.com) | Simple, already using Notion | Free |
+
+---
+
+## Error Handling
+
+The `safeLoad()` wrapper in `lib/content.ts` catches any load or parse errors and returns an empty array, so the UI degrades gracefully (empty sections) rather than crashing. Invalid entries that fail schema validation are skipped and logged to the console.

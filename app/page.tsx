@@ -24,11 +24,11 @@ export default function Home() {
       <SkipLink href="#main-content" />
       <Navigation />
       <main id="main-content" className="min-h-screen scroll-smooth">
-      <Hero />
-      <Projects />
-      <Skills />
-      <Experience />
-      <Contact />
+        <Hero />
+        <Projects />
+        <Skills />
+        <Experience />
+        <Contact />
       </main>
     </>
   )

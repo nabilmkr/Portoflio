@@ -21,11 +21,25 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Portfolio Website',
-  description: 'A modern portfolio website showcasing projects, skills, and experience',
-  keywords: ['portfolio', 'developer', 'designer', 'projects', 'skills', 'experience'],
-  authors: [{ name: 'Portfolio Owner' }],
-  creator: 'Portfolio Owner',
+  title: {
+    default: 'Nabil | Portfolio',
+    template: '%s | Nabil Portfolio',
+  },
+  description: 'Portfolio website showcasing projects, skills, and experience in modern web development.',
+  keywords: ['portfolio', 'developer', 'frontend', 'React', 'Next.js', 'TypeScript'],
+  authors: [{ name: 'Nabil' }],
+  creator: 'Nabil',
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    title: 'Nabil | Portfolio',
+    description: 'Portfolio website showcasing projects, skills, and experience.',
+    siteName: 'Nabil Portfolio',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export const viewport: Viewport = {
