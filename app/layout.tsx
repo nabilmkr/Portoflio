@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import WebVitals from './web-vitals'
+import SectionTracker from '@/components/section-tracker'
+import CookieConsent from '@/components/cookie-consent'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -48,6 +50,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <WebVitals />
+          <SectionTracker />
+          <CookieConsent />
           {children}
         </ThemeProvider>
       </body>
