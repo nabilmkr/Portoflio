@@ -23,10 +23,12 @@ export const RATE_LIMIT_CONFIG = {
 
 /**
  * Get client IP address from request
+ * Uses NextRequest's ip property which is securely provided by the hosting environment
  */
 export function getClientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded ? forwarded.split(',')[0].trim() : request.headers.get('x-real-ip') || 'unknown'
+  // Use next/server's ip extraction mechanism via NextRequest
+  // This is more secure than manually parsing headers which can be spoofed
+  const ip = (request as any).ip || 'unknown'
   return ip
 }
 
