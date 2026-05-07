@@ -1,6 +1,15 @@
 import { Project, ProjectCategory } from './types/project'
 import projectsData from '@/data/projects.json'
 
+// Pre-calculate and cache unique categories and technologies at the module level
+const cachedCategories: ProjectCategory[] = Array.from(
+  new Set((projectsData as Project[]).map((p) => p.category))
+).sort() as ProjectCategory[]
+
+const cachedTechnologies: string[] = Array.from(
+  new Set((projectsData as Project[]).flatMap((p) => p.technologies))
+).sort()
+
 /**
  * Get all projects from the data source
  */
@@ -62,20 +71,12 @@ export function getProjectById(id: string): Project | undefined {
  * Get all unique technologies across all projects
  */
 export function getAllTechnologies(): string[] {
-  const technologies = new Set<string>()
-  getAllProjects().forEach(project => {
-    project.technologies.forEach(tech => technologies.add(tech))
-  })
-  return Array.from(technologies).sort()
+  return cachedTechnologies
 }
 
 /**
  * Get all unique categories
  */
 export function getAllCategories(): ProjectCategory[] {
-  const categories = new Set<ProjectCategory>()
-  getAllProjects().forEach(project => {
-    categories.add(project.category)
-  })
-  return Array.from(categories).sort() as ProjectCategory[]
+  return cachedCategories
 }
