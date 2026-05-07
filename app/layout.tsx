@@ -1,23 +1,23 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Instrument_Serif, Barlow } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import WebVitals from './web-vitals'
 import SectionTracker from '@/components/section-tracker'
 import CookieConsent from '@/components/cookie-consent'
 
-const inter = Inter({
+const instrumentSerif = Instrument_Serif({
+  weight: ['400'],
+  style: ['italic', 'normal'],
   subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap', // font-display: swap for better perceived performance
-  preload: true,
+  variable: '--font-heading',
+  display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const barlow = Barlow({
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-body',
   display: 'swap',
-  preload: false, // mono font is non-critical, don't preload
 })
 
 export const metadata: Metadata = {
@@ -29,24 +29,10 @@ export const metadata: Metadata = {
   keywords: ['portfolio', 'developer', 'frontend', 'React', 'Next.js', 'TypeScript'],
   authors: [{ name: 'Nabil' }],
   creator: 'Nabil',
-  openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    title: 'Nabil | Portfolio',
-    description: 'Portfolio website showcasing projects, skills, and experience.',
-    siteName: 'Nabil Portfolio',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  themeColor: '#000000',
 }
 
 export default function RootLayout({
@@ -54,20 +40,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Forced dark mode: bg-black text-white
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <WebVitals />
-          <SectionTracker />
-          <CookieConsent />
-          {children}
-        </ThemeProvider>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={`${instrumentSerif.variable} ${barlow.variable} font-body bg-black text-white antialiased`}>
+        <WebVitals />
+        <SectionTracker />
+        <CookieConsent />
+        {children}
       </body>
     </html>
   )

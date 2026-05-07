@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Briefcase, GraduationCap, Award, Calendar, MapPin } from 'lucide-react'
+import { Briefcase, GraduationCap, Award, Calendar, MapPin, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Experience as ExperienceItem } from '@/lib/types/experience'
 import experiences from '@/data/experience.json'
@@ -19,164 +19,164 @@ const getTypeIcon = (type: string) => {
   }
 }
 
-const getTypeColor = (type: string) => {
-  switch (type) {
-    case 'work':
-      return 'bg-blue-500/10 text-blue-500 border-blue-500/20'
-    case 'education':
-      return 'bg-green-500/10 text-green-500 border-green-500/20'
-    case 'certification':
-      return 'bg-purple-500/10 text-purple-500 border-purple-500/20'
-    default:
-      return 'bg-gray-500/10 text-gray-500 border-gray-500/20'
+// Ensure period rendering works gracefully
+const formatPeriod = (period: any) => {
+  if (typeof period === 'string') return period;
+  if (period && typeof period === 'object') {
+    if (period.start && period.end) return `${period.start} - ${period.end}`;
+    if (period.start && period.current) return `${period.start} - Present`;
+    if (period.start) return period.start;
   }
+  return '';
+}
+
+// Normalize descriptions
+const formatDescription = (description: any) => {
+  if (Array.isArray(description)) {
+    return description.join(' ');
+  }
+  return typeof description === 'string' ? description : '';
 }
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-spacing bg-gradient-to-b from-background to-secondary/10 content-visibility-auto" aria-labelledby="experience-heading">
+    <section
+      id="experience"
+      className="py-24 bg-black relative content-visibility-auto"
+      aria-labelledby="experience-heading"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 id="experience-heading" className="text-3xl sm:text-4xl font-bold mb-4">Experience & Education</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A timeline of my professional journey, education, and certifications.
-          </p>
-        </motion.div>
 
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20" aria-hidden="true" />
+        {/* Header */}
+        <div className="mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-sm font-body text-white/80 mb-6 uppercase tracking-widest">{/* Journey */}</div>
+            <h2 id="experience-heading" className="text-5xl md:text-7xl lg:text-[6rem] font-heading italic text-white leading-[0.9] tracking-[-3px] mb-6">
+              Experience & <br/> Education
+            </h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto font-body font-light">
+              My professional journey, academic background, and continuous learning path.
+            </p>
+          </motion.div>
+        </div>
 
-          <div className="space-y-12" role="list" aria-label="Experience timeline">
-            {experiences.map((experience, index) => (
-              <motion.div
-                key={experience.id}
-                role="listitem"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={cn(
-                  'relative',
-                  index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2 md:text-right'
-                )}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 z-10" aria-hidden="true">
-                  <div className="w-4 h-4 rounded-full bg-primary border-4 border-background" />
-                </div>
+        {/* Timeline Layout */}
+        <div className="max-w-4xl mx-auto relative">
 
-                {/* Content Card */}
-                <div
+          {/* Vertical Line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-white/0 via-white/20 to-white/0 transform md:-translate-x-1/2" />
+
+          <div className="space-y-12">
+            {(experiences as any[]).map((item, index) => {
+              const isEven = index % 2 === 0
+              // Support both naming conventions from the JSON or type mapping
+              const role = item.role || item.title;
+              const company = item.company || item.organization;
+              const technologies = item.technologies || item.skillsUsed;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.6 }}
                   className={cn(
-                    'bg-card border border-border rounded-2xl p-6 shadow-lg',
-                    'transition-all duration-300 hover:shadow-xl hover:border-primary/50',
-                    index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'
+                    "relative flex flex-col md:flex-row gap-8 md:gap-0",
+                    isEven ? "md:flex-row-reverse" : ""
                   )}
                 >
-                  {/* Header */}
-                  <div className={cn(
-                    'flex flex-col md:flex-row items-start md:items-center gap-4 mb-4',
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  )}>
-                    <div className={cn(
-                      'flex items-center gap-2 px-3 py-1 rounded-full border text-sm font-medium',
-                      getTypeColor(experience.type)
-                    )}>
-                      {getTypeIcon(experience.type)}
-                      <span className="capitalize">{experience.type}</span>
-                    </div>
-                    
-                    <div className={cn(
-                      'flex-1',
-                      index % 2 === 0 ? 'md:text-left' : 'md:text-right'
-                    )}>
-                      <h3 className="text-xl font-bold mb-1">{experience.title}</h3>
-                      <p className="text-lg text-primary font-medium">{experience.organization}</p>
-                    </div>
+                  {/* Timeline Dot */}
+                  <div className="absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-black border-2 border-white/20 transform -translate-x-1/2 flex items-center justify-center z-10 hidden md:flex">
+                    <div className="w-2 h-2 rounded-full bg-white/80" />
                   </div>
 
-                  {/* Details */}
+                  {/* Content Card - liquid glass style */}
                   <div className={cn(
-                    'flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground',
-                    index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'
+                    "md:w-1/2 flex flex-col pl-12 md:pl-0",
+                    isEven ? "md:pr-16" : "md:pl-16"
                   )}>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>
-                        {experience.period.start} - {experience.period.current ? 'Present' : (experience.period.end || 'Present')}
-                      </span>
-                    </div>
-                    {experience.location && (
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        <span>{experience.location}</span>
+                    <div className="liquid-glass rounded-[1.25rem] p-6 md:p-8 border border-white/5 hover:border-white/20 transition-colors group">
+
+                      {/* Card Header */}
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10 text-white/90">
+                            {getTypeIcon(item.type)}
+                          </div>
+                          <div>
+                            <div className="text-sm font-body text-white/50 mb-1 flex items-center gap-2">
+                              <Calendar className="w-3.5 h-3.5" />
+                              {formatPeriod(item.period)}
+                            </div>
+                            <div className="text-sm font-body text-white/50 flex items-center gap-2">
+                              {item.type !== 'certification' && item.location && (
+                                <>
+                                  <MapPin className="w-3.5 h-3.5" />
+                                  {item.location}
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    )}
-                  </div>
 
-                  {/* Description */}
-                  <ul className={cn(
-                    'space-y-2 mb-6',
-                    index % 2 === 0 ? 'md:text-left' : 'md:text-right'
-                  )}>
-                    {experience.description.map((item, i) => (
-                      <li key={i} className="text-muted-foreground">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                      {/* Card Body */}
+                      <div>
+                        <h3 className="font-heading italic text-3xl md:text-4xl text-white tracking-tight leading-none mb-2 group-hover:text-white/90 transition-colors">
+                          {role}
+                        </h3>
+                        <div className="text-lg text-white/80 font-body mb-6">
+                          {company}
+                        </div>
 
-                  {/* Achievements */}
-                  {experience.achievements && experience.achievements.length > 0 && (
-                    <div className={cn(
-                      'flex flex-wrap gap-2',
-                      index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'
-                    )}>
-                      {experience.achievements.map((achievement, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full"
-                        >
-                          {achievement}
-                        </span>
-                      ))}
+                        <div className="text-sm text-white/70 font-body font-light leading-relaxed mb-6">
+                          {Array.isArray(item.description)
+                            ? item.description.map((desc: string, i: number) => (
+                                <p key={i} className={i > 0 ? "mt-2" : ""}>{desc}</p>
+                              ))
+                            : <p>{formatDescription(item.description)}</p>
+                          }
+                        </div>
+
+                        {/* Achievements */}
+                        {item.achievements && item.achievements.length > 0 && (
+                          <div className="mb-6">
+                            <ul className="space-y-2">
+                              {item.achievements.map((achievement: string, i: number) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-white/70 font-body font-light">
+                                  <ArrowUpRight className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
+                                  <span>{achievement}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Technologies */}
+                        {technologies && technologies.length > 0 && (
+                          <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                            {technologies.map((tech: string) => (
+                              <span key={tech} className="liquid-glass px-3 py-1 rounded-full text-[11px] text-white/80 font-body border border-white/5">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
 
-        {/* Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-12 text-center"
-        >
-          <div className="inline-flex items-center gap-6">
-            {[
-              { label: 'Years Experience', value: '4+' },
-              { label: 'Projects Completed', value: '50+' },
-              { label: 'Technologies', value: '20+' },
-              { label: 'Certifications', value: '5+' },
-            ].map((stat, index) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )

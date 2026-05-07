@@ -3,9 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ExternalLink, Github, X, ChevronLeft, ChevronRight, Folder } from 'lucide-react'
 import { Project } from '@/lib/types/project'
-import { cn } from '@/lib/utils'
 
 interface ProjectCardProps {
   project: Project
@@ -28,237 +27,154 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     )
   }
 
-  const currentImage = project.images[currentImageIndex]
-
   return (
     <>
-      {/* Project Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: (index || 0) * 0.1 }}
-        whileHover={{ y: -8 }}
-        className={cn(
-          'group relative overflow-hidden rounded-2xl border border-border bg-card',
-          'transition-all duration-300 hover:shadow-2xl hover:border-primary/50 cursor-pointer'
-        )}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
         onClick={() => setIsModalOpen(true)}
+        className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col border border-white/5 cursor-pointer group hover:scale-[1.02] transition-transform duration-300"
+        tabIndex={0}
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setIsModalOpen(true)
+          }
+        }}
       >
-        {/* Project Image */}
-        <div className="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 relative overflow-hidden">
-          <Image
-            src={project.images[0].url}
-            alt={project.images[0].alt}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={index === 0}
-          />
-          {project.featured && (
-            <div className="absolute top-4 right-4 px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full">
-              Featured
-            </div>
-          )}
-        </div>
+        {/* Top Row: Icon & Tags */}
+        <div className="flex items-start justify-between gap-4 mb-auto">
+          {/* Left Icon container */}
+          <div className="w-11 h-11 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10 shrink-0">
+            <Folder className="h-5 w-5 text-white/80 group-hover:text-white transition-colors" />
+          </div>
 
-        {/* Project Content */}
-        <div className="p-6">
-          <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
-          <p className="text-muted-foreground mb-4 line-clamp-2">
-            {project.description}
-          </p>
-
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          {/* Right Tags */}
+          <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
             {project.technologies.slice(0, 3).map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full"
-              >
+              <span key={tech} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap border border-white/5">
                 {tech}
               </span>
             ))}
             {project.technologies.length > 3 && (
-              <span className="px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full">
+              <span className="liquid-glass rounded-full px-2 py-1 text-[11px] text-white/70 font-body whitespace-nowrap border border-white/5">
                 +{project.technologies.length - 3}
               </span>
             )}
           </div>
-
-          {/* Links */}
-          <div className="flex items-center gap-4">
-            {project.links.live && (
-              <a
-                href={project.links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                aria-label={`Visit ${project.title} live site`}
-              >
-                <ExternalLink className="h-4 w-4" />
-                Live Demo
-              </a>
-            )}
-            {project.links.github && (
-              <a
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={`View ${project.title} source code`}
-              >
-                <Github className="h-4 w-4" />
-                Code
-              </a>
-            )}
-          </div>
         </div>
 
-        {/* Hover Overlay */}
-        <motion.div
-          initial={false}
-          animate={{
-            opacity: 0,
-          }}
-          className="absolute inset-0 bg-primary/5 pointer-events-none"
-        />
+        {/* Middle Spacer */}
+        <div className="flex-1 min-h-[4rem]" />
+
+        {/* Bottom Content */}
+        <div className="mt-6">
+          <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none mb-3 group-hover:text-white/90 transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-sm text-white/70 font-body font-light leading-snug line-clamp-3">
+            {project.description}
+          </p>
+        </div>
       </motion.div>
 
-      {/* Modal */}
+      {/* Modal - Keeps liquid glass theme */}
       <AnimatePresence>
         {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsModalOpen(false)}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-          >
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-background rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              aria-hidden="true"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto liquid-glass-strong rounded-[2rem] border border-white/10 flex flex-col md:flex-row shadow-2xl"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`modal-title-${project.id}`}
             >
-              {/* Modal Header */}
-              <div className="sticky top-0 flex items-center justify-between p-6 border-b border-border bg-background/95 backdrop-blur">
-                <h2 id="modal-title" className="text-2xl font-bold">
-                  {project.title}
-                </h2>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="p-2 hover:bg-accent rounded-lg transition-colors"
-                  aria-label="Close modal"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
+              {/* Close Button */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 z-10 p-2 liquid-glass rounded-full text-white/80 hover:text-white transition-colors border border-white/10"
+                aria-label="Close modal"
+              >
+                <X className="h-5 w-5" />
+              </button>
 
-              {/* Modal Content */}
-              <div className="p-6 space-y-6">
-                {/* Image Gallery */}
-                {project.images.length > 0 && (
-                  <div className="space-y-4">
-                    <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg overflow-hidden">
-                      <Image
-                        src={currentImage.url}
-                        alt={currentImage.alt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 600px"
-                        priority
-                      />
-                    </div>
+              {/* Image Gallery */}
+              <div className="w-full md:w-1/2 relative min-h-[300px] md:min-h-[400px] bg-black/50">
+                <Image
+                  src={project.images[currentImageIndex].url}
+                  alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
 
-                    {/* Image Caption */}
-                    {currentImage.caption && (
-                      <p className="text-sm text-muted-foreground text-center">
-                        {currentImage.caption}
-                      </p>
-                    )}
-
-                    {/* Image Navigation */}
-                    {project.images.length > 1 && (
-                      <div className="flex items-center justify-between">
-                        <button
-                          onClick={handlePrevImage}
-                          className="p-2 hover:bg-accent rounded-lg transition-colors"
-                          aria-label="Previous image"
-                        >
-                          <ChevronLeft className="h-5 w-5" />
-                        </button>
-                        <div className="flex gap-2">
-                          {project.images.map((_, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => setCurrentImageIndex(idx)}
-                              className={cn(
-                                'h-2 rounded-full transition-all',
-                                idx === currentImageIndex
-                                  ? 'bg-primary w-6'
-                                  : 'bg-accent w-2'
-                              )}
-                              aria-label={`Go to image ${idx + 1}`}
-                              aria-current={idx === currentImageIndex}
-                            />
-                          ))}
-                        </div>
-                        <button
-                          onClick={handleNextImage}
-                          className="p-2 hover:bg-accent rounded-lg transition-colors"
-                          aria-label="Next image"
-                        >
-                          <ChevronRight className="h-5 w-5" />
-                        </button>
-                      </div>
-                    )}
+                {project.images.length > 1 && (
+                  <div className="absolute inset-x-0 bottom-4 flex justify-center gap-4 px-4">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                      className="liquid-glass p-2 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                      className="liquid-glass p-2 rounded-full text-white border border-white/20 hover:bg-white/10 transition-colors"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
                   </div>
                 )}
+              </div>
 
-                {/* Description */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">About this project</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {project.detailedDescription}
-                  </p>
+              {/* Project Details */}
+              <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col">
+                <h2 id={`modal-title-${project.id}`} className="font-heading italic text-4xl md:text-5xl text-white mb-6 tracking-tight">
+                  {project.title}
+                </h2>
+
+                <div className="prose prose-invert prose-sm font-body font-light text-white/80 mb-8 max-w-none">
+                  {project.description.split('\n\n').map((paragraph, i) => (
+                    <p key={i} className="mb-4 last:mb-0 leading-relaxed">{paragraph}</p>
+                  ))}
                 </div>
 
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Technologies Used</h3>
+                <div className="mb-8">
+                  <h4 className="text-sm font-medium text-white mb-3 uppercase tracking-wider">Technologies</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-4 py-2 bg-accent text-accent-foreground text-sm font-medium rounded-full"
-                      >
+                      <span key={tech} className="liquid-glass px-3 py-1.5 rounded-full text-xs text-white/90 border border-white/5">
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Links */}
-                <div className="flex flex-wrap gap-4 pt-4 border-t border-border">
+                <div className="mt-auto flex gap-4 pt-6 border-t border-white/10">
                   {project.links.live && (
                     <a
                       href={project.links.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
-                      aria-label={`Visit ${project.title} live site`}
+                      className="flex-1 liquid-glass-strong rounded-full px-6 py-3 flex items-center justify-center gap-2 text-sm font-medium text-white hover:scale-105 transition-transform"
                     >
                       <ExternalLink className="h-4 w-4" />
-                      View Live
+                      Live Site
                     </a>
                   )}
                   {project.links.github && (
@@ -266,29 +182,16 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/80 transition-colors font-medium"
-                      aria-label={`View ${project.title} source code`}
+                      className="flex-1 liquid-glass rounded-full px-6 py-3 flex items-center justify-center gap-2 text-sm font-medium text-white border border-white/10 hover:bg-white/5 transition-colors"
                     >
                       <Github className="h-4 w-4" />
-                      View Code
-                    </a>
-                  )}
-                  {project.links.caseStudy && (
-                    <a
-                      href={project.links.caseStudy}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/80 transition-colors font-medium"
-                      aria-label={`Read ${project.title} case study`}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Case Study
+                      Source
                     </a>
                   )}
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

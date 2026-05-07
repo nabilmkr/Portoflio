@@ -1,246 +1,149 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Sparkles, Code, Palette, Zap } from 'lucide-react'
+import { ArrowUpRight, Play } from 'lucide-react'
 import { cn, smoothScrollTo } from '@/lib/utils'
+import FadingVideo from './fading-video'
+import BlurText from './blur-text'
 
 export default function Hero() {
   const scrollToProjects = () => {
     smoothScrollTo('projects')
   }
 
-  const scrollToContact = () => {
-    smoothScrollTo('contact')
-  }
+  // Using a suitable abstract dark tech video URL. Feel free to swap!
+  const VIDEO_SRC = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
 
   return (
     <section 
       id="hero" 
-      className="min-h-screen-responsive flex items-center justify-center relative overflow-hidden will-change-scroll"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
       aria-labelledby="hero-heading"
     >
-      {/* Enhanced Background Effects - Glassmorphism + Dark Luxe */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-accent-950 dark:from-primary-950 dark:via-primary-900 dark:to-accent-950 animate-gradient-shift" />
-      
-      {/* Floating Glass Elements */}
-      <motion.div 
-        className="absolute top-1/4 left-1/4 w-72 h-72 glass-effect-accent rounded-full blur-3xl"
-        animate={{ 
-          y: [0, -20, 0],
-          x: [0, 10, 0]
-        }}
-        transition={{ 
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 glass-effect rounded-full blur-3xl"
-        animate={{ 
-          y: [0, 15, 0],
-          x: [0, -15, 0]
-        }}
-        transition={{ 
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
+      {/* Background Video (120% scale, centered top) */}
+      <FadingVideo
+        src={VIDEO_SRC}
+        className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+        style={{ width: "120%", height: "120%" }}
       />
       
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] dark:bg-[linear-gradient(90deg,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(rgba(0,0,0,0.1)_1px,transparent_1px)]" />
-      
-      {/* Animated Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, index) => (
-          <motion.div
-            key={index}
-            className="absolute w-1 h-1 bg-accent-500/30 rounded-full"
-            initial={{
-              x: Math.random() * 1000,
-              y: Math.random() * 1000,
-              opacity: 0.3
-            }}
-            animate={{
-              y: [null, -100],
-              opacity: [0.3, 0, 0.3]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+      {/* Overlay - Optional, adjusting brightness if video is too bright */}
+      <div className="absolute inset-0 bg-black/30 z-0 pointer-events-none" />
 
-      <div className="container-responsive relative z-10 content-visibility-auto">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Enhanced Welcome Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              duration: 0.6,
-              type: "spring",
-              stiffness: 100
-            }}
-            className="mb-8"
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center pt-24 pb-16">
+
+        {/* Badge */}
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          className="mb-8"
+        >
+          <div className="liquid-glass rounded-full flex items-center pr-4 pl-1 py-1 border border-white/5">
+            <span className="bg-white text-black px-3 py-1 rounded-full text-xs font-semibold mr-3">
+              Crafting
+            </span>
+            <span className="text-sm text-white/90 font-body">
+              Digital Experiences & Innovative Solutions
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Headline using BlurText */}
+        <BlurText
+          text="Crafting Digital Experiences That Inspire"
+          delayStart={0.6}
+          className="text-5xl md:text-6xl lg:text-[5.5rem] font-heading italic text-white leading-[0.85] max-w-4xl text-center tracking-[-2px] md:tracking-[-4px] mb-6"
+        />
+
+        {/* Subheading */}
+        <motion.p
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
+          className="text-sm md:text-base text-white/80 max-w-2xl text-center font-body font-light leading-relaxed mb-10"
+        >
+          Discover development in ways once unimaginable. Our pioneering solutions and breakthrough engineering bring high-performance web applications within reach—secure and extraordinary.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 1.1 }}
+          className="flex flex-col sm:flex-row items-center gap-6 mb-16"
+        >
+          <button
+            onClick={scrollToProjects}
+            className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium text-white flex items-center gap-2 hover:scale-105 transition-transform duration-300"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full glass-effect animate-glass-glow">
-              <Sparkles className="h-5 w-5 text-accent-500" />
-              <span className="text-sm font-medium text-foreground">Welcome to my portfolio</span>
-              <div className="flex gap-1">
-                <Code className="h-4 w-4 text-primary-400" />
-                <Palette className="h-4 w-4 text-accent-400" />
-                <Zap className="h-4 w-4 text-primary-300" />
-              </div>
+            Explore Projects
+            <ArrowUpRight className="h-5 w-5" />
+          </button>
+
+          <button
+            onClick={() => smoothScrollTo('contact')}
+            className="group flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white transition-colors"
+          >
+            Contact Me
+            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+              <Play className="h-3.5 w-3.5 fill-current" />
             </div>
-          </motion.div>
+          </button>
+        </motion.div>
 
-          {/* Enhanced Headline with Gradient Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.7,
-              delay: 0.1,
-              type: "spring",
-              stiffness: 80
-            }}
-          >
-            <h1 id="hero-heading" className="text-responsive-2xl tracking-tight mb-6">
-              <span className="block text-foreground">Crafting Digital</span>
-              <span className="block text-gradient bg-gradient-to-r from-primary-600 via-accent-600 to-primary-400">
-                Experiences
-              </span>
-              <span className="block text-foreground">That Inspire</span>
-            </h1>
-          </motion.div>
+        {/* Stats Row */}
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 1.3 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-lg mb-12"
+        >
+          {/* Card 1 */}
+          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5">
+            <div className="text-white/80 mb-6">
+               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            </div>
+            <div>
+              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">50+</div>
+              <div className="text-xs text-white/70 font-body font-light">Projects Completed</div>
+            </div>
+          </div>
 
-          {/* Enhanced Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.6,
-              delay: 0.2
-            }}
-            className="text-responsive-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed"
-          >
-            I specialize in building <span className="font-semibold text-primary-500">high-performance web applications</span> with 
-            a focus on <span className="font-semibold text-accent-500">modern design systems</span>, 
-            <span className="font-semibold text-primary-400"> accessibility-first development</span>, and 
-            <span className="font-semibold text-accent-400"> exceptional user experiences</span>. 
-            Let&apos;s create something amazing together.
-          </motion.p>
+          {/* Card 2 */}
+          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5">
+            <div className="text-white/80 mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <div>
+              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">5+ Yrs</div>
+              <div className="text-xs text-white/70 font-body font-light">Development Experience</div>
+            </div>
+          </div>
+        </motion.div>
 
-          {/* Enhanced CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.6,
-              delay: 0.3
-            }}
-            className="flex flex-col sm:flex-row gap-5 justify-center mb-16"
-          >
-            <button
-              onClick={scrollToProjects}
-              className={cn(
-                'px-10 py-4 rounded-xl font-semibold transition-all duration-300 touch-target',
-                'bg-gradient-to-r from-primary-600 to-accent-600 text-primary-foreground',
-                'hover:from-primary-700 hover:to-accent-700 hover:shadow-2xl hover:-translate-y-1',
-                'shadow-lg shadow-primary/30 focus-ring',
-                'flex items-center justify-center gap-3'
-              )}
-              aria-label="View my projects"
-            >
-              <Code className="h-5 w-5" />
-              View Projects
-            </button>
-            <button
-              onClick={scrollToContact}
-              className={cn(
-                'px-10 py-4 rounded-xl font-semibold transition-all duration-300 touch-target',
-                'glass-effect border border-primary/20 text-foreground',
-                'hover:bg-primary/5 hover:shadow-2xl hover:-translate-y-1',
-                'shadow-lg shadow-primary/10 focus-ring',
-                'flex items-center justify-center gap-3'
-              )}
-              aria-label="Get in touch"
-            >
-              <Sparkles className="h-5 w-5" />
-              Get in Touch
-            </button>
-          </motion.div>
+        {/* Tech Stack Row */}
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 1.4 }}
+          className="flex flex-col items-center gap-4 mt-auto"
+        >
+          <div className="liquid-glass rounded-full px-4 py-1.5 text-xs font-medium text-white/90 border border-white/5">
+            Powered by modern technologies
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-12 font-heading italic text-white/80 text-xl md:text-2xl tracking-tight">
+            <span>Next.js</span>
+            <span>·</span>
+            <span>React</span>
+            <span>·</span>
+            <span>TypeScript</span>
+            <span>·</span>
+            <span>Tailwind</span>
+          </div>
+        </motion.div>
 
-          {/* Enhanced Stats/Highlights */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 0.6,
-              delay: 0.5
-            }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-12"
-          >
-            {[
-              { label: 'Projects', value: '50+', icon: '🚀' },
-              { label: 'Technologies', value: '20+', icon: '⚡' },
-              { label: 'Experience', value: '5+ yrs', icon: '🎯' },
-              { label: 'Clients', value: '30+', icon: '💼' }
-            ].map((stat, index) => (
-              <div 
-                key={stat.label}
-                className="glass-effect rounded-xl p-4 text-center"
-              >
-                <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-                <div className="text-lg mt-2">{stat.icon}</div>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Enhanced Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 0.6,
-              delay: 0.8
-            }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <button
-              onClick={scrollToProjects}
-              className="group p-3 rounded-full glass-effect border border-border/50 focus-ring"
-              aria-label="Scroll down to projects"
-            >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ 
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <ArrowDown className="h-6 w-6 text-muted-foreground group-hover:text-accent-500 transition-colors" />
-              </motion.div>
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                Scroll
-              </div>
-            </button>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Performance Optimizations */}
-      <div className="sr-only">
-        Hero section with glassmorphism design, animated elements, and call-to-action buttons
       </div>
     </section>
   )
