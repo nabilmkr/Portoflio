@@ -69,10 +69,11 @@ describe('Rate Limiting', () => {
   })
 
   describe('getClientIp', () => {
-    it('should extract IP from x-forwarded-for header', () => {
+    it('should extract IP from request.ip property', () => {
       const mockRequest = {
+        ip: '192.168.1.1',
         headers: {
-          get: (key: string) => key === 'x-forwarded-for' ? '192.168.1.1, 10.0.0.1' : null,
+          get: () => null,
         },
       } as any
       
@@ -80,18 +81,19 @@ describe('Rate Limiting', () => {
       expect(result).toBe('192.168.1.1')
     })
 
-    it('should extract IP from x-real-ip header', () => {
+    it('should ignore spoofed x-forwarded-for header and use request.ip', () => {
       const mockRequest = {
+        ip: '192.168.1.1',
         headers: {
-          get: (key: string) => key === 'x-real-ip' ? '192.168.1.2' : null,
+          get: (key: string) => key === 'x-forwarded-for' ? 'spoofed-ip, 127.0.0.1' : null,
         },
       } as any
       
       const result = getClientIp(mockRequest)
-      expect(result).toBe('192.168.1.2')
+      expect(result).toBe('192.168.1.1')
     })
 
-    it('should return unknown when no IP headers present', () => {
+    it('should return unknown when no IP property present', () => {
       const mockRequest = {
         headers: {
           get: () => null,
