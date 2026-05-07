@@ -40,75 +40,67 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [submitMessage, setSubmitMessage] = useState('')
-  const [recaptchaReady, setRecaptchaReady] = useState(false)
 
-  // Load reCAPTCHA script
+  // reCAPTCHA setup
   useEffect(() => {
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-    if (!siteKey) {
-      console.warn('reCAPTCHA site key not configured')
-      setRecaptchaReady(true)
-      return
-    }
+    if (siteKey) {
+      const script = document.createElement('script')
+      script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
+      script.async = true
+      document.body.appendChild(script)
 
-    // Check if script is already loaded
-    if (window.grecaptcha) {
-      setRecaptchaReady(true)
-      return
-    }
-
-    // Load reCAPTCHA script
-    const script = document.createElement('script')
-    script.src = 'https://www.google.com/recaptcha/api.js'
-    script.async = true
-    script.defer = true
-    script.onload = () => {
-      setRecaptchaReady(true)
-    }
-    document.head.appendChild(script)
-
-    return () => {
-      // Cleanup is not needed as reCAPTCHA script should persist
+      return () => {
+        document.body.removeChild(script)
+      }
     }
   }, [])
 
-  const validateForm = (): boolean => {
-    const validationErrors = validateContactForm(formData)
-    const newErrors: FormErrors = {}
-    
-    validationErrors.forEach(error => {
-      newErrors[error.field as keyof FormErrors] = error.message
-    })
-    
-    setErrors(newErrors)
-    return validationErrors.length === 0
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!validateForm()) {
+    // Client-side validation
+    const validation = validateContactForm(formData)
+    if (validation.length > 0) {
+      const newErrors: FormErrors = {}; validation.forEach(v => newErrors[v.field as keyof FormErrors] = v.message); setErrors(newErrors)
+
+      // Announce errors to screen readers
+      const errorMessages = validation.map(v => v.message).join(" ")
+      setSubmitMessage(`Please fix the following errors: ${errorMessages}`)
+      setSubmitStatus('error')
       return
     }
-    
+
     setIsSubmitting(true)
     setSubmitStatus('idle')
-    
+
     try {
-      // Generate reCAPTCHA token if available
-      let recaptchaToken: string | undefined
+      // Get reCAPTCHA token
+      let token = ''
       const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
       
-      if (siteKey && window.grecaptcha && recaptchaReady) {
+      if (siteKey && window.grecaptcha) {
         try {
-          recaptchaToken = await window.grecaptcha.execute(siteKey, { action: 'submit' })
-        } catch (error) {
-          console.warn('Failed to generate reCAPTCHA token:', error)
-          // Continue without token if reCAPTCHA fails
+          token = await window.grecaptcha.execute(siteKey, { action: 'submit_contact' })
+        } catch (e) {
+          console.error('reCAPTCHA execution failed:', e)
+          // Continue without token in development, but fail in production
+          if (process.env.NODE_ENV === 'production') {
+            throw new Error('Failed to verify reCAPTCHA')
+          }
         }
       }
 
-      // Sanitize form data before sending
+      // Sanitize input before sending
       const sanitizedData = {
         name: sanitizeInput(formData.name),
         email: sanitizeInput(formData.email),
@@ -116,154 +108,134 @@ export default function Contact() {
         message: sanitizeInput(formData.message),
       }
 
-      // Send to API with reCAPTCHA token
+      // Send data to API
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           ...sanitizedData,
-          recaptchaToken,
+          recaptchaToken: token
         }),
       })
 
-      const result = await response.json()
+      const data = await response.json()
 
       if (!response.ok) {
-        setSubmitStatus('error')
-        setSubmitMessage(result.message || 'Failed to send message. Please try again.')
-        return
+        throw new Error(data.message || 'Failed to send message')
       }
 
+      // Success
       setSubmitStatus('success')
-      setSubmitMessage(result.message || 'Your message has been sent successfully!')
+      setSubmitMessage('Your message has been sent successfully! I will get back to you soon.')
+      setFormData({ name: '', email: '', subject: '', message: '' })
       
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      })
-      setErrors({})
     } catch (error) {
+      console.error('Submission error:', error)
       setSubmitStatus('error')
-      setSubmitMessage('Something went wrong. Please try again later.')
+      setSubmitMessage(
+        error instanceof Error
+          ? error.message
+          : 'Failed to send message. Please try again later.'
+      )
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    
-    // Clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }))
-    }
-  }
-
   return (
-    <section id="contact" className="section-spacing bg-gradient-to-b from-secondary/10 to-background content-visibility-auto" aria-labelledby="contact-heading">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold mb-4">Get In Touch</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
-          </p>
-        </motion.div>
+    <section
+      id="contact"
+      className="py-24 bg-black relative content-visibility-auto overflow-hidden"
+      aria-labelledby="contact-heading"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-sm font-body text-white/80 mb-6 uppercase tracking-widest">{/* Get In Touch */}</div>
+            <h2 id="contact-heading" className="text-5xl md:text-7xl lg:text-[6rem] font-heading italic text-white leading-[0.9] tracking-[-3px] mb-6">
+              Let&apos;s Connect
+            </h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto font-body font-light">
+              Have a project in mind or want to explore opportunities? Let&apos;s discuss how we can work together.
+            </p>
+          </motion.div>
+        </div>
 
-        <div className="grid-responsive-2 gap-responsive-lg">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-8"
+            className="liquid-glass rounded-[2rem] p-8 md:p-12 border border-white/5 h-full flex flex-col"
           >
-            <div className="bg-card border border-border rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                    <Mail className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-1">Email</h4>
-                    <a
-                      href="mailto:hello@example.com"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      hello@example.com
-                    </a>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Typically responds within 24 hours
-                    </p>
-                  </div>
-                </div>
+            <h3 className="font-heading italic text-3xl md:text-4xl text-white mb-8 tracking-tight">Contact Information</h3>
+            <p className="text-white/70 font-body font-light mb-12">
+              Feel free to reach out through any of these channels. I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+            </p>
 
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                    <Phone className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-1">Phone</h4>
-                    <a
-                      href="tel:+1234567890"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      +1 (234) 567-890
-                    </a>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Available Mon-Fri, 9AM-6PM EST
-                    </p>
-                  </div>
+            <div className="space-y-8 flex-grow">
+              <div className="flex items-start gap-6 group">
+                <div className="w-12 h-12 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10 text-white shrink-0 group-hover:scale-110 transition-transform">
+                  <Mail className="h-5 w-5" />
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                    <MapPin className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-1">Location</h4>
-                    <p className="text-muted-foreground">San Francisco, California</p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Available for remote work worldwide
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="text-sm font-body text-white/50 uppercase tracking-wider mb-1">Email</h4>
+                  <a href="mailto:hello@example.com" className="text-lg text-white hover:text-white/80 transition-colors font-body">
+                    hello@example.com
+                  </a>
                 </div>
               </div>
 
-              {/* Social Links */}
-              <div className="mt-8 pt-8 border-t border-border">
-                <h4 className="font-bold mb-4">Connect with me</h4>
-                <div className="flex gap-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.platform}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        'flex items-center gap-2 px-4 py-2 rounded-lg',
-                        'bg-accent text-accent-foreground hover:bg-accent/80',
-                        'transition-all duration-300'
-                      )}
-                      aria-label={social.label}
-                    >
-                      {social.icon}
-                      <span className="font-medium">{social.platform}</span>
-                    </a>
-                  ))}
+              <div className="flex items-start gap-6 group">
+                <div className="w-12 h-12 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10 text-white shrink-0 group-hover:scale-110 transition-transform">
+                  <Phone className="h-5 w-5" />
                 </div>
+                <div>
+                  <h4 className="text-sm font-body text-white/50 uppercase tracking-wider mb-1">Phone</h4>
+                  <a href="tel:+1234567890" className="text-lg text-white hover:text-white/80 transition-colors font-body">
+                    +1 (234) 567-890
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-6 group">
+                <div className="w-12 h-12 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10 text-white shrink-0 group-hover:scale-110 transition-transform">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-body text-white/50 uppercase tracking-wider mb-1">Location</h4>
+                  <p className="text-lg text-white font-body">San Francisco, CA</p>
+                  <p className="text-sm text-white/50 font-light mt-1">Available for remote work worldwide</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="mt-12 pt-8 border-t border-white/10">
+              <h4 className="text-sm font-body text-white/50 uppercase tracking-wider mb-6">Connect with me</h4>
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="liquid-glass w-12 h-12 rounded-full flex items-center justify-center border border-white/10 text-white hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -275,15 +247,12 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="bg-card border border-border rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+            <div className="liquid-glass rounded-[2rem] p-8 md:p-12 border border-white/5">
+              <h3 className="font-heading italic text-3xl md:text-4xl text-white mb-8 tracking-tight">Send a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name Field */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Name *
-                  </label>
+                  <label htmlFor="name" className="block text-sm font-body text-white/70 mb-2">Name *</label>
                   <input
                     type="text"
                     id="name"
@@ -291,29 +260,17 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     className={cn(
-                      'w-full px-4 py-3 rounded-lg border transition-colors',
-                      'bg-background focus:bg-background',
-                      errors.name
-                        ? 'border-destructive focus:ring-destructive/20'
-                        : 'border-input focus:border-primary focus:ring-primary/20'
+                      'w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-white/30 focus:outline-none transition-colors font-body',
+                      errors.name ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-white/30'
                     )}
                     placeholder="Your name"
                     aria-invalid={!!errors.name}
-                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
-                  {errors.name && (
-                    <p id="name-error" className="mt-2 text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle className="h-4 w-4" />
-                      {errors.name}
-                    </p>
-                  )}
+                  {errors.name && <p className="mt-2 text-sm text-red-400 flex items-center gap-1 font-body"><AlertCircle className="h-4 w-4" />{errors.name}</p>}
                 </div>
 
-                {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email *
-                  </label>
+                  <label htmlFor="email" className="block text-sm font-body text-white/70 mb-2">Email *</label>
                   <input
                     type="email"
                     id="email"
@@ -321,29 +278,17 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     className={cn(
-                      'w-full px-4 py-3 rounded-lg border transition-colors',
-                      'bg-background focus:bg-background',
-                      errors.email
-                        ? 'border-destructive focus:ring-destructive/20'
-                        : 'border-input focus:border-primary focus:ring-primary/20'
+                      'w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-white/30 focus:outline-none transition-colors font-body',
+                      errors.email ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-white/30'
                     )}
-                    placeholder="your.email@example.com"
+                    placeholder="your@email.com"
                     aria-invalid={!!errors.email}
-                    aria-describedby={errors.email ? 'email-error' : undefined}
                   />
-                  {errors.email && (
-                    <p id="email-error" className="mt-2 text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle className="h-4 w-4" />
-                      {errors.email}
-                    </p>
-                  )}
+                  {errors.email && <p className="mt-2 text-sm text-red-400 flex items-center gap-1 font-body"><AlertCircle className="h-4 w-4" />{errors.email}</p>}
                 </div>
 
-                {/* Subject Field */}
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject *
-                  </label>
+                  <label htmlFor="subject" className="block text-sm font-body text-white/70 mb-2">Subject *</label>
                   <input
                     type="text"
                     id="subject"
@@ -351,29 +296,17 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     className={cn(
-                      'w-full px-4 py-3 rounded-lg border transition-colors',
-                      'bg-background focus:bg-background',
-                      errors.subject
-                        ? 'border-destructive focus:ring-destructive/20'
-                        : 'border-input focus:border-primary focus:ring-primary/20'
+                      'w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-white/30 focus:outline-none transition-colors font-body',
+                      errors.subject ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-white/30'
                     )}
                     placeholder="What is this regarding?"
                     aria-invalid={!!errors.subject}
-                    aria-describedby={errors.subject ? 'subject-error' : undefined}
                   />
-                  {errors.subject && (
-                    <p id="subject-error" className="mt-2 text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle className="h-4 w-4" />
-                      {errors.subject}
-                    </p>
-                  )}
+                  {errors.subject && <p className="mt-2 text-sm text-red-400 flex items-center gap-1 font-body"><AlertCircle className="h-4 w-4" />{errors.subject}</p>}
                 </div>
 
-                {/* Message Field */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message *
-                  </label>
+                  <label htmlFor="message" className="block text-sm font-body text-white/70 mb-2">Message *</label>
                   <textarea
                     id="message"
                     name="message"
@@ -381,39 +314,23 @@ export default function Contact() {
                     onChange={handleChange}
                     rows={5}
                     className={cn(
-                      'w-full px-4 py-3 rounded-lg border transition-colors',
-                      'bg-background focus:bg-background resize-none',
-                      errors.message
-                        ? 'border-destructive focus:ring-destructive/20'
-                        : 'border-input focus:border-primary focus:ring-primary/20'
+                      'w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder:text-white/30 focus:outline-none transition-colors font-body resize-none',
+                      errors.message ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-white/30'
                     )}
                     placeholder="Tell me about your project..."
                     aria-invalid={!!errors.message}
-                    aria-describedby={errors.message ? 'message-error' : undefined}
                   />
-                  {errors.message && (
-                    <p id="message-error" className="mt-2 text-sm text-destructive flex items-center gap-1">
-                      <AlertCircle className="h-4 w-4" />
-                      {errors.message}
-                    </p>
-                  )}
+                  {errors.message && <p className="mt-2 text-sm text-red-400 flex items-center gap-1 font-body"><AlertCircle className="h-4 w-4" />{errors.message}</p>}
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={cn(
-                    'w-full px-6 py-3 rounded-lg font-medium transition-all duration-300',
-                    'flex items-center justify-center gap-2',
-                    'bg-primary text-primary-foreground hover:bg-primary/90',
-                    'disabled:opacity-50 disabled:cursor-not-allowed',
-                    'shadow-lg hover:shadow-xl'
-                  )}
+                  className="liquid-glass-strong w-full rounded-xl py-4 flex items-center justify-center gap-2 text-white font-medium hover:scale-[1.02] transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                       Sending...
                     </>
                   ) : (
@@ -424,26 +341,20 @@ export default function Contact() {
                   )}
                 </button>
 
-                {/* Status Message - aria-live for screen reader announcements */}
                 <div aria-live="polite" aria-atomic="true">
                   {submitStatus !== 'idle' && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      role="status"
                       className={cn(
-                        'p-4 rounded-lg border',
+                        'p-4 rounded-xl border mt-4 font-body',
                         submitStatus === 'success'
-                          ? 'bg-green-500/10 text-green-500 border-green-500/20'
-                          : 'bg-destructive/10 text-destructive border-destructive/20'
+                          ? 'bg-green-500/10 text-green-400 border-green-500/20'
+                          : 'bg-red-500/10 text-red-400 border-red-500/20'
                       )}
                     >
                       <div className="flex items-center gap-2">
-                        {submitStatus === 'success' ? (
-                          <CheckCircle className="h-5 w-5" aria-hidden="true" />
-                        ) : (
-                          <AlertCircle className="h-5 w-5" aria-hidden="true" />
-                        )}
+                        {submitStatus === 'success' ? <CheckCircle className="h-5 w-5 shrink-0" /> : <AlertCircle className="h-5 w-5 shrink-0" />}
                         <p>{submitMessage}</p>
                       </div>
                     </motion.div>

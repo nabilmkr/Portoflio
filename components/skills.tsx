@@ -2,100 +2,83 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, Terminal, Layers, PenTool, Code, Server, Wrench, Smile } from 'lucide-react'
 import { Skill, SKILL_CATEGORIES, SkillCategory } from '@/lib/types/skill'
-import SkillBadge from './skill-badge'
 import skillsData from '@/data/skills.json'
+import { cn } from '@/lib/utils'
 
 const skills = skillsData as Skill[]
+
+const CATEGORY_ICONS: Record<SkillCategory, React.ElementType> = {
+  frontend: Code,
+  backend: Server,
+  tools: Wrench,
+  design: PenTool,
+  soft: Smile
+}
 
 export default function Skills() {
   const [selectedCategory, setSelectedCategory] = useState<SkillCategory | 'all'>('all')
 
-  // Group skills by category
-  const groupedSkills = useMemo(() => {
-    const groups: Record<SkillCategory, Skill[]> = {
-      frontend: [],
-      backend: [],
-      tools: [],
-      design: [],
-      soft: [],
-    }
-
-    skills.forEach((skill) => {
-      groups[skill.category].push(skill)
-    })
-
-    return groups
-  }, [])
-
-  // Filter skills based on selected category
   const filteredSkills = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return skills
-    }
+    if (selectedCategory === 'all') return skills
     return skills.filter((skill) => skill.category === selectedCategory)
   }, [selectedCategory])
-
-  // Calculate average proficiency by category
-  const categoryAverages = useMemo(() => {
-    const averages: Record<SkillCategory, number> = {
-      frontend: 0,
-      backend: 0,
-      tools: 0,
-      design: 0,
-      soft: 0,
-    }
-
-    Object.entries(groupedSkills).forEach(([category, categorySkills]) => {
-      if (categorySkills.length > 0) {
-        const sum = categorySkills.reduce((acc, skill) => acc + skill.proficiency, 0)
-        averages[category as SkillCategory] = sum / categorySkills.length
-      }
-    })
-
-    return averages
-  }, [groupedSkills])
 
   return (
     <section
       id="skills"
-      className="section-spacing bg-gradient-to-b from-secondary/10 to-background content-visibility-auto"
+      className="min-h-screen bg-black content-visibility-auto py-24 relative"
       aria-labelledby="skills-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 id="skills-heading" className="text-3xl sm:text-4xl font-bold mb-4">Skills & Expertise</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and proficiency levels across different
-            domains.
-          </p>
-        </motion.div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Category Filter */}
+        {/* Header */}
+        <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <div className="text-sm font-body text-white/80 mb-6 uppercase tracking-widest">{/* Technical Arsenal */}</div>
+            <h2 id="skills-heading" className="text-5xl md:text-7xl lg:text-[6rem] font-heading italic text-white leading-[0.9] tracking-[-3px]">
+              Capabilities
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-right"
+          >
+            <p className="text-lg text-white/80 font-body font-light max-w-md ml-auto">
+              A comprehensive overview of my technical skills and proficiency levels across different domains.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Categories as liquid glass pills */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap gap-3 mb-16"
           role="group"
           aria-label="Filter skills by category"
         >
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+            className={cn(
+              "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 font-body",
               selectedCategory === 'all'
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-accent text-accent-foreground hover:bg-accent/80'
-            }`}
+                ? "bg-white text-black"
+                : "liquid-glass text-white border border-white/5 hover:bg-white/10"
+            )}
             aria-pressed={selectedCategory === 'all'}
           >
             All Skills
@@ -105,11 +88,12 @@ export default function Skills() {
               <button
                 key={categoryKey}
                 onClick={() => setSelectedCategory(categoryKey)}
-                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                className={cn(
+                  "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 font-body flex items-center gap-2",
                   selectedCategory === categoryKey
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-accent text-accent-foreground hover:bg-accent/80'
-                }`}
+                    ? "bg-white text-black"
+                    : "liquid-glass text-white border border-white/5 hover:bg-white/10"
+                )}
                 aria-pressed={selectedCategory === categoryKey}
               >
                 {categoryLabel}
@@ -118,56 +102,59 @@ export default function Skills() {
           )}
         </motion.div>
 
-        {/* Skills Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12"
-          role="list"
-          aria-label="Skills"
-          aria-live="polite"
-          aria-atomic="false"
-        >
-          {filteredSkills.map((skill, index) => (
-            <div key={skill.id} role="listitem">
-              <SkillBadge skill={skill} index={index} />
-            </div>
-          ))}
-        </motion.div>
+        {/* Skills Layout - Cinematic Cards instead of tiny badges */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredSkills.map((skill, index) => {
+            const Icon = CATEGORY_ICONS[skill.category] || Terminal;
 
-        {/* Screen reader count announcement */}
-        <p className="sr-only" aria-live="polite" aria-atomic="true">
-          {filteredSkills.length} skill{filteredSkills.length !== 1 ? 's' : ''} shown
-        </p>
-
-        {/* Proficiency Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-card border border-border rounded-2xl p-6"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <TrendingUp className="h-5 w-5 text-primary" />
-            <h3 className="text-lg font-bold">Proficiency Summary</h3>
-          </div>
-          <p className="text-muted-foreground mb-6">
-            My skills span across frontend development, design, backend systems, and development
-            tools, with a strong focus on modern web technologies and best practices.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {(Object.entries(SKILL_CATEGORIES) as [SkillCategory, string][]).map(
-              ([categoryKey, categoryLabel]) => (
-                <div key={categoryKey} className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">
-                    {categoryAverages[categoryKey].toFixed(1)}
+            return (
+              <motion.div
+                key={skill.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (index % 10) * 0.05 }}
+                className="liquid-glass rounded-[1.25rem] p-6 min-h-[180px] flex flex-col border border-white/5 group hover:border-white/20 transition-colors"
+              >
+                <div className="flex items-start justify-between mb-auto">
+                  <div className="w-10 h-10 liquid-glass rounded-[0.75rem] flex items-center justify-center border border-white/10">
+                    <Icon className="h-5 w-5 text-white/90" />
                   </div>
-                  <div className="text-sm text-muted-foreground">{categoryLabel}</div>
+
+                  <div className="text-right">
+                    <div className="font-heading italic text-2xl text-white tracking-tight">
+                      {skill.proficiency}%
+                    </div>
+                  </div>
                 </div>
-              )
-            )}
-          </div>
-        </motion.div>
+
+                <div className="mt-8">
+                  <h3 className="font-heading italic text-3xl text-white tracking-[-0.5px] leading-none mb-2">
+                    {skill.name}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-body text-white/50 uppercase tracking-wider">
+                      {SKILL_CATEGORIES[skill.category]}
+                    </span>
+                    <div className="h-[1px] flex-1 bg-white/10" />
+                  </div>
+
+                  {/* Progress bar subtle integration */}
+                  <div className="w-full h-1 bg-white/5 rounded-full mt-4 overflow-hidden">
+                    <motion.div
+                      className="h-full bg-white/40 rounded-full"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.proficiency}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.2 + ((index % 10) * 0.05) }}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+
       </div>
     </section>
   )
