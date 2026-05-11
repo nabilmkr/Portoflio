@@ -1,200 +1,74 @@
 [
   {
-    "id": "react",
-    "name": "React",
-    "category": "frontend",
+    "id": "python",
+    "name": "Python",
+    "category": "backend",
     "proficiency": 5,
-    "description": "Building interactive user interfaces with React hooks and functional components",
-    "icon": "⚛️",
-    "yearsOfExperience": 5
-  },
-  {
-    "id": "typescript",
-    "name": "TypeScript",
-    "category": "frontend",
-    "proficiency": 5,
-    "description": "Type-safe JavaScript development with advanced TypeScript patterns",
-    "icon": "📘",
-    "yearsOfExperience": 4
-  },
-  {
-    "id": "nextjs",
-    "name": "Next.js",
-    "category": "frontend",
-    "proficiency": 5,
-    "description": "Full-stack React framework with server-side rendering and API routes",
-    "icon": "▲",
+    "description": "Used extensively for AI/ML and API development.",
+    "icon": "🐍",
     "yearsOfExperience": 3
+  },
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "category": "frontend",
+    "proficiency": 4,
+    "description": "Core language for web frontend development.",
+    "icon": "💛",
+    "yearsOfExperience": 3
+  },
+  {
+    "id": "react",
+    "name": "React.js",
+    "category": "frontend",
+    "proficiency": 4,
+    "description": "Building interactive user interfaces.",
+    "icon": "⚛️",
+    "yearsOfExperience": 2
   },
   {
     "id": "tailwind",
     "name": "Tailwind CSS",
     "category": "frontend",
-    "proficiency": 5,
-    "description": "Utility-first CSS framework for rapid UI development",
+    "proficiency": 4,
+    "description": "Rapid styling for modern web applications.",
     "icon": "🎨",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "framer-motion",
-    "name": "Framer Motion",
-    "category": "frontend",
-    "proficiency": 4,
-    "description": "Animation library for React with declarative motion components",
-    "icon": "✨",
     "yearsOfExperience": 2
   },
   {
-    "id": "figma",
-    "name": "Figma",
-    "category": "design",
+    "id": "laravel",
+    "name": "Laravel",
+    "category": "backend",
     "proficiency": 4,
-    "description": "UI/UX design and prototyping with collaborative design tools",
-    "icon": "🎭",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "ui-ux",
-    "name": "UI/UX Design",
-    "category": "design",
-    "proficiency": 4,
-    "description": "User interface and experience design with accessibility focus",
-    "icon": "🖼️",
-    "yearsOfExperience": 4
-  },
-  {
-    "id": "design-systems",
-    "name": "Design Systems",
-    "category": "design",
-    "proficiency": 4,
-    "description": "Creating scalable design systems with reusable components",
-    "icon": "🔧",
+    "description": "Robust PHP framework for full-stack apps.",
+    "icon": "🔴",
     "yearsOfExperience": 2
   },
   {
-    "id": "accessibility",
-    "name": "Accessibility (WCAG)",
-    "category": "design",
-    "proficiency": 5,
-    "description": "WCAG 2.1 compliance and accessible design practices",
-    "icon": "♿",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "nodejs",
-    "name": "Node.js",
+    "id": "fastapi",
+    "name": "FastAPI",
     "category": "backend",
     "proficiency": 4,
-    "description": "Server-side JavaScript runtime for building scalable applications",
-    "icon": "🟢",
-    "yearsOfExperience": 4
-  },
-  {
-    "id": "postgresql",
-    "name": "PostgreSQL",
-    "category": "backend",
-    "proficiency": 4,
-    "description": "Relational database design and optimization",
-    "icon": "🐘",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "mongodb",
-    "name": "MongoDB",
-    "category": "backend",
-    "proficiency": 3,
-    "description": "NoSQL database design and implementation",
-    "icon": "🍃",
-    "yearsOfExperience": 2
-  },
-  {
-    "id": "rest-apis",
-    "name": "REST APIs",
-    "category": "backend",
-    "proficiency": 5,
-    "description": "Designing and implementing RESTful web services",
-    "icon": "🔌",
-    "yearsOfExperience": 5
-  },
-  {
-    "id": "authentication",
-    "name": "Authentication & Security",
-    "category": "backend",
-    "proficiency": 4,
-    "description": "OAuth, JWT, and security best practices",
-    "icon": "🔐",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "git",
-    "name": "Git & Version Control",
-    "category": "tools",
-    "proficiency": 5,
-    "description": "Git workflows, branching strategies, and collaborative development",
-    "icon": "🌳",
-    "yearsOfExperience": 5
-  },
-  {
-    "id": "docker",
-    "name": "Docker",
-    "category": "tools",
-    "proficiency": 3,
-    "description": "Containerization and Docker deployment",
-    "icon": "🐳",
-    "yearsOfExperience": 2
-  },
-  {
-    "id": "ci-cd",
-    "name": "CI/CD Pipelines",
-    "category": "tools",
-    "proficiency": 4,
-    "description": "GitHub Actions, GitLab CI, and automated deployment",
-    "icon": "⚙️",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "testing",
-    "name": "Testing & QA",
-    "category": "tools",
-    "proficiency": 4,
-    "description": "Jest, React Testing Library, and property-based testing",
-    "icon": "✅",
-    "yearsOfExperience": 3
-  },
-  {
-    "id": "performance",
-    "name": "Performance Optimization",
-    "category": "tools",
-    "proficiency": 5,
-    "description": "Web performance, Core Web Vitals, and optimization techniques",
+    "description": "High-performance Python APIs for AI models.",
     "icon": "⚡",
-    "yearsOfExperience": 4
+    "yearsOfExperience": 2
   },
   {
-    "id": "communication",
-    "name": "Communication",
-    "category": "soft",
-    "proficiency": 5,
-    "description": "Clear technical communication and documentation",
-    "icon": "💬",
-    "yearsOfExperience": 5
-  },
-  {
-    "id": "problem-solving",
-    "name": "Problem Solving",
-    "category": "soft",
-    "proficiency": 5,
-    "description": "Analytical thinking and creative problem-solving",
-    "icon": "🧩",
-    "yearsOfExperience": 5
-  },
-  {
-    "id": "collaboration",
-    "name": "Team Collaboration",
-    "category": "soft",
+    "id": "tensorflow",
+    "name": "TensorFlow & Keras",
+    "category": "ai",
     "proficiency": 4,
-    "description": "Cross-functional teamwork and mentoring",
-    "icon": "🤝",
-    "yearsOfExperience": 4
+    "description": "Training and fine-tuning deep learning models.",
+    "icon": "🧠",
+    "yearsOfExperience": 2
+  },
+  {
+    "id": "nlp",
+    "name": "NLP & SBERT",
+    "category": "ai",
+    "proficiency": 4,
+    "description": "Semantic search and text classification.",
+    "icon": "📚",
+    "yearsOfExperience": 1
   }
 ]

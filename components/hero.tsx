@@ -62,9 +62,9 @@ export default function Hero() {
           initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
           animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
-          className="text-sm md:text-base text-white/80 max-w-2xl text-center font-body font-light leading-relaxed mb-10"
+          className="text-sm md:text-base text-white/80 max-w-2xl text-center font-body font-light leading-relaxed tracking-wide mb-10"
         >
-          Discover development in ways once unimaginable. Our pioneering solutions and breakthrough engineering bring high-performance web applications within reach—secure and extraordinary.
+          Semester 6 student at Politeknik Negeri Ujung Pandang. Passionate about software development, full-stack web applications, and applied AI, bridging the gap between intelligent models and high-performance interfaces.
         </motion.p>
 
         {/* CTAs */}
@@ -84,11 +84,11 @@ export default function Hero() {
 
           <button
             onClick={() => smoothScrollTo('contact')}
-            className="group flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white transition-colors"
+            className="liquid-glass rounded-full px-6 py-3 text-sm font-medium text-white/90 hover:text-white flex items-center gap-2 hover:scale-105 transition-all duration-300 border border-white/5"
           >
             Contact Me
-            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
-              <Play className="h-3.5 w-3.5 fill-current" />
+            <div className="flex items-center justify-center h-5 w-5 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+              <Play className="h-3 w-3 fill-current ml-0.5" />
             </div>
           </button>
         </motion.div>
@@ -101,23 +101,23 @@ export default function Hero() {
           className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-lg mb-12"
         >
           {/* Card 1 */}
-          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5">
+          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300">
             <div className="text-white/80 mb-6">
                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
             </div>
             <div>
-              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">50+</div>
+              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">5+</div>
               <div className="text-xs text-white/70 font-body font-light">Projects Completed</div>
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5">
+          <div className="liquid-glass p-5 rounded-[1.25rem] flex flex-col justify-between items-start border border-white/5 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300">
             <div className="text-white/80 mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
             </div>
             <div>
-              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">5+ Yrs</div>
+              <div className="font-heading italic text-white text-4xl tracking-[-1px] leading-none mb-2">2+ Yrs</div>
               <div className="text-xs text-white/70 font-body font-light">Development Experience</div>
             </div>
           </div>

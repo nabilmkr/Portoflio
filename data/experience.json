@@ -1,106 +1,108 @@
 [
   {
-    "id": "work-1",
-    "type": "work",
-    "title": "Senior Frontend Developer",
-    "organization": "Tech Innovations Inc.",
-    "location": "San Francisco, CA",
+    "id": "edu-1",
+    "type": "education",
+    "title": "Diploma IV - Informatics and Computer Engineering",
+    "organization": "Politeknik Negeri Ujung Pandang",
+    "location": "Makassar, Indonesia",
     "period": {
-      "start": "2022",
-      "end": null,
+      "start": "Aug 2023",
+      "end": "Aug 2027",
       "current": true
     },
     "description": [
-      "Led development of customer-facing web applications using React and TypeScript",
-      "Implemented design system that improved development speed by 40%",
-      "Mentored junior developers and conducted code reviews",
-      "Optimized application performance, reducing load times by 60%"
+      "Currently in Semester 6 with a GPA of 3.40/4.00",
+      "Relevant coursework: System Analysis & Design, Network Systems, Human-Computer Interaction, Web Development, Database Systems"
     ],
-    "achievements": [
-      "Employee of the Year 2023",
-      "Performance Excellence Award"
+    "achievements": [],
+    "skillsUsed": []
+  },
+  {
+    "id": "work-1",
+    "type": "work",
+    "title": "Administrative Assistant",
+    "organization": "CV Aydin Perkasa",
+    "location": "Makassar, Indonesia",
+    "period": {
+      "start": "Jan 2024",
+      "end": "Mar 2024",
+      "current": false
+    },
+    "description": [
+      "Managed marketplace product listings to improve product availability and data accuracy.",
+      "Maintained sales and inventory data in Microsoft Excel for daily reporting and stock tracking."
     ],
-    "skillsUsed": [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Next.js",
-      "Performance Optimization"
-    ]
+    "achievements": [],
+    "skillsUsed": []
   },
   {
     "id": "work-2",
     "type": "work",
-    "title": "Frontend Developer",
-    "organization": "Digital Solutions LLC",
-    "location": "Remote",
+    "title": "Barista",
+    "organization": "Waroeng Lago",
+    "location": "Makassar, Indonesia",
     "period": {
-      "start": "2020",
-      "end": "2022",
+      "start": "Oct 2022",
+      "end": "Dec 2022",
       "current": false
     },
     "description": [
-      "Developed responsive web applications for various clients",
-      "Collaborated with design teams to implement pixel-perfect UI",
-      "Integrated third-party APIs and services",
-      "Improved website accessibility to WCAG 2.1 AA standards"
+      "Maintained service quality and speed during peak operational hours.",
+      "Coordinated with team members to keep service flow consistent during busy shifts."
     ],
-    "achievements": [
-      "Client Satisfaction Award"
-    ],
-    "skillsUsed": [
-      "React",
-      "JavaScript",
-      "CSS",
-      "Accessibility",
-      "API Integration"
-    ]
+    "achievements": [],
+    "skillsUsed": []
   },
   {
-    "id": "education-1",
-    "type": "education",
-    "title": "Bachelor of Computer Science",
-    "organization": "University of Technology",
-    "location": "New York, NY",
+    "id": "org-1",
+    "type": "work",
+    "title": "Vice Chairperson for Internal Affairs",
+    "organization": "HIMATIK-PNUP",
+    "location": "Makassar, Indonesia",
     "period": {
-      "start": "2016",
-      "end": "2020",
-      "current": false
+      "start": "Sep 2025",
+      "end": "Present",
+      "current": true
     },
     "description": [
-      "Graduated with Honors (GPA: 3.8/4.0)",
-      "Specialized in Web Technologies and Human-Computer Interaction",
-      "President of Web Development Club",
-      "Published research on modern web frameworks"
+      "Coordinate four internal departments: Education, Cadre, Secretariat, and Talent.",
+      "Support strategic planning, internal operations, and cross-department program execution."
     ],
-    "achievements": [
-      "Summa Cum Laude",
-      "Dean's List"
-    ]
+    "achievements": [],
+    "skillsUsed": ["Leadership", "Strategic Planning", "Management"]
   },
   {
     "id": "cert-1",
     "type": "certification",
-    "title": "AWS Certified Developer",
-    "organization": "Amazon Web Services",
+    "title": "Artificial Intelligence Path",
+    "organization": "Dicoding Bootcamp Batch 10",
     "location": "Online",
     "period": {
-      "start": "2021",
-      "end": "2024",
-      "current": true
+      "start": "Apr 2026",
+      "end": "Apr 2026",
+      "current": false
     },
     "description": [
-      "Certified in developing and maintaining AWS-based applications",
-      "Expertise in serverless architectures and cloud services",
-      "Knowledge of security best practices and cost optimization"
+      "Completed intensive bootcamp covering machine learning, deep learning, and AI project development."
     ],
-    "achievements": [
-      "Associate Level Certification"
+    "achievements": [],
+    "skillsUsed": ["Machine Learning", "Deep Learning", "TensorFlow"]
+  },
+  {
+    "id": "cert-2",
+    "type": "certification",
+    "title": "Full-Stack Web Development Bootcamp",
+    "organization": "HIMATIK-PNUP",
+    "location": "Makassar, Indonesia",
+    "period": {
+      "start": "Mar 2025",
+      "end": "Jul 2025",
+      "current": false
+    },
+    "description": [
+      "Completed full-stack web development training with frontend, backend, and application development practice."
     ],
-    "skillsUsed": [
-      "AWS",
-      "Serverless",
-      "Cloud Architecture"
-    ]
+    "achievements": [],
+    "skillsUsed": ["Frontend", "Backend", "Web Development"]
   }
 ]

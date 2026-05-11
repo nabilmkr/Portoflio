@@ -1,148 +1,66 @@
 [
   {
-    "id": "ecommerce-platform",
-    "title": "E-Commerce Platform",
-    "description": "A full-featured e-commerce platform with real-time inventory management and payment processing.",
-    "detailedDescription": "Built a comprehensive e-commerce solution featuring real-time inventory synchronization, secure payment processing with Stripe, and an intuitive admin dashboard. The platform handles thousands of concurrent users with optimized database queries and caching strategies.",
-    "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Stripe", "Prisma", "PostgreSQL"],
-    "category": "web",
-    "images": [
-      {
-        "url": "/images/projects/ecommerce-1.jpg",
-        "alt": "E-commerce platform homepage showing product grid and navigation",
-        "caption": "Product showcase with advanced filtering"
-      },
-      {
-        "url": "/images/projects/ecommerce-2.jpg",
-        "alt": "Shopping cart and checkout flow interface",
-        "caption": "Streamlined checkout process"
-      },
-      {
-        "url": "/images/projects/ecommerce-3.jpg",
-        "alt": "Admin dashboard with inventory management",
-        "caption": "Real-time inventory management"
-      }
-    ],
+    "id": "gap-sense",
+    "title": "Gap Sense",
+    "description": "AI Skill Gap & Career Trend Platform.",
+    "detailedDescription": "Led a 4-person Dicoding capstone team and proposed the core product idea. Built backend services, preprocessing workflows, semantic gap analysis, Groq-based AI career consultation, and final Streamlit integration. Deployed the FastAPI/AI backend to Hugging Face Spaces and the dashboard to gapsense.streamlit.app.",
+    "technologies": ["Python", "FastAPI", "Streamlit", "TensorFlow", "SentenceTransformers", "Groq"],
+    "category": "ai",
+    "images": [],
     "links": {
-      "live": "https://ecommerce.example.com",
-      "github": "https://github.com/username/ecommerce",
-      "caseStudy": "https://example.com/case-studies/ecommerce"
+      "live": "https://gapsense.streamlit.app"
     },
     "featured": true,
-    "date": "2024-01-15"
+    "date": "2024-05-01"
   },
   {
-    "id": "task-management-app",
-    "title": "Task Management App",
-    "description": "A collaborative task management application with real-time updates and team collaboration features.",
-    "detailedDescription": "Developed a real-time collaborative task management system using Socket.io for instant updates. Features include team workspaces, task assignments, progress tracking, and integrated notifications. Supports both desktop and mobile interfaces.",
-    "technologies": ["React", "Node.js", "Socket.io", "MongoDB", "Express", "Redux"],
+    "id": "luxe-news",
+    "title": "Luxe News",
+    "description": "Full-Stack Gaming News Portal.",
+    "detailedDescription": "Built the Laravel backend, Filament CMS resources, database models, and REST API endpoints for news, games, tournaments, categories, banners, and comments. Integrated backend-managed content into the React frontend and finalized frontend behavior with the team. Implemented admin content workflows, slug-based routing support, Laravel Sanctum authentication, and MySQL-backed data management.",
+    "technologies": ["React 18", "Vite", "Tailwind CSS", "Laravel 12", "Filament", "MySQL"],
     "category": "web",
-    "images": [
-      {
-        "url": "/images/projects/taskapp-1.jpg",
-        "alt": "Task management dashboard with kanban board view",
-        "caption": "Kanban board interface"
-      },
-      {
-        "url": "/images/projects/taskapp-2.jpg",
-        "alt": "Team collaboration features showing real-time updates",
-        "caption": "Real-time team collaboration"
-      },
-      {
-        "url": "/images/projects/taskapp-3.jpg",
-        "alt": "Mobile responsive view of task management app",
-        "caption": "Mobile-optimized interface"
-      }
-    ],
+    "images": [],
     "links": {
-      "live": "https://taskapp.example.com",
-      "github": "https://github.com/username/taskapp"
+      "github": "https://github.com/nabilmkr/Luxe-News"
     },
     "featured": true,
-    "date": "2023-11-20"
+    "date": "2024-04-01"
   },
   {
-    "id": "weather-dashboard",
-    "title": "Weather Dashboard",
-    "description": "A responsive weather dashboard with location-based forecasts and historical data visualization.",
-    "detailedDescription": "Created an interactive weather dashboard with real-time data from multiple weather APIs. Features include location-based forecasts, historical weather data visualization with Chart.js, and PWA capabilities for offline access.",
-    "technologies": ["Vue.js", "Chart.js", "Weather API", "PWA", "Vuex", "Axios"],
-    "category": "web",
-    "images": [
-      {
-        "url": "/images/projects/weather-1.jpg",
-        "alt": "Weather dashboard showing current conditions and forecast",
-        "caption": "Current weather and forecast view"
-      },
-      {
-        "url": "/images/projects/weather-2.jpg",
-        "alt": "Historical weather data visualization with charts",
-        "caption": "Historical data analysis"
-      }
-    ],
-    "links": {
-      "live": "https://weather.example.com",
-      "github": "https://github.com/username/weather"
-    },
+    "id": "seabank-sentiment",
+    "title": "SeaBank Sentiment Analysis",
+    "description": "NLP Classification Project on Google Play reviews.",
+    "detailedDescription": "Built a sentiment analysis system for 15,000 SeaBank Google Play reviews labeled as positive, neutral, and negative from app ratings. Compared SBERT + Dense Neural Network, SVM + TF-IDF, and Random Forest + Bag of Words; achieved 91.46% testing accuracy with SBERT + Dense Neural Network and 91.85% with SVM + TF-IDF.",
+    "technologies": ["Python", "TensorFlow", "SBERT", "SVM", "Random Forest", "TF-IDF"],
+    "category": "ai",
+    "images": [],
+    "links": {},
     "featured": false,
-    "date": "2023-09-10"
+    "date": "2023-12-01"
   },
   {
-    "id": "design-system",
-    "title": "Design System",
-    "description": "A comprehensive design system with reusable components, documentation, and accessibility guidelines.",
-    "detailedDescription": "Designed and implemented a complete design system with 50+ reusable React components. Includes comprehensive Storybook documentation, accessibility guidelines (WCAG 2.1 AA), and design tokens for consistent theming across applications.",
-    "technologies": ["React", "Storybook", "TypeScript", "Figma", "Tailwind CSS"],
-    "category": "design",
-    "images": [
-      {
-        "url": "/images/projects/design-system-1.jpg",
-        "alt": "Design system component library showcase",
-        "caption": "Component library overview"
-      },
-      {
-        "url": "/images/projects/design-system-2.jpg",
-        "alt": "Storybook documentation interface",
-        "caption": "Interactive documentation"
-      },
-      {
-        "url": "/images/projects/design-system-3.jpg",
-        "alt": "Design tokens and theming system",
-        "caption": "Design tokens and theming"
-      }
-    ],
-    "links": {
-      "live": "https://design.example.com",
-      "github": "https://github.com/username/design-system",
-      "caseStudy": "https://example.com/case-studies/design-system"
-    },
-    "featured": true,
-    "date": "2023-07-05"
-  },
-  {
-    "id": "mobile-fitness-app",
-    "title": "Mobile Fitness App",
-    "description": "A cross-platform fitness tracking application with workout plans and progress analytics.",
-    "detailedDescription": "Built a comprehensive fitness tracking app for iOS and Android using React Native. Features include personalized workout plans, real-time progress tracking, social challenges, and integration with popular fitness wearables.",
-    "technologies": ["React Native", "Firebase", "Redux", "TypeScript", "Expo"],
-    "category": "mobile",
-    "images": [
-      {
-        "url": "/images/projects/fitness-1.jpg",
-        "alt": "Fitness app home screen with workout overview",
-        "caption": "Workout dashboard"
-      },
-      {
-        "url": "/images/projects/fitness-2.jpg",
-        "alt": "Progress tracking and analytics screens",
-        "caption": "Progress analytics"
-      }
-    ],
-    "links": {
-      "github": "https://github.com/username/fitness-app"
-    },
+    "id": "insect-pest-classifier",
+    "title": "Insect Pest Classifier",
+    "description": "Computer Vision Project.",
+    "detailedDescription": "Trained a DenseNet121 transfer learning model to classify 5 insect pest classes from 13,272 images and reached approximately 88.76% validation accuracy. Fine-tuned the last 50 layers and exported the trained model into SavedModel, TensorFlow Lite, and TensorFlow.js formats.",
+    "technologies": ["TensorFlow", "Keras", "DenseNet121", "Transfer Learning"],
+    "category": "ai",
+    "images": [],
+    "links": {},
     "featured": false,
-    "date": "2023-05-12"
+    "date": "2023-11-01"
+  },
+  {
+    "id": "digital-twin-solar",
+    "title": "Digital Twin Solar Panel Monitoring",
+    "description": "Web-Based 3D Monitoring System.",
+    "detailedDescription": "Connected Unity, broker, and AI components so monitoring data could be displayed in a web-based 3D solar panel model. Supported data integration for an academic digital twin system focused on solar panel monitoring and visualization.",
+    "technologies": ["Unity", "IoT Broker", "AI Integration", "Data Visualization"],
+    "category": "web",
+    "images": [],
+    "links": {},
+    "featured": false,
+    "date": "2023-09-01"
   }
 ]
