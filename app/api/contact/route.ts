@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
         {
           status: 429,
           headers: {
+            ...getSecurityHeaders(request),
             'Retry-After': retryAfter.toString(),
             'X-RateLimit-Limit': '5',
             'X-RateLimit-Remaining': '0',
@@ -68,7 +69,10 @@ export async function POST(request: NextRequest) {
           message: 'Validation failed',
           errors: validationErrors,
         },
-        { status: 400 }
+        {
+          status: 400,
+          headers: getSecurityHeaders(request)
+        }
       )
     }
 
@@ -81,7 +85,10 @@ export async function POST(request: NextRequest) {
             success: false,
             message: 'reCAPTCHA verification failed. Please try again.',
           },
-          { status: 400 }
+          {
+            status: 400,
+            headers: getSecurityHeaders(request)
+          }
         )
       }
     }
@@ -126,12 +133,10 @@ export async function POST(request: NextRequest) {
       {
         status: 200,
         headers: {
+          ...getSecurityHeaders(request),
           'X-RateLimit-Limit': '5',
           'X-RateLimit-Remaining': remaining.toString(),
           'X-RateLimit-Reset': resetTime.toString(),
-          'X-Content-Type-Options': 'nosniff',
-          'X-Frame-Options': 'DENY',
-          'X-XSS-Protection': '1; mode=block',
         },
       }
     )
@@ -144,14 +149,39 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 500,
-        headers: {
-          'X-Content-Type-Options': 'nosniff',
-          'X-Frame-Options': 'DENY',
-          'X-XSS-Protection': '1; mode=block',
-        },
+        headers: getSecurityHeaders(request),
       }
     )
   }
+}
+
+/**
+ * Helper to get CORS and security headers
+ */
+function getSecurityHeaders(request: NextRequest) {
+  const origin = request.headers.get('origin')
+  const allowedOrigin = process.env.ALLOWED_ORIGIN
+
+  const headers: Record<string, string> = {
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'X-XSS-Protection': '1; mode=block',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    'Vary': 'Origin',
+  }
+
+  if (allowedOrigin) {
+    if (origin === allowedOrigin) {
+      headers['Access-Control-Allow-Origin'] = origin
+    }
+  } else {
+    // Fallback to * if not configured (e.g. in dev) but recommended to set ALLOWED_ORIGIN
+    headers['Access-Control-Allow-Origin'] = '*'
+  }
+
+  return headers
 }
 
 /**
@@ -162,14 +192,6 @@ export async function POST(request: NextRequest) {
 export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
-      'X-XSS-Protection': '1; mode=block',
-      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-    },
+    headers: getSecurityHeaders(request),
   })
 }
