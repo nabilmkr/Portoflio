@@ -13,11 +13,14 @@ export interface Experience {
   id: string
   type: 'work' | 'education' | 'certification'
   title: string
+  role?: string
   organization: string
+  company?: string
   location?: string
-  period: ExperiencePeriod
-  description: string[]
+  period: ExperiencePeriod | string
+  description: string | string[]
   achievements?: string[]
   skillsUsed?: string[]
+  technologies?: string[]
   link?: string
 }
