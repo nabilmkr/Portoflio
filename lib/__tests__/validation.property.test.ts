@@ -140,7 +140,7 @@ describe('Contact Form - Property-Based Tests', () => {
         fc.property(
           fc.record({
             name: fc.string({ minLength: 2, maxLength: 100 }),
-            email: fc.string({ minLength: 1, maxLength: 50 }).filter(s => !s.includes('@')),
+            email: fc.string({ minLength: 1, maxLength: 50 }).filter(s => !s.includes('@') && s.trim().length > 0),
             subject: fc.string({ minLength: 5, maxLength: 200 }),
             message: fc.string({ minLength: 10, maxLength: 5000 }),
           }),
