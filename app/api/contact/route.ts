@@ -106,14 +106,6 @@ export async function POST(request: NextRequest) {
     // For now, simulate successful email sending
     const submissionId = `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
-    // Log submission for analytics (no PII stored beyond what's needed)
-    console.log('[Contact Submission]', {
-      id: submissionId,
-      timestamp: new Date().toISOString(),
-      subject: sanitizedData.subject,
-      status: 'received',
-    })
-
     const remaining = getRemainingRequests(clientIp)
     const resetTime = getResetTime(clientIp)
 
