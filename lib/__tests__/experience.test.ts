@@ -4,7 +4,7 @@
  */
 
 import * as fc from 'fast-check'
-import type { Experience, ExperiencePeriod } from '../types/experience'
+import type { Experience } from '../types/experience'
 import {
   sortExperiencesChronologically,
   isChronologicallyOrdered,
@@ -23,7 +23,7 @@ const yearArb = fc.integer({ min: 1900, max: 2100 }).map((y) => y.toString())
 const experiencePeriodArb = fc
   .tuple(yearArb, fc.boolean(), fc.boolean())
   .map(([startYear, hasCurrent, hasEnd]) => {
-    const period: ExperiencePeriod = {
+    const period: Experience["period"] = {
       start: startYear,
       current: hasCurrent,
     }
@@ -221,7 +221,7 @@ describe('Experience Timeline Ordering', () => {
                   start: startYear,
                   current: isCurrent,
                   // No end date
-                } as ExperiencePeriod,
+                },
                 description: ['Test description'],
               })),
             { minLength: 1, maxLength: 10 }

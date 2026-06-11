@@ -3,7 +3,7 @@
  * Defines the structure for work experience, education, and certifications
  */
 
-export interface ExperiencePeriod {
+interface ExperiencePeriod {
   start: string
   end?: string
   current: boolean
