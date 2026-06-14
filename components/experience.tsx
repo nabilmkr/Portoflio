@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Briefcase, GraduationCap, Award, Calendar, MapPin, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { Experience as ExperienceItem } from '@/lib/types/experience'
+import type { Experience, ExperiencePeriod } from '@/lib/types/experience'
 import experiences from '@/data/experience.json'
 
 const getTypeIcon = (type: string) => {
@@ -20,7 +20,7 @@ const getTypeIcon = (type: string) => {
 }
 
 // Ensure period rendering works gracefully
-const formatPeriod = (period: any) => {
+const formatPeriod = (period: ExperiencePeriod | string) => {
   if (typeof period === 'string') return period;
   if (period && typeof period === 'object') {
     if (period.start && period.end) return `${period.start} - ${period.end}`;
@@ -31,7 +31,7 @@ const formatPeriod = (period: any) => {
 }
 
 // Normalize descriptions
-const formatDescription = (description: any) => {
+const formatDescription = (description: string | string[]) => {
   if (Array.isArray(description)) {
     return description.join(' ');
   }
@@ -72,7 +72,7 @@ export default function Experience() {
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-white/0 via-white/20 to-white/0 transform md:-translate-x-1/2" />
 
           <div className="space-y-12">
-            {(experiences as any[]).map((item, index) => {
+            {(experiences as Experience[]).map((item, index) => {
               const isEven = index % 2 === 0
               // Support both naming conventions from the JSON or type mapping
               const role = item.role || item.title;
