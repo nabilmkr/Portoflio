@@ -94,15 +94,6 @@ export async function POST(request: NextRequest) {
       message: sanitizeInput(message),
     }
 
-    // TODO: Send email via Gmail API
-    // const emailSent = await sendEmailViaGmail(sanitizedData)
-    // if (!emailSent) {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Failed to send email. Please try again later.' },
-    //     { status: 500 }
-    //   )
-    // }
-
     // For now, simulate successful email sending
     const submissionId = `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
