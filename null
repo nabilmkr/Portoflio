@@ -1,0 +1,439 @@
+L3: /* Priority: SPEC-13 > SPEC-12 > SPEC-11 > SPEC-10 > ... > SPEC-01 (per 05_Tech_Spec.md source priority) */
+L5: const caseStudies = {
+L10: "gap-sense": {
+L11: id: "gap-sense",
+L12: title: "Gap Sense",
+L13: tagline: "An AI-powered career recommendation platform that analyzes skill gaps against industry requirements and generates personalized learning roadmaps.",
+L14: overview: {
+L15: role: "AI System Developer & Backend Developer",
+L16: duration: "5 weeks (Feb–Apr, Capstone Project)",
+L17: teamSize: 4,
+L18: status: "Completed",
+L19: database: "JSON / CSV (Kaggle, LinkedIn, Adzuna API)",
+L20: technologies: ["Python", "FastAPI", "Streamlit", "Sentence-BERT", "TensorFlow", "Groq (Llama 3.3)", "Pandas", "NumPy"],
+L21: },
+L22: context:
+L24: problem:
+L26: users: {
+L27: primary: ["University students", "Fresh graduates", "Career switchers", "Self-taught developers"],
+L28: secondary: ["Career advisors and educators"],
+L29: },
+L30: goals: [
+L35: constraints: [
+L40: alternatives: [
+L41: {
+L42: option: "Manual skill checklist",
+L43: pros: ["Fast to build", "Easy to understand"],
+L44: cons: ["Too generic", "Does not capture semantic meaning"],
+L45: },
+L46: {
+L47: option: "Rule-based keyword matching",
+L48: pros: ["More precise than checklist", "Easier to deploy"],
+L49: cons: ["Hard to maintain", "Fails for varied phrasing (e.g., 'JS' vs 'JavaScript')"],
+L50: },
+L51: {
+L52: option: "Semantic similarity with AI embeddings",
+L53: pros: ["Handles varied language naturally", "Flexibly matches skills to job postings"],
+L54: cons: ["Higher implementation complexity", "Requires model inference"],
+L55: },
+L57: challenges: [
+L58: {
+L59: challenge: "Processing inconsistent job posting data.",
+L60: why: "Job postings contain duplicates, irrelevant entries, and the same technology appears under multiple aliases (e.g., 'JS' vs 'JavaScript').",
+L61: response: "Implemented preprocessing and normalization before analysis. Skill aliases were standardized to reduce inconsistent matching.",
+L62: outcome: "Generated cleaner input for semantic comparison.",
+L63: },
+L64: {
+L65: challenge: "Matching similar skills instead of exact keywords.",
+L66: why: "Keyword matching cannot recognize semantic similarity. For example, 'JS' and 'JavaScript' should represent the same concept.",
+L67: response: "Used Sentence-BERT embeddings with cosine similarity to measure semantic closeness rather than string matching.",
+L68: outcome: "Skill matching became more flexible and accurate than traditional keyword comparison.",
+L69: },
+L70: {
+L71: challenge: "Producing recommendations users can understand.",
+L72: why: "Similarity scores alone provide little practical guidance for learning.",
+L73: response: "Combined structured gap analysis with Llama 3.3 70B via Groq API to generate natural-language learning roadmaps.",
+L74: outcome: "Users receive both analytical results (gap score, priority skills) and actionable learning recommendations.",
+L75: },
+L76: {
+L77: challenge: "Separating analytical computation from presentation.",
+L78: why: "Data processing, AI inference, and UI each require different responsibilities and performance characteristics.",
+L79: response: "Separated Streamlit, FastAPI, semantic analysis, and LLM generation into dedicated layers with clear interfaces.",
+L80: outcome: "System became easier to maintain, test, and extend independently.",
+L81: },
+L83: implementation: [
+L84: {
+L85: area: "Data Preprocessing",
+L86: technology: ["Python", "Pandas", "NumPy"],
+L87: responsibility:
+L89: },
+L90: {
+L91: area: "Backend API",
+L92: technology: ["FastAPI", "Python"],
+L93: responsibility:
+L95: },
+L96: {
+L97: area: "Semantic Analysis",
+L98: technology: ["Sentence-BERT", "TensorFlow"],
+L99: responsibility:
+L101: },
+L102: {
+L103: area: "LLM Integration",
+L104: technology: ["Groq API", "Llama 3.3 70B"],
+L105: responsibility:
+L107: },
+L108: {
+L109: area: "Frontend",
+L110: technology: ["Streamlit"],
+L111: responsibility:
+L113: },
+L115: architecture:
+L117: challenges: [
+L118: {
+L119: challenge: "Processing inconsistent job posting data.",
+L120: response: "Implemented preprocessing and normalization before analysis. Skill aliases were standardized.",
+L121: outcome: "Generated cleaner input for semantic comparison.",
+L122: },
+L123: {
+L124: challenge: "Matching similar skills instead of exact keywords.",
+L125: response: "Used Sentence-BERT embeddings with cosine similarity.",
+L126: outcome: "Skill matching became more flexible than keyword matching.",
+L127: },
+L128: {
+L129: challenge: "Producing recommendations users can understand.",
+L130: response: "Combined structured analysis with Llama 3.3 70B for natural-language explanations.",
+L131: outcome: "Users receive both analytical results and actionable learning recommendations.",
+L132: },
+L133: {
+L134: challenge: "Separating analytical computation from presentation.",
+L135: response: "Separated Streamlit, FastAPI, semantic analysis, and LLM generation into dedicated layers.",
+L136: outcome: "System became easier to maintain and extend.",
+L137: },
+L139: tradeOffs: [
+L140: {
+L141: decision: "Use Sentence-BERT embeddings instead of a large fine-tuned model.",
+L142: benefit: "Faster development and simpler deployment on free-tier hosting.",
+L143: cost: "Less tailored predictions for niche job roles.",
+L144: },
+L145: {
+L146: decision: "Use JSON/CSV datasets instead of a database.",
+L147: benefit: "Simpler setup, zero infrastructure cost.",
+L148: cost: "Requires preprocessing before analysis. No user search history persistence.",
+L149: },
+L150: {
+L151: decision: "Deploy on Hugging Face Spaces.",
+L152: benefit: "Free hosting with GPU inference support.",
+L153: cost: "Cold start latency. Limited compute resources.",
+L154: },
+L156: result: [
+L161: reflection:
+L163: futureImprovements: [
+L169: technologies: [
+L179: },
+L185: "cuanify": {
+L186: id: "cuanify",
+L187: title: "Cuanify",
+L188: tagline: "An AI-powered personal finance assistant that analyzes spending habits and generates personalized financial recommendations through machine learning and generative AI.",
+L189: overview: {
+L190: role: "Full-Stack Developer & AI Engineer",
+L191: duration: "3–4 months",
+L192: teamSize: 3,
+L193: status: "Completed",
+L194: database: "MySQL",
+L195: technologies: ["React Native", "Laravel 11", "FastAPI", "Random Forest (Scikit-learn)", "Google Gemini 2.5 Flash", "Laravel Sanctum", "Google OAuth"],
+L196: },
+L197: context:
+L199: problem:
+L201: users: {
+L202: primary: ["Students", "Young adults", "Beginner budget planners"],
+L203: secondary: ["Tech-savvy users seeking automated advisory support"],
+L204: },
+L205: goals: [
+L210: constraints: [
+L215: alternatives: [
+L216: {
+L217: option: "Simple budget tracker only",
+L218: pros: ["Faster to build", "Low data requirements"],
+L219: cons: ["Less insight", "No predictive value"],
+L220: },
+L221: {
+L222: option: "Full analytics platform with charts and dashboards",
+L223: pros: ["Rich insight", "More engagement"],
+L224: cons: ["Longer build time", "Higher complexity"],
+L225: },
+L226: {
+L227: option: "ML classification + AI advisory narrative",
+L228: pros: ["Combines prediction and explanation", "Demonstrates full AI pipeline"],
+L229: cons: ["Requires separate ML and LLM services", "External API dependency"],
+L230: },
+L232: challenges: [
+L233: {
+L234: challenge: "Building an AI pipeline that produces meaningful financial insights.",
+L235: why: "Machine learning classification (Healthy/Stable/Critical) and generative AI advisory text serve different purposes and require different processing stages.",
+L236: response: "Separated the workflow into structured stages: Random Forest classifies financial health first, then contextual information is sent to Gemini for personalized narrative generation.",
+L237: outcome: "Generated advice became more consistent with the user's actual financial condition.",
+L238: },
+L239: {
+L240: challenge: "Integrating AI services without affecting backend stability.",
+L241: why: "AI inference requires additional computation time and depends on external services that may be slow or unavailable.",
+L242: response: "Separated the AI pipeline into a FastAPI microservice while Laravel handled authentication and business logic.",
+L243: outcome: "Backend responsibilities remained isolated from AI processing. Laravel APIs stayed responsive even when Gemini was slow.",
+L244: },
+L245: {
+L246: challenge: "Maintaining secure authentication across the mobile application.",
+L247: why: "User authentication needed to remain simple (Google OAuth) while protecting all API access.",
+L248: response: "Implemented Google OAuth for user login and Laravel Sanctum for securing all API endpoints.",
+L249: outcome: "Users got a frictionless login experience while backend endpoints remained protected.",
+L250: },
+L251: {
+L252: challenge: "Connecting multiple application layers (React Native, Laravel, FastAPI, ML, Gemini AI).",
+L253: why: "The monorepo contains five distinct service layers that must communicate reliably.",
+L254: response: "Established a layered architecture where each service performs a single responsibility and communicates through well-defined interfaces.",
+L255: outcome: "System maintenance became easier because each layer can evolve independently.",
+L256: },
+L258: implementation: [
+L259: {
+L260: area: "Mobile Application",
+L261: technology: ["React Native", "Expo"],
+L262: responsibility:
+L264: },
+L265: {
+L266: area: "Backend API",
+L267: technology: ["Laravel 11", "MySQL", "Laravel Sanctum"],
+L268: responsibility:
+L270: },
+L271: {
+L272: area: "AI Service",
+L273: technology: ["FastAPI", "Python", "Scikit-learn", "Google Gemini 2.5 Flash"],
+L274: responsibility:
+L276: },
+L277: {
+L278: area: "Authentication",
+L279: technology: ["Google OAuth", "Laravel Sanctum"],
+L280: responsibility:
+L282: },
+L284: architecture:
+L286: tradeOffs: [
+L287: {
+L288: decision: "Use a monorepo structure for the full stack.",
+L289: benefit: "Simpler dependency management and shared context across frontend and backend.",
+L290: cost: "Potentially larger repository complexity.",
+L291: },
+L292: {
+L293: decision: "Separate FastAPI AI service from Laravel backend.",
+L294: benefit: "Isolates AI processing from core business logic. Easier to scale or replace the AI model.",
+L295: cost: "Introduces inter-service communication overhead.",
+L296: },
+L297: {
+L298: decision: "Use Random Forest for classification over a neural network.",
+L299: benefit: "Interpretable model with clear feature importance. Easier to explain health status to users.",
+L300: cost: "May not capture complex non-linear relationships as well as deep learning.",
+L301: },
+L303: result: [
+L308: reflection:
+L310: futureImprovements: [
+L316: technologies: [
+L326: },
+L332: "luxe-news": {
+L333: id: "luxe-news",
+L334: title: "Luxe News",
+L335: tagline: "A modern gaming news platform built with React and Laravel, featuring dynamic content management through REST APIs and an integrated admin dashboard.",
+L336: overview: {
+L337: role: "Backend Developer & REST API Developer",
+L338: duration: "3–4 months",
+L339: teamSize: 4,
+L340: status: "Completed",
+L341: database: "MySQL",
+L342: technologies: ["React 18", "Vite", "Tailwind CSS", "Laravel 12", "Filament", "Laravel Sanctum", "MySQL"],
+L343: },
+L344: context:
+L346: problem:
+L348: users: {
+L349: primary: ["Gaming editors and publishers"],
+L350: secondary: ["Readers seeking curated gaming news", "Esports audiences"],
+L351: },
+L352: goals: [
+L357: constraints: [
+L362: alternatives: [
+L363: {
+L364: option: "Static blog frontend only",
+L365: pros: ["Faster completion", "Simpler deployment"],
+L366: cons: ["Less backend depth", "No CMS support"],
+L367: },
+L368: {
+L369: option: "Headless CMS service (Contentful, Strapi)",
+L370: pros: ["Faster content management", "Less backend work"],
+L371: cons: ["Less hands-on backend engineering", "External dependency"],
+L372: },
+L373: {
+L374: option: "Custom Laravel backend with Filament CMS",
+L375: pros: ["Full control over API design", "Demonstrates backend engineering"],
+L376: cons: ["Longer development time", "More maintenance responsibility"],
+L377: },
+L379: challenges: [
+L380: {
+L381: challenge: "Managing multiple content types within one backend.",
+L382: why: "The system needed to support news, tournaments, categories, banners, and comments while maintaining a consistent API structure across all resources.",
+L383: response: "Built reusable REST API resources using Laravel and centralized content management through Filament Admin. Standardized response formats and error handling across all endpoints.",
+L384: outcome: "Content became easier to maintain and new resources could be added without restructuring the application.",
+L385: },
+L386: {
+L387: challenge: "Reducing unnecessary frontend loading on the homepage.",
+L388: why: "The homepage displays multiple visual assets and dynamic content. Rendering everything immediately would increase initial load time significantly.",
+L389: response: "Implemented lazy loading for selected React pages and components. Used Axios for on-demand API calls rather than fetching all data at once.",
+L390: outcome: "Only required content loads when needed, improving perceived responsiveness.",
+L391: },
+L392: {
+L393: challenge: "Keeping frontend and backend development independent.",
+L394: why: "Both applications needed to evolve without tightly coupling implementation details.",
+L395: response: "Separated responsibilities using REST APIs between Laravel and React. API contracts were documented first, enabling parallel development.",
+L396: outcome: "Frontend and backend could be developed independently while communicating through standardized endpoints.",
+L397: },
+L399: implementation: [
+L400: {
+L401: area: "Backend API",
+L402: technology: ["Laravel 12", "MySQL", "Laravel Sanctum"],
+L403: responsibility:
+L405: },
+L406: {
+L407: area: "Admin CMS",
+L408: technology: ["Filament", "Laravel 12"],
+L409: responsibility:
+L411: },
+L412: {
+L413: area: "Frontend",
+L414: technology: ["React 18", "Vite", "Tailwind CSS", "Axios"],
+L415: responsibility:
+L417: },
+L418: {
+L419: area: "Authentication",
+L420: technology: ["Laravel Sanctum"],
+L421: responsibility:
+L423: },
+L425: architecture:
+L427: tradeOffs: [
+L428: {
+L429: decision: "Implement a custom Laravel backend instead of a headless SaaS CMS.",
+L430: benefit: "Stronger backend engineering signal. Full control over API design and database schema.",
+L431: cost: "Longer development time and more maintenance responsibility.",
+L432: },
+L433: {
+L434: decision: "Use Filament for admin panel.",
+L435: benefit: "Rapid development of administrative interfaces without custom UI code.",
+L436: cost: "Adds dependency on the Filament ecosystem. Less flexible for complex publishing workflows.",
+L437: },
+L438: {
+L439: decision: "Slug-based routing for content pages.",
+L440: benefit: "SEO-friendly URLs. Allows administrators to update slugs without code changes.",
+L441: cost: "Requires careful slug uniqueness validation and redirect handling on updates.",
+L442: },
+L444: result: [
+L449: reflection:
+L451: futureImprovements: [
+L457: technologies: [
+L467: },
+L473: "smart-fan-control": {
+L474: id: "smart-fan-control",
+L475: title: "Smart Fan CV Control",
+L476: tagline: "A touchless smart fan controlled using face verification and hand gesture recognition to improve accessibility for people with physical disabilities.",
+L477: overview: {
+L478: role: "Software & Computer Vision Developer",
+L479: duration: "3–4 months",
+L480: teamSize: 3,
+L481: status: "Completed",
+L482: database: "None (local runtime state)",
+L483: technologies: ["Raspberry Pi 4", "DeepFace (ArcFace)", "MediaPipe", "FastAPI", "GPIO/PWM", "OpenCV", "MOSFET Driver", "Python"],
+L484: },
+L485: context:
+L487: problem:
+L489: users: {
+L490: primary: ["People with physical disabilities requiring touchless interaction"],
+L491: secondary: ["Smart home enthusiasts", "Students and makers exploring CV interfaces"],
+L492: },
+L493: goals: [
+L498: constraints: [
+L503: alternatives: [
+L504: {
+L505: option: "Simple sensor-based fan controller (temperature or motion trigger)",
+L506: pros: ["Easier hardware integration", "More reliable operation"],
+L507: cons: ["Less innovative", "No personalization or security"],
+L508: },
+L509: {
+L510: option: "Voice-activated control (speech recognition)",
+L511: pros: ["Natural interaction for many users", "Good accessibility potential"],
+L512: cons: ["Requires audio processing libraries", "Less discreet in quiet environments"],
+L513: },
+L514: {
+L515: option: "Gesture-based control with face authentication (chosen)",
+L516: pros: ["Intuitive for most users", "Combines security with convenience"],
+L517: cons: ["Requires good lighting", "Computationally heavier than simple sensors"],
+L518: },
+L520: challenges: [
+L521: {
+L522: challenge: "Running computer vision models on Raspberry Pi 4.",
+L523: why: "Raspberry Pi has limited CPU resources compared to desktop hardware. Real-time image processing can easily introduce lag or dropped frames.",
+L524: response: "Selected lightweight CV libraries (DeepFace, MediaPipe) and optimized the processing pipeline to reduce unnecessary computation. Used frame sampling to balance responsiveness and CPU load.",
+L525: outcome: "The system remained responsive while performing real-time face and hand detection.",
+L526: },
+L527: {
+L528: challenge: "Maintaining smooth camera performance during authentication.",
+L529: why: "Face verification requires additional computation that can interrupt the continuous video stream.",
+L530: response: "Separated verification into background processing while keeping the camera stream active. Used a lightweight ArcFace model for fast embedding comparison.",
+L531: outcome: "Camera remained responsive during authentication. Users experienced no visible stutter in the preview.",
+L532: },
+L533: {
+L534: challenge: "Preventing unauthorized fan control.",
+L535: why: "Gesture recognition alone cannot distinguish between authorized and unauthorized users.",
+L536: response: "Added a face verification stage before enabling gesture recognition. Only authenticated users can access the control interface.",
+L537: outcome: "Only authenticated users could control the fan. Unauthorized access was prevented at the application level.",
+L538: },
+L539: {
+L540: challenge: "Managing multiple system states (idle, authenticating, active, no-user).",
+L541: why: "Face authentication and gesture recognition cannot run simultaneously without clear coordination, and system state must persist correctly across transitions.",
+L542: response: "Implemented a Finite State Machine (FSM) that coordinates authentication and interaction flow with well-defined transitions and timeout handling.",
+L543: outcome: "System behavior became predictable, easier to test, and easier to extend with new states.",
+L544: },
+L546: implementation: [
+L547: {
+L548: area: "Face Authentication",
+L549: technology: ["DeepFace (ArcFace)", "OpenCV"],
+L550: responsibility:
+L552: },
+L553: {
+L554: area: "Gesture Recognition",
+L555: technology: ["MediaPipe", "OpenCV"],
+L556: responsibility:
+L558: },
+L559: {
+L560: area: "Hardware Control",
+L561: technology: ["Raspberry Pi 4", "GPIO", "MOSFET Driver", "PWM"],
+L562: responsibility:
+L564: },
+L565: {
+L566: area: "System Orchestration",
+L567: technology: ["FastAPI", "Python"],
+L568: responsibility:
+L570: },
+L572: architecture:
+L574: tradeOffs: [
+L575: {
+L576: decision: "Run all vision models locally instead of cloud inference.",
+L577: benefit: "Lower latency, offline capability, and privacy (no face data leaves the device).",
+L578: cost: "Higher compute demand on the Raspberry Pi 4. Limited by available RAM and CPU.",
+L579: },
+L580: {
+L581: decision: "Use a Finite State Machine for system orchestration.",
+L582: benefit: "Predictable state transitions. Easier to test, debug, and extend.",
+L583: cost: "Requires careful design upfront. More code than simple sequential logic.",
+L584: },
+L585: {
+L586: decision: "Use MediaPipe instead of a custom hand tracking model.",
+L587: benefit: "Pre-trained, optimized for real-time performance, well-documented.",
+L588: cost: "External dependency (Google). May not be as customizable as a custom model.",
+L589: },
+L591: result: [
+L596: reflection:
+L598: futureImprovements: [
+L604: technologies: [
+L614: },
+L615: };

@@ -1,0 +1,61 @@
+/* 02_Design_System.md §7 — Global CSS Rendering Base */
+/* 09_SEO_Accessibility_Spec.md §10 — Focus Ring */
+/* 09_SEO_Accessibility_Spec.md §12 — Reduced Motion */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Onest:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* Anchor offset for fixed header */
+  body {
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-body font-sans;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 09_SEO_Accessibility_Spec.md §10 — Custom Focus Ring */
+  :focus-visible {
+    outline: 2px solid #C5A880;
+    outline-offset: 2px;
+  }
+
+  /* 09_SEO_Accessibility_Spec.md §12 — Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Typography hierarchy — 02_Design_System.md §2 */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-text-heading font-semibold tracking-tight font-display;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1];
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+}
