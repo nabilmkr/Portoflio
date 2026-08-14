@@ -4,7 +4,7 @@
 const skills = [
   {
     id: "programming-languages",
-    category: "Programming Languages",
+    category: "Languages",
     items: ["Python", "JavaScript", "PHP", "HTML", "CSS"],
     order: 1,
   },
@@ -15,12 +15,14 @@ const skills = [
       "React.js",
       "Vite",
       "Tailwind CSS",
+      "React Router",
+      "Axios",
     ],
     order: 2,
   },
   {
     id: "backend-db",
-    category: "Backend & DB",
+    category: "Backend & Database",
     items: [
       "Laravel",
       "FastAPI",
@@ -33,30 +35,42 @@ const skills = [
   },
   {
     id: "ai-dl-nlp",
-    category: "AI/DL/NLP",
+    category: "AI & Machine Learning",
     items: [
-      "CNN",
-      "Transfer Learning (DenseNet121)",
-      "SBERT",
-      "Sentiment Classification",
-      "Text Preprocessing (Sastrawi)",
+      "Random Forest",
+      "Scikit-learn",
+      "Sentence-BERT (SBERT)",
+      "OpenCV",
+      "MediaPipe",
+      "DeepFace (ArcFace)",
       "TensorFlow",
+      "Synthetic Dataset Design",
     ],
     order: 4,
   },
   {
-    id: "tools-deployment",
-    category: "Tools & Deployment",
+    id: "cloud-devops",
+    category: "Cloud & DevOps",
+    items: [
+      "AWS",
+      "Microsoft Azure",
+      "GitHub Actions (CI/CD)",
+      "Hugging Face Spaces",
+      "Streamlit Cloud",
+    ],
+    order: 5,
+  },
+  {
+    id: "tools-workflow",
+    category: "Tools & Workflow",
     items: [
       "Git",
       "GitHub",
       "Postman",
       "Figma",
-      "Hugging Face Spaces",
-      "Streamlit",
       "Notion",
     ],
-    order: 5,
+    order: 6,
   },
 ];
 

@@ -40,6 +40,48 @@ export const orgExperience = {
   ],
 };
 
+export const certifications = [
+  {
+    id: "microsoft-elevate",
+    title: "Microsoft Elevate — Data Science & AI",
+    issuer: "Microsoft",
+    period: "Jun 2025 – Jun 2026",
+    description:
+      "Apprenticeship across 5 tracks: Python Programming, Machine Learning, Data Processing Fundamentals, Data Science with Microsoft Fabric, and Generative AI Applications using Microsoft Azure.",
+  },
+  {
+    id: "dicoding-ai",
+    title: "Dicoding Bootcamp Batch 10 — Artificial Intelligence Path",
+    issuer: "Dicoding Indonesia",
+    period: "Oct 2025 – Apr 2026",
+    description:
+      "Intensive bootcamp covering machine learning, deep learning architectures, semantic search embeddings, and end-to-end AI project engineering.",
+  },
+  {
+    id: "aws-cloud",
+    title: "AWS Academy Graduate — Cloud Foundations",
+    issuer: "Amazon Web Services (AWS)",
+    period: "Issued Jul 2026",
+    description:
+      "Trained in AWS Architecture, Cloud Core Services, Security, Pricing Models, and Support Infrastructure.",
+  },
+];
+
+export const education = {
+  institution: "Politeknik Negeri Ujung Pandang",
+  degree: "Diploma IV — Informatics and Computer Engineering",
+  period: "Aug 2023 – Expected Aug 2027",
+  location: "Makassar, Indonesia",
+  status: "Semester 7 | GPA: 3.49 / 4.00",
+  coursework: [
+    "Web Development",
+    "Database Systems",
+    "System Analysis & Design",
+    "Network Systems",
+    "Human-Computer Interaction",
+  ],
+};
+
 export const workHistory = [
   {
     id: "cv-aydin-perkasa",

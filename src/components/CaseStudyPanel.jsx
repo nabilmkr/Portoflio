@@ -82,13 +82,13 @@ export default function CaseStudyPanel({ projectId, open, onClose }) {
               <DecisionCards decisions={caseStudy.decisions || caseStudy.implementation} />
 
               {/* 6. Architecture — SPEC-12 §17 */}
-              <SectionGroup title="Architecture" content={caseStudy.architecture} />
+              <ArchitectureSection content={caseStudy.architecture} />
 
               {/* 7. Implementation — SPEC-12 §18 */}
               <ImplementationSection implementation={caseStudy.implementation} />
 
-              {/* 8. Gallery — SPEC-12 §19 (placeholder — images needed) */}
-              <GallerySection projectId={projectId} />
+              {/* 8. Gallery — SPEC-12 §19 */}
+              <GallerySection artifacts={caseStudy.artifacts} projectId={projectId} />
 
               {/* 9. Reflection — SPEC-12 §20 */}
               <SectionGroup title="Reflection" content={caseStudy.reflection} />
@@ -153,8 +153,8 @@ function OverviewSection({ overview }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 3 & 9. Generic SectionGroup (Problem, Architecture, Reflection)    */
-/* SPEC-12 §14 Problem, §17 Architecture, §20 Reflection               */
+/* 3 & 9. Generic SectionGroup (Problem, Reflection)                  */
+/* SPEC-12 §14 Problem, §20 Reflection                                 */
 /* ------------------------------------------------------------------ */
 
 function SectionGroup({ title, content }) {
@@ -163,6 +163,54 @@ function SectionGroup({ title, content }) {
     <motion.section variants={fadeInUp} className="space-y-4">
       <h3 className="text-xl font-semibold text-text-heading md:text-2xl">{title}</h3>
       <p className="text-text-body leading-relaxed">{content}</p>
+    </motion.section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. Architecture Section — Structured System Architecture Cards     */
+/* Organizes dataflow pipeline into layered system stages             */
+/* ------------------------------------------------------------------ */
+
+function ArchitectureSection({ content }) {
+  if (!content) return null;
+
+  const rawSteps = typeof content === "string" && content.includes(" → ")
+    ? content.split(" → ")
+    : null;
+
+  return (
+    <motion.section variants={fadeInUp} className="space-y-4">
+      <h3 className="text-xl font-semibold text-text-heading md:text-2xl">System Architecture</h3>
+
+      {rawSteps ? (
+        <div className="rounded-2xl border border-white/5 bg-bg-surface p-5 md:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {rawSteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="relative rounded-xl border border-white/5 bg-bg-primary/80 p-4 transition-all duration-300 hover:border-accent-primary/30 flex flex-col justify-between gap-3 group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-widest text-accent-secondary">
+                    Stage 0{idx + 1}
+                  </span>
+                  {idx < rawSteps.length - 1 && (
+                    <span className="text-text-body/30 text-xs font-mono group-hover:text-accent-primary transition-colors">
+                      ↓ next
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm font-medium text-text-heading leading-snug">
+                  {step}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p className="text-text-body leading-relaxed">{content}</p>
+      )}
     </motion.section>
   );
 }
@@ -308,21 +356,49 @@ function ImplementationSection({ implementation }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 8. Gallery — SPEC-12 §19                                           */
-/* Placeholder — 4 project thumbnails needed (see 07_Asset_Manifest)   */
+/* 8. Gallery / Artifacts — SPEC-12 §19                              */
+/* Renders image/diagram grid if available, clean fallback if empty   */
 /* ------------------------------------------------------------------ */
 
-function GallerySection({ projectId }) {
+function GallerySection({ artifacts, projectId }) {
+  if (!artifacts || artifacts.length === 0) {
+    return (
+      <motion.section variants={fadeInUp} className="space-y-4">
+        <h3 className="text-xl font-semibold text-text-heading md:text-2xl">Project Artifacts</h3>
+        <div className="rounded-2xl border border-white/5 bg-bg-surface p-6 text-center">
+          <p className="text-sm text-text-body mb-2">
+            Technical architecture & system deliverables for <span className="text-accent-primary font-medium">{projectId}</span>.
+          </p>
+          <p className="text-xs text-text-body/60">
+            Detailed flowcharts, API endpoints, and database schemas available upon request.
+          </p>
+        </div>
+      </motion.section>
+    );
+  }
+
   return (
     <motion.section variants={fadeInUp} className="space-y-4">
       <h3 className="text-xl font-semibold text-text-heading md:text-2xl">Project Artifacts</h3>
-      <div className="rounded-2xl border border-white/5 bg-bg-surface p-6 text-center">
-        <p className="text-sm text-text-body mb-2">
-          Technical architecture & system deliverables for <span className="text-accent-primary font-medium">{projectId}</span>.
-        </p>
-        <p className="text-xs text-text-body/60">
-          Detailed flowcharts, API endpoints, and database schemas available upon request.
-        </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {artifacts.map((art, index) => (
+          <div key={index} className="rounded-2xl border border-white/5 bg-bg-surface overflow-hidden group transition-all duration-300 hover:border-accent-primary/40">
+            {art.image && (
+              <div className="relative aspect-video bg-bg-primary overflow-hidden">
+                <img
+                  src={art.image}
+                  alt={art.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div className="p-4 space-y-1">
+              <h4 className="text-sm font-semibold text-text-heading">{art.title}</h4>
+              {art.description && <p className="text-xs text-text-body leading-relaxed">{art.description}</p>}
+            </div>
+          </div>
+        ))}
       </div>
     </motion.section>
   );

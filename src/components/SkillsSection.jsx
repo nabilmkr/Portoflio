@@ -20,25 +20,27 @@ export default function SkillsSection() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {skills.map((group) => (
           <motion.div
             key={group.id}
             variants={fadeInUp}
-            className="rounded-2xl border border-white/5 hover:border-accent-primary/20 bg-bg-surface p-6 transition-all duration-500 ease-out"
+            className="rounded-2xl border border-white/5 hover:border-accent-primary/20 bg-bg-surface p-6 transition-all duration-500 ease-out flex flex-col justify-between"
           >
-            <h3 className="text-xs font-bold uppercase tracking-wider text-accent-primary border-b border-white/5 pb-3 mb-4">
-              {group.category}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <span
-                  key={item}
-                  className="inline-block px-3.5 py-2 text-xs font-medium text-text-body bg-bg-primary border border-white/5 rounded-lg tracking-wide hover:border-accent-secondary/30 hover:text-text-heading transition-all duration-300"
-                >
-                  {item}
-                </span>
-              ))}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-accent-primary border-b border-white/5 pb-3 mb-4">
+                {group.category}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="inline-block px-3 py-1.5 text-xs font-medium text-text-body bg-bg-primary border border-white/5 rounded-lg tracking-wide hover:border-accent-secondary/30 hover:text-text-heading transition-all duration-300"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
         ))}

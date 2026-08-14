@@ -44,18 +44,18 @@
 
   /* Typography hierarchy — 02_Design_System.md §2 */
   h1, h2, h3, h4, h5, h6 {
-    @apply text-text-heading font-semibold tracking-tight font-display;
+    @apply text-text-heading font-bold tracking-tight font-display text-balance;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1];
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.08];
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-bold tracking-tight;
+    @apply text-3xl md:text-4xl font-bold tracking-tight leading-[1.15];
   }
 
   h3 {
-    @apply text-xl md:text-2xl font-semibold tracking-tight;
+    @apply text-xl md:text-2xl font-semibold tracking-tight leading-[1.25];
   }
 }
