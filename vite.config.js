@@ -7,15 +7,4 @@ export default defineConfig({
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.jsx'],
   },
-  build: {
-    rolldownOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules') && (id.includes('three') || id.includes('@react-three'))) {
-            return 'threejs';
-          }
-        },
-      },
-    },
-  },
 })

@@ -13,7 +13,6 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
-import CustomCursor from "./components/ui/CustomCursor";
 
 const ProjectsSection = lazy(() => import("./components/ProjectsSection"));
 const SkillsSection = lazy(() => import("./components/SkillsSection"));
@@ -70,7 +69,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

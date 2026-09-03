@@ -86,3 +86,42 @@ export const fadeIn = {
     },
   },
 };
+
+export const clipReveal = {
+  hidden: {
+    opacity: 0,
+    clipPath: "inset(100% 0 0 0)",
+  },
+  visible: {
+    opacity: 1,
+    clipPath: "inset(0 0 0 0)",
+    transition: {
+      duration: motionConfig.duration.moderate,
+      ease: motionConfig.ease.entrance,
+    },
+  },
+};
+
+export const slideInLeft = {
+  hidden: { opacity: 0, x: -32 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: motionConfig.duration.normal,
+      ease: motionConfig.ease.entrance,
+    },
+  },
+};
+
+export const slideInRight = {
+  hidden: { opacity: 0, x: 32 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: motionConfig.duration.normal,
+      ease: motionConfig.ease.entrance,
+    },
+  },
+};

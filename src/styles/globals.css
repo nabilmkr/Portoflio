@@ -29,8 +29,8 @@
 
   /* 09_SEO_Accessibility_Spec.md §10 — Custom Focus Ring */
   :focus-visible {
-    outline: 2px solid #C5A880;
-    outline-offset: 2px;
+    outline: 2px solid #E8613A;
+    outline-offset: 3px;
   }
 
   /* 09_SEO_Accessibility_Spec.md §12 — Reduced Motion */
@@ -42,13 +42,22 @@
     }
   }
 
+  /* Soft Modern utilities */
+  @layer utilities {
+    .hero-grain {
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(232, 97, 58, 0.1), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(232, 97, 58, 0.06), transparent 30%);
+    }
+  }
+
   /* Typography hierarchy — 02_Design_System.md §2 */
   h1, h2, h3, h4, h5, h6 {
     @apply text-text-heading font-bold tracking-tight font-display text-balance;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.08];
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.04em] leading-[1.05];
   }
 
   h2 {

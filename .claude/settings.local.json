@@ -45,7 +45,13 @@
       "PowerShell(node E:\\\\Website\\\\Portofolio\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\context.mjs)",
       "PowerShell(if \\(-not \\(Test-Path E:\\\\Website\\\\Portofolio\\\\.impeccable\\)\\) { New-Item -ItemType Directory -Path E:\\\\Website\\\\Portofolio\\\\.impeccable })",
       "PowerShell(node E:\\\\Website\\\\Portofolio\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\detector.mjs)",
-      "PowerShell(npm run *)"
+      "PowerShell(npm run *)",
+      "Skill(impeccable)",
+      "PowerShell(node .claude/skills/impeccable/scripts/context.mjs)",
+      "PowerShell(node -e \"const { chromium } = require\\('playwright'\\); \\(async\\(\\)=>{ const b=await chromium.launch\\(\\); const p=await b.newPage\\({viewport:{width:1440,height:1000}}\\); await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\); console.log\\('title='+await p.title\\(\\)\\); await p.screenshot\\({path:'run-screenshot.png',fullPage:true}\\); await b.close\\(\\); }\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "PowerShell(node -e \"const { chromium }=require\\('playwright'\\);\\(async\\(\\)=>{const b=await chromium.launch\\(\\);const p=await b.newPage\\({viewport:{width:1440,height:1000}}\\);await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\);await p.getByRole\\('button',{name:'Open details for Gap Sense'}\\).click\\(\\);const d=p.getByRole\\('dialog'\\);await d.waitFor\\(\\);console.log\\(JSON.stringify\\({title:await d.getByRole\\('heading',{name:'Gap Sense'}\\).textContent\\(\\),sections:await d.getByRole\\('heading',{level:3}\\).allTextContents\\(\\)}\\)\\);await p.screenshot\\({path:'run-case-study.png',fullPage:true}\\);await d.getByRole\\('button',{name:'Close case study'}\\).click\\(\\);await d.waitFor\\({state:'detached'}\\);await b.close\\(\\)}\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "PowerShell(git checkout *)",
+      "PowerShell(git add *)"
     ]
   },
   "hooks": {

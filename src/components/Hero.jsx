@@ -10,24 +10,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "./ui/Button";
 import { motionConfig, staggerContainer, fadeInUp, heroPortrait } from "../styles/motion";
-import { useState, useEffect, useRef } from "react";
-import Hero3D from "./ui/Hero3D";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const [show3D, setShow3D] = useState(false);
 
   /* Refs for GSAP scroll animation */
   const heroRef = useRef(null);
   const portraitWrapRef = useRef(null);
   const textWrapRef = useRef(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShow3D(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
 
   /* 10_Motion_Interaction_Spec.md §9 — Hero Scroll Transition */
   useEffect(() => {
@@ -123,8 +116,8 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} id="hero" className="relative min-h-screen flex items-center pt-16 md:pt-20 overflow-hidden">
-      {/* 3D Background — 03_UI_UX_Spec.md §1 */}
-      {!shouldReduceMotion && show3D && <Hero3D />}
+      {/* Hero background — CSS gradient mesh */}
+      <div className="absolute inset-0 hero-grain" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
