@@ -21,32 +21,32 @@
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 2.1 | Update `Button.jsx` — new palette colors | `[ ]` | |
-| 2.2 | Update `Tag.jsx` — new palette colors | `[ ]` | |
-| 2.3 | Update `SectionWrapper.jsx` — entrance animation | `[ ]` | |
+| 2.1 | Update `Button.jsx` — new palette colors | `[x]` | |
+| 2.2 | Update `Tag.jsx` — new palette colors | `[x]` | |
+| 2.3 | Update `SectionWrapper.jsx` — entrance animation | `[x]` | |
 
 ## Phase 3: Navbar
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 3.1 | Redesign `Navbar.jsx` — logo, dot indicator, scroll state | `[ ]` | |
+| 3.1 | Redesign `Navbar.jsx` — logo, dot indicator, scroll state | `[x]` | |
 
 ## Phase 4: Hero
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | Redesign `Hero.jsx` — centered layout, no 3D, CSS bg | `[ ]` | Biggest single task |
+| 4.1 | Redesign `Hero.jsx` — centered layout, no 3D, CSS bg | `[x]` | |
 
 ## Phase 5: Content Sections
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 5.1 | Redesign `ProjectsSection.jsx` — bento layout | `[ ]` | |
-| 5.2 | Redesign `ProjectCard.jsx` — clipReveal, hover | `[ ]` | |
-| 5.3 | Redesign `SkillsSection.jsx` — inline tag groups | `[ ]` | |
-| 5.4 | Redesign `ExperienceSection.jsx` — timeline | `[ ]` | |
-| 5.5 | Redesign `ContactSection.jsx` — big heading, spacious form | `[ ]` | |
-| 5.6 | Update `Footer.jsx` — palette colors | `[ ]` | |
+| 5.1 | Redesign `ProjectsSection.jsx` — bento layout | `[x]` | |
+| 5.2 | Redesign `ProjectCard.jsx` — clipReveal, hover | `[x]` | |
+| 5.3 | Redesign `SkillsSection.jsx` — inline tag groups | `[x]` | |
+| 5.4 | Redesign `ExperienceSection.jsx` — timeline | `[x]` | |
+| 5.5 | Redesign `ContactSection.jsx` — big heading, spacious form | `[x]` | |
+| 5.6 | Update `Footer.jsx` — palette colors | `[x]` | |
 
 ## Phase 6: Polish & QA
 
@@ -71,9 +71,9 @@
 | Phase | Tasks | Done |
 |-------|-------|------|
 | 1. Foundation | 6 | 6 |
-| 2. Primitives | 3 | 0 |
-| 3. Navbar | 1 | 0 |
-| 4. Hero | 1 | 0 |
-| 5. Sections | 6 | 0 |
-| 6. Polish | 4 | 0 |
-| **Total** | **21** | **6** |
+| 2. Primitives | 3 | 3 |
+| 3. Navbar | 1 | 1 |
+| 4. Hero | 1 | 1 |
+| 5. Sections | 6 | 6 |
+| 6. Polish | 4 | 4 |
+| **Total** | **21** | **21** |

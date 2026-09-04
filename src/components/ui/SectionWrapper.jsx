@@ -5,15 +5,15 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
-import { staggerContainer } from "../../styles/motion";
+import { staggerContainer, clipReveal } from "../../styles/motion";
 
-export default function SectionWrapper({ id, children, className = "" }) {
+export default function SectionWrapper({ id, children, className = "", variant = "stagger" }) {
   const { ref, hasIntersected } = useIntersectionObserver({ threshold: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants = shouldReduceMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : staggerContainer;
+    : variant === "clip" ? clipReveal : staggerContainer;
 
   return (
     <section

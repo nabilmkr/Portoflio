@@ -1,13 +1,13 @@
 /* 04_Component_Spec.md §6 — ExperienceSection */
-/* Props: orgExperience, workHistory[] */
-/* Responsive: timeline stacked vertical all breakpoints */
-/* Animation: numeric counter increments on scroll-into-view (one-time trigger) */
+/* Spec: Vertical timeline — alternating left-right on desktop, single column mobile */
+/* Date on one side, detail on the other side — no center collision */
+/* Animation: slideInLeft/slideInRight per entry, numeric counter on scroll */
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Users, Award, GraduationCap, Briefcase } from "lucide-react";
 import SectionWrapper from "./ui/SectionWrapper";
-import { fadeInUp } from "../styles/motion";
+import { fadeInUp, staggerContainer, slideInLeft, slideInRight } from "../styles/motion";
 import { orgExperience, workHistory, certifications, education } from "../data/experience";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
@@ -37,214 +37,195 @@ function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
   }, [hasIntersected, target, duration, shouldReduceMotion]);
 
   return (
-    <span ref={ref} className="text-3xl md:text-4xl font-bold text-accent-primary tabular-nums">
+    <span ref={ref} className="text-2xl lg:text-3xl font-bold text-accent-primary tabular-nums">
       {count}{suffix}
     </span>
   );
 }
 
+function TimelineItem({ icon: Icon, iconBg, title, org, period, description, highlights, metrics, index }) {
+  const shouldReduceMotion = useReducedMotion();
+  const isEven = index % 2 === 0;
+
+  const entryVariants = shouldReduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : isEven ? slideInLeft : slideInRight;
+
+  return (
+    <motion.div
+      variants={entryVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      className="relative flex flex-col lg:flex-row items-stretch gap-6 lg:gap-0"
+    >
+      {/* Mobile: Timeline line & node on the left */}
+      <div className="lg:hidden absolute left-3 top-4 bottom-0 w-px bg-border" aria-hidden="true" />
+      <div className="lg:hidden absolute left-1.5 top-3 w-3.5 h-3.5 rounded-full bg-accent-primary border-2 border-bg-primary z-10" aria-hidden="true" />
+
+      {/* Desktop Left Side */}
+      <div className={`w-full lg:w-1/2 ${isEven ? "lg:pr-14" : "lg:pl-14 lg:order-2"}`}>
+        {/* Mobile Date Header */}
+        <div className="lg:hidden pl-8 mb-2">
+          <span className="inline-block px-3 py-1 bg-bg-surface border border-border rounded-full text-xs font-semibold text-accent-primary">
+            {period}
+          </span>
+        </div>
+
+        {/* Content Card */}
+        <div className="p-6 md:p-7 rounded-2xl border border-border bg-bg-surface shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-accent-primary/40 transition-colors duration-300 ml-6 lg:ml-0">
+          <div className="flex items-start gap-4">
+            <div className={`p-2.5 rounded-xl ${iconBg} shrink-0`}>
+              <Icon size={20} strokeWidth={1.75} className="text-accent-primary" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-lg font-bold text-text-heading leading-snug">{title}</h3>
+              <p className="text-sm text-accent-primary font-medium mt-0.5">{org}</p>
+            </div>
+          </div>
+
+          <p className="text-text-body text-sm leading-relaxed mt-4">{description}</p>
+
+          {metrics && Object.keys(metrics).length > 0 && (
+            <div className="grid grid-cols-2 gap-3 mt-5 pt-5 border-t border-border/70">
+              {Object.entries(metrics).map(([key, value]) => (
+                <div key={key} className="p-3 rounded-xl bg-bg-primary border border-border/50 text-center">
+                  <AnimatedCounter target={value} suffix={key.includes("Completion") ? "%" : "+"} />
+                  <p className="text-text-body text-xs mt-1 font-medium leading-tight">
+                    {key}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {highlights && highlights.length > 0 && (
+            <ul className="space-y-2 mt-4 pt-4 border-t border-border/70">
+              {highlights.map((achievement, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-text-body leading-relaxed">
+                  <span className="text-accent-primary font-bold mt-0.5 shrink-0">•</span>
+                  <span>{achievement.detail || achievement.text}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop Center Node */}
+      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-7 w-5 h-5 rounded-full bg-bg-primary border-2 border-accent-primary items-center justify-center z-20">
+        <div className="w-2 h-2 rounded-full bg-accent-primary" />
+      </div>
+
+      {/* Desktop Opposite Side: Date badge & metadata */}
+      <div
+        className={`hidden lg:flex w-1/2 items-center ${
+          isEven
+            ? "lg:pl-14 lg:justify-start"
+            : "lg:pr-14 lg:justify-end lg:order-1"
+        }`}
+      >
+        <div className={`space-y-1 ${isEven ? "text-left" : "text-right"}`}>
+          <span className="inline-block px-3.5 py-1.5 bg-bg-surface border border-border rounded-full text-xs font-semibold text-text-heading shadow-xs">
+            {period}
+          </span>
+          <p className="text-xs text-text-body/70 uppercase tracking-widest font-mono pt-1">
+            {org}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ExperienceSection() {
+  const allEntries = [
+    {
+      type: "org",
+      icon: Users,
+      iconBg: "bg-accent-soft",
+      title: orgExperience.role,
+      org: orgExperience.org,
+      period: orgExperience.period,
+      description: orgExperience.description,
+      highlights: orgExperience.achievements,
+      metrics: {
+        "Corporate Sponsors": 6,
+        "Seminar Attendees": 300,
+        "Inaugurasi Attendees": 800,
+        "Bootcamp Completion": 100,
+      },
+    },
+    ...certifications.map((cert) => ({
+      type: "cert",
+      icon: Award,
+      iconBg: "bg-accent-soft",
+      title: cert.title,
+      org: cert.issuer,
+      period: cert.period,
+      description: cert.description,
+      highlights: [],
+      metrics: null,
+    })),
+    {
+      type: "education",
+      icon: GraduationCap,
+      iconBg: "bg-accent-soft",
+      title: education.degree,
+      org: education.institution,
+      period: education.period,
+      description: `Academic status: ${education.status}. Key Coursework: ${education.coursework.join(", ")}.`,
+      highlights: [],
+      metrics: null,
+    },
+    ...workHistory.map((job) => ({
+      type: "work",
+      icon: Briefcase,
+      iconBg: "bg-accent-soft",
+      title: job.role,
+      org: job.org,
+      period: job.period,
+      description: job.note,
+      highlights: [],
+      metrics: null,
+    })),
+  ];
+
   return (
     <SectionWrapper id="experience">
-      <motion.div variants={fadeInUp}>
-        <h2 className="text-3xl md:text-4xl font-bold text-text-heading mb-2">
+      <motion.div variants={fadeInUp} className="mb-12">
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent-primary mb-2 block">
+          JOURNEY &amp; LEADERSHIP
+        </span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-heading mb-3">
           Experience &amp; Leadership
         </h2>
-        <p className="text-text-body mb-10 max-w-2xl">
-          Leadership roles and professional experience that shaped my collaborative and strategic skills.
+        <p className="text-text-body max-w-2xl text-sm md:text-base">
+          Organizational leadership, technical apprenticeships, and academic foundation.
         </p>
       </motion.div>
 
-      {/* Organization Experience — main highlight */}
-      <motion.div
-        variants={fadeInUp}
-        className="rounded-2xl border border-white/5 bg-bg-surface p-6 md:p-8 mb-8"
-      >
-        <div className="flex items-start gap-4 mb-6">
-          <div className="p-2 rounded-lg bg-accent-primary/10 shrink-0">
-            <Users size={24} strokeWidth={1.5} className="text-accent-primary" />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-text-heading">
-              {orgExperience.role}
-            </h3>
-            <p className="text-accent-secondary font-medium">
-              {orgExperience.org}
-            </p>
-            <p className="text-text-body text-sm">{orgExperience.period}</p>
-          </div>
-        </div>
+      {/* Vertical Timeline */}
+      <div className="relative">
+        {/* Center line for desktop */}
+        <div
+          className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-px bg-border"
+          aria-hidden="true"
+        />
 
-        <p className="text-text-body mb-6">{orgExperience.description}</p>
-
-        {/* Key metrics with animated counters */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="text-center p-4 rounded-xl bg-bg-primary">
-            <AnimatedCounter target={6} suffix="" />
-            <p className="text-text-body text-xs mt-1">Corporate Sponsors</p>
-          </div>
-          <div className="text-center p-4 rounded-xl bg-bg-primary">
-            <AnimatedCounter target={300} suffix="+" />
-            <p className="text-text-body text-xs mt-1">Seminar Attendees</p>
-          </div>
-          <div className="text-center p-4 rounded-xl bg-bg-primary">
-            <AnimatedCounter target={800} suffix="+" />
-            <p className="text-text-body text-xs mt-1">Inaugurasi Attendees</p>
-          </div>
-          <div className="text-center p-4 rounded-xl bg-bg-primary">
-            <AnimatedCounter target={100} suffix="%" />
-            <p className="text-text-body text-xs mt-1">Bootcamp Completion</p>
-          </div>
-        </div>
-
-        {/* Achievement details */}
-        <ul className="space-y-3">
-          {orgExperience.achievements.map((achievement, i) => (
-            <li key={i} className="flex gap-3 text-sm text-text-body">
-              <span className="text-accent-primary mt-0.5 shrink-0">•</span>
-              <span>{achievement.detail || achievement.text}</span>
-            </li>
+        <motion.div
+          variants={staggerContainer}
+          className="space-y-10 lg:space-y-16"
+        >
+          {allEntries.map((entry, index) => (
+            <TimelineItem
+              key={`${entry.type}-${index}`}
+              {...entry}
+              index={index}
+            />
           ))}
-        </ul>
-      </motion.div>
-
-      {/* Certifications & Education Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* Certifications (takes 2 cols on lg) */}
-        <motion.div
-          variants={fadeInUp}
-          className="lg:col-span-2 rounded-2xl border border-white/5 bg-bg-surface p-6 md:p-8"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-lg bg-accent-primary/10 shrink-0">
-              <Award size={20} strokeWidth={1.5} className="text-accent-primary" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-text-heading">
-                Certifications &amp; Bootcamps
-              </h3>
-              <p className="text-xs text-text-body">Verified credentials &amp; specialization tracks</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {certifications.map((cert) => (
-              <div
-                key={cert.id}
-                className="p-4 rounded-xl bg-bg-primary/70 border border-white/5 hover:border-accent-primary/30 transition-colors duration-300"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
-                  <h4 className="text-sm font-semibold text-text-heading">
-                    {cert.title}
-                  </h4>
-                  <span className="text-xs text-accent-secondary shrink-0 font-medium">
-                    {cert.period}
-                  </span>
-                </div>
-                <p className="text-xs text-accent-primary/90 font-medium mb-1.5">
-                  {cert.issuer}
-                </p>
-                <p className="text-xs text-text-body leading-relaxed">
-                  {cert.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Education (takes 1 col on lg) */}
-        <motion.div
-          variants={fadeInUp}
-          className="rounded-2xl border border-white/5 bg-bg-surface p-6 md:p-8 flex flex-col justify-between"
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-accent-secondary/10 shrink-0">
-                <GraduationCap size={20} strokeWidth={1.5} className="text-accent-secondary" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-text-heading">
-                  Education
-                </h3>
-                <p className="text-xs text-text-body">Academic background</p>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <h4 className="text-sm font-semibold text-text-heading">
-                  {education.institution}
-                </h4>
-                <p className="text-xs text-accent-primary mt-0.5">
-                  {education.degree}
-                </p>
-                <p className="text-xs text-text-body mt-1">
-                  {education.period} • {education.location}
-                </p>
-              </div>
-
-              <div className="inline-block px-3 py-1.5 rounded-lg bg-bg-primary border border-white/5 text-xs text-accent-secondary font-medium">
-                {education.status}
-              </div>
-
-              <div className="pt-3 border-t border-white/5">
-                <p className="text-xs text-text-body uppercase tracking-wider mb-2 font-medium">
-                  Coursework
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {education.coursework.map((course) => (
-                    <span
-                      key={course}
-                      className="px-2.5 py-1 text-xs text-text-body bg-bg-primary rounded-md border border-white/5"
-                    >
-                      {course}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
         </motion.div>
       </div>
-
-      {/* Work History */}
-      <motion.div variants={fadeInUp} className="mt-8 rounded-2xl border border-white/5 bg-bg-surface p-6 md:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 rounded-lg bg-white/5 shrink-0">
-            <Briefcase size={20} strokeWidth={1.5} className="text-text-body" />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-text-heading">
-              Additional Work Experience
-            </h3>
-            <p className="text-xs text-text-body">Operational and administrative roles</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {workHistory.map((job) => (
-            <div
-              key={job.id}
-              className="p-4 rounded-xl bg-bg-primary/70 border border-white/5 hover:border-accent-secondary/30 transition-colors duration-300"
-            >
-              <div className="flex items-baseline justify-between gap-2 mb-1">
-                <h4 className="text-sm font-semibold text-text-heading">
-                  {job.role}
-                </h4>
-                <span className="text-xs text-text-body bg-bg-surface border border-white/5 px-2 py-0.5 rounded-full">
-                  {job.period}
-                </span>
-              </div>
-              <p className="text-xs text-accent-secondary font-medium mb-2">
-                {job.org}
-              </p>
-              <p className="text-xs text-text-body leading-relaxed">
-                {job.note}
-              </p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </SectionWrapper>
   );
 }

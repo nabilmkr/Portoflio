@@ -1,13 +1,15 @@
 /* 04_Component_Spec.md §1 — Navbar */
 /* State: isMenuOpen (mobile only), activeSection (scroll-spy) */
 /* Responsive: hamburger below md, full horizontal from md up */
-/* Animation: active link underline transitions color 300ms to accent-primary */
+/* Animation: active link dot indicator transitions 300ms */
+/* Scroll state: warm cream backdrop-blur */
+/* Mobile overlay: stagger entrance from center */
 /* 09_SEO_Accessibility_Spec.md §9 — Keyboard nav, Escape closes menu */
 /* 09_SEO_Accessibility_Spec.md §11 — aria-label on nav and menu toggle */
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, stagger } from "framer-motion";
 import { motionConfig } from "../styles/motion";
 import { rafThrottle } from "../utils/performance";
 
@@ -83,12 +85,35 @@ export default function Navbar() {
     setIsMenuOpen(false);
   };
 
+  const mobileMenuVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.06,
+        delayChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.2, staggerChildren: 0.02, staggerDirection: -1 },
+    },
+  };
+
+  const mobileItemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: motionConfig.ease.entrance } },
+    exit: { opacity: 0, y: -10, transition: { duration: 0.15 } },
+  };
+
   return (
     <nav
       aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-bg-primary/95 backdrop-blur-sm border-b border-white/5"
+          ? "bg-bg-primary/95 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -103,12 +128,12 @@ export default function Navbar() {
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
       >
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo / Name */}
+          {/* Logo / Name — lowercase "nabil makarim" */}
           <a
             href="#"
-            className="text-text-heading font-bold text-lg tracking-tight hover:text-accent-primary transition-colors duration-300"
+            className="text-text-heading font-medium text-lg tracking-wide hover:text-accent-primary transition-colors duration-300"
           >
-            NM
+            nabil makarim
           </a>
 
           {/* Desktop nav — visible from md up */}
@@ -124,12 +149,12 @@ export default function Navbar() {
                 }`}
               >
                 {link.label}
-                {/* Active underline indicator */}
+                {/* Active dot indicator (not underline) */}
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 bg-accent-primary transition-all duration-300 ${
+                  className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-primary transition-all duration-300 ${
                     activeSection === link.href.replace("#", "")
-                      ? "w-full"
-                      : "w-0"
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-50"
                   }`}
                   aria-hidden="true"
                 />
@@ -149,42 +174,44 @@ export default function Navbar() {
         </div>
       </motion.div>
 
-      {/* Mobile menu overlay — below md */}
-      <AnimatePresence>
+      {/* Mobile menu overlay — below md with stagger entrance */}
+      <AnimatePresence mode="wait">
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-md z-[9990]"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={mobileMenuVariants}
+            className="md:hidden fixed inset-0 bg-bg-primary/98 backdrop-blur-xl z-[9990]"
           >
             <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-20">
               <div className="absolute top-5 right-5">
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Close mobile menu"
-                  className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 p-2 text-text-body hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+                  className="inline-flex items-center justify-center rounded-full border border-border bg-bg-surface-alt p-2 text-text-body hover:bg-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
                 >
                   <X size={20} strokeWidth={1.5} />
                 </button>
               </div>
-              <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md text-center">
-                {NAV_LINKS.map((link) => (
-                  <a
+              <motion.div className="flex flex-col items-center justify-center gap-6 w-full max-w-md text-center" role="navigation">
+                {NAV_LINKS.map((link, index) => (
+                  <motion.a
                     key={link.href}
                     href={link.href}
                     onClick={handleNavClick}
-                    className={`text-3xl font-semibold transition-colors duration-300 ${
+                    variants={mobileItemVariants}
+                    custom={index}
+                    className={`text-2xl md:text-3xl font-medium transition-colors duration-300 ${
                       activeSection === link.href.replace("#", "")
                         ? "text-accent-primary"
-                        : "text-white hover:text-accent-primary"
+                        : "text-text-heading hover:text-accent-primary"
                     }`}
                   >
                     {link.label}
-                  </a>
+                  </motion.a>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}

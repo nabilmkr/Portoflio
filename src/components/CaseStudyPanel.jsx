@@ -20,7 +20,7 @@ export default function CaseStudyPanel({ projectId, open, onClose }) {
     <AnimatePresence>
       {open && caseStudy && (
         <motion.div
-          className="fixed inset-0 z-[10000] overflow-y-auto bg-black/80 px-4 py-8 md:px-10 md:py-12"
+          className="fixed inset-0 z-[10000] overflow-y-auto bg-bg-primary/90 px-4 py-8 md:px-10 md:py-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -30,7 +30,7 @@ export default function CaseStudyPanel({ projectId, open, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="case-study-title"
-            className="mx-auto min-h-[80vh] max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-bg-primary shadow-[0_30px_150px_rgba(0,0,0,0.65)]"
+            className="mx-auto min-h-[80vh] max-w-6xl overflow-hidden rounded-[2rem] border border-border bg-bg-primary shadow-[0_30px_150px_rgba(0,0,0,0.65)]"
             initial={shouldReduceMotion ? { opacity: 1 } : { y: 40, opacity: 0 }}
             animate={shouldReduceMotion ? { opacity: 1 } : { y: 0, opacity: 1 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}
@@ -38,9 +38,9 @@ export default function CaseStudyPanel({ projectId, open, onClose }) {
             onClick={(event) => event.stopPropagation()}
           >
             {/* ── Header ────────────────────────────────────────────── */}
-            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-white/10 bg-bg-primary/95 backdrop-blur-sm px-6 py-5 md:px-8 md:py-6">
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-bg-primary/95 backdrop-blur-sm border-border px-6 py-5 md:px-8 md:py-6">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-accent-secondary">
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent-primary">
                   Project Case Study
                 </p>
                 <h2 id="case-study-title" className="mt-2 text-2xl font-bold text-text-heading md:text-3xl lg:text-4xl">
@@ -53,7 +53,7 @@ export default function CaseStudyPanel({ projectId, open, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-bg-surface text-text-body transition hover:border-accent-primary hover:text-accent-primary focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-bg-surface text-text-body transition hover:border-accent-primary hover:text-accent-primary focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:outline-offset-2"
                 aria-label="Close case study"
               >
                 <X size={20} strokeWidth={1.5} />
@@ -126,22 +126,22 @@ function OverviewSection({ overview }) {
         {cards.map(({ label, value, icon: Icon }) => (
           <div
             key={label}
-            className="rounded-2xl border border-white/5 bg-bg-surface p-4 text-center"
+            className="rounded-2xl border border-border bg-bg-surface p-4 text-center"
           >
-            <Icon size={16} strokeWidth={1.5} className="mx-auto mb-2 text-accent-secondary" aria-hidden="true" />
+            <Icon size={16} strokeWidth={1.5} className="mx-auto mb-2 text-accent-primary" aria-hidden="true" />
             <p className="text-xs text-text-body uppercase tracking-wider">{label}</p>
             <p className="mt-1 text-sm font-medium text-text-heading">{value}</p>
           </div>
         ))}
       </div>
       {/* Primary Technologies */}
-      <div className="rounded-2xl border border-white/5 bg-bg-surface p-4">
+      <div className="rounded-2xl border border-border bg-bg-surface p-4">
         <p className="text-xs text-text-body uppercase tracking-wider mb-3">Technologies</p>
         <div className="flex flex-wrap gap-2">
           {(overview.technologies || []).map((tech) => (
             <span
               key={tech}
-              className="inline-block px-3 py-1 text-xs font-medium text-accent-secondary bg-bg-primary border border-white/5 rounded-full"
+              className="inline-block px-3 py-1 text-xs font-medium text-accent-primary bg-bg-primary border border-border rounded-full"
             >
               {tech}
             </span>
@@ -184,15 +184,15 @@ function ArchitectureSection({ content }) {
       <h3 className="text-xl font-semibold text-text-heading md:text-2xl">System Architecture</h3>
 
       {rawSteps ? (
-        <div className="rounded-2xl border border-white/5 bg-bg-surface p-5 md:p-6">
+        <div className="rounded-2xl border border-border bg-bg-surface p-5 md:p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {rawSteps.map((step, idx) => (
               <div
                 key={idx}
-                className="relative rounded-xl border border-white/5 bg-bg-primary/80 p-4 transition-all duration-300 hover:border-accent-primary/30 flex flex-col justify-between gap-3 group"
+                className="relative rounded-xl border border-border bg-bg-primary/80 p-4 transition-all duration-300 hover:border-accent-primary/30 flex flex-col justify-between gap-3 group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase tracking-widest text-accent-secondary">
+                  <span className="text-xs font-mono uppercase tracking-widest text-accent-primary">
                     Stage 0{idx + 1}
                   </span>
                   {idx < rawSteps.length - 1 && (
@@ -233,7 +233,7 @@ function ChallengesSection({ challenges }) {
         {visible.map((item, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-white/5 bg-bg-surface p-5 space-y-3"
+            className="rounded-2xl border border-border bg-bg-surface p-5 space-y-3"
           >
             <div className="flex items-start gap-3">
               <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-primary/10 text-xs font-bold text-accent-primary">
@@ -243,12 +243,12 @@ function ChallengesSection({ challenges }) {
             </div>
             {item.why && (
               <p className="pl-8 text-xs text-text-body">
-                <span className="font-medium text-accent-secondary">Why: </span>
+                <span className="font-medium text-accent-primary">Why: </span>
                 {item.why}
               </p>
             )}
             {(item.response || item.outcome) && (
-              <div className="pl-8 border-l-2 border-white/5 space-y-2">
+              <div className="pl-8 border-l-2 border-border space-y-2">
                 {item.response && (
                   <p className="text-xs text-text-body">
                     <span className="font-medium text-text-heading">Response: </span>
@@ -288,9 +288,9 @@ function DecisionCards({ decisions }) {
         {items.map((item, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-white/5 bg-bg-surface p-5 space-y-2"
+            className="rounded-2xl border border-border bg-bg-surface p-5 space-y-2"
           >
-            <p className="text-xs font-semibold uppercase tracking-wider text-accent-secondary">
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent-primary">
               {item.area || (Array.isArray(item.technology) ? item.technology.join(", ") : item.technology)}
             </p>
             <div className="space-y-1">
@@ -337,11 +337,11 @@ function ImplementationSection({ implementation }) {
         {implementation.map((item, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-white/5 bg-bg-surface p-5 space-y-2"
+            className="rounded-2xl border border-border bg-bg-surface p-5 space-y-2"
           >
             <p className="text-sm font-semibold text-text-heading">{item.area}</p>
             {item.technology && (
-              <p className="text-xs text-accent-secondary font-medium">
+              <p className="text-xs text-accent-primary font-medium">
                 {Array.isArray(item.technology) ? item.technology.join(", ") : item.technology}
               </p>
             )}
@@ -365,7 +365,7 @@ function GallerySection({ artifacts, projectId }) {
     return (
       <motion.section variants={fadeInUp} className="space-y-4">
         <h3 className="text-xl font-semibold text-text-heading md:text-2xl">Project Artifacts</h3>
-        <div className="rounded-2xl border border-white/5 bg-bg-surface p-6 text-center">
+        <div className="rounded-2xl border border-border bg-bg-surface p-6 text-center">
           <p className="text-sm text-text-body mb-2">
             Technical architecture & system deliverables for <span className="text-accent-primary font-medium">{projectId}</span>.
           </p>
@@ -382,7 +382,7 @@ function GallerySection({ artifacts, projectId }) {
       <h3 className="text-xl font-semibold text-text-heading md:text-2xl">Project Artifacts</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {artifacts.map((art, index) => (
-          <div key={index} className="rounded-2xl border border-white/5 bg-bg-surface overflow-hidden group transition-all duration-300 hover:border-accent-primary/40">
+          <div key={index} className="rounded-2xl border border-border bg-bg-surface overflow-hidden group transition-all duration-300 hover:border-accent-primary/40">
             {art.image && (
               <div className="relative aspect-video bg-bg-primary overflow-hidden">
                 <img
@@ -417,7 +417,7 @@ function FutureWorkSection({ items }) {
   return (
     <motion.section variants={fadeInUp} className="space-y-4">
       <h3 className="text-xl font-semibold text-text-heading md:text-2xl">Future Improvements</h3>
-      <ul className="space-y-2 rounded-2xl border border-white/5 bg-bg-surface p-5">
+      <ul className="space-y-2 rounded-2xl border border-border bg-bg-surface p-5">
         {visible.map((item, index) => (
           <li key={index} className="flex items-start gap-3 text-sm text-text-body">
             <span className="mt-0.5 shrink-0 text-accent-primary" aria-hidden="true">→</span>

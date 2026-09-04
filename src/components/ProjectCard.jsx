@@ -1,15 +1,14 @@
 /* 04_Component_Spec.md §3 — ProjectCard */
-/* Props: title, focusDescription, techTags, demoUrl?, repoUrl */
-/* Animation: fade+slide-up on scroll-into-view */
+/* Props: title, focusDescription, techTags, demoUrl?, repoUrl, isFeatured? */
+/* Animation: clipReveal entrance on scroll-into-view */
 /* 05_Tech_Spec.md §6a — Image error fallback: solid bg-surface + title text */
-/* 02_Design_System.md §6 — Hairline border hover interaction + Gold Package 3D Tilt */
+/* Soft Modern: Horizontal split bento for featured item on desktop, lift + shadow hover */
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Sparkles } from "lucide-react";
 import Tag from "./ui/Tag";
-import { fadeInUp } from "../styles/motion";
-import { rafThrottle } from "../utils/performance";
+import { clipReveal } from "../styles/motion";
 
 export default function ProjectCard({
   id,
@@ -22,13 +21,11 @@ export default function ProjectCard({
   demoUrl,
   repoUrl,
   onOpen,
+  isFeatured = false,
 }) {
   const [imgError, setImgError] = useState(false);
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
   const shouldReduceMotion = useReducedMotion();
   const isInteractive = typeof onOpen === "function";
-
-  const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
 
   const handleCardClick = (event) => {
     if (!isInteractive) return;
@@ -44,90 +41,85 @@ export default function ProjectCard({
     }
   };
 
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  const handlePointerMove = rafThrottle((element, clientX, clientY) => {
-    if (!isInteractive || shouldReduceMotion) return;
-    const rect = element.getBoundingClientRect();
-    const x = clientX - rect.left - rect.width / 2;
-    const y = clientY - rect.top - rect.height / 2;
-    const rotateX = clamp((-y / rect.height) * 12, -12, 12);
-    const rotateY = clamp((x / rect.width) * 12, -12, 12);
-    setTilt({ rotateX, rotateY });
-    setMousePos({ x: clientX - rect.left, y: clientY - rect.top });
-  });
-
-  const handlePointerMoveEvent = (event) => {
-    handlePointerMove(event.currentTarget, event.clientX, event.clientY);
-  };
-
-  const handlePointerLeave = () => {
-    if (!isInteractive || shouldReduceMotion) return;
-    setTilt({ rotateX: 0, rotateY: 0 });
-  };
-
   return (
     <motion.article
       layout={isInteractive}
       layoutId={isInteractive ? `project-card-${id}` : undefined}
-      variants={fadeInUp}
+      variants={clipReveal}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      className={`group relative rounded-2xl border border-white/5 hover:border-accent-primary/40 bg-bg-surface transition-all duration-500 ease-out overflow-hidden shadow-[0_4px_25px_rgba(0,0,0,0.2)] hover:shadow-[0_15px_45px_rgba(0,0,0,0.35)] h-full flex flex-col focus-within:ring-2 focus-within:ring-accent-primary/20 ${isInteractive ? "cursor-pointer" : ""}`}
-      style={shouldReduceMotion ? undefined : { perspective: 1200, transformStyle: "preserve-3d", transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)` }}
+      viewport={{ once: true, margin: "-80px" }}
+      className={`group relative rounded-2xl border border-border hover:border-accent-primary bg-bg-surface transition-all duration-500 ease-out overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 h-full flex ${
+        isFeatured ? "flex-col lg:flex-row" : "flex-col"
+      } focus-within:ring-2 focus-within:ring-accent-primary/20 ${isInteractive ? "cursor-pointer" : ""}`}
       onClick={handleCardClick}
       onKeyDown={handleCardKeyDown}
-      onPointerMove={handlePointerMoveEvent}
-      onPointerLeave={handlePointerLeave}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
       aria-label={isInteractive ? `Open details for ${title}` : undefined}
     >
-      {/* Spotlight Hover Glow Overlay */}
+      {/* Thumbnail Area */}
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(197, 168, 128, 0.12), transparent 40%)`,
-        }}
-      />
-      {/* Thumbnail */}
-      <div className="relative aspect-video bg-bg-surface overflow-hidden border-b border-white/5">
+        className={`relative overflow-hidden bg-bg-surface ${
+          isFeatured
+            ? "w-full lg:w-3/5 min-h-[260px] lg:min-h-[380px] border-b lg:border-b-0 lg:border-r border-border"
+            : "w-full aspect-video border-b border-border"
+        }`}
+      >
         {!imgError ? (
           <motion.img
             layout={isInteractive}
             layoutId={isInteractive ? `project-image-${id}` : undefined}
             src={thumbnail}
             alt={`${title} project thumbnail`}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05] group-focus-within:scale-[1.05]"
+            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02] group-focus-within:scale-[1.02]"
             onError={() => setImgError(true)}
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-bg-surface">
+          <div className="w-full h-full flex items-center justify-center bg-bg-surface p-6">
             <span className="text-text-heading font-semibold text-lg">
               {title}
             </span>
           </div>
         )}
 
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 transition-all duration-300 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
-          <div className="rounded-2xl bg-black/40 px-3 py-2 text-xs text-white backdrop-blur">
-            View case study
+        {/* Featured pill badge */}
+        {isFeatured && (
+          <div className="absolute top-4 left-4 z-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-primary/95 backdrop-blur border border-border rounded-full text-xs font-semibold text-accent-primary shadow-xs">
+              <Sparkles size={13} className="text-accent-primary" />
+              Featured Project
+            </span>
+          </div>
+        )}
+
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
+        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 transition-all duration-300 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+          <div className="inline-block rounded-xl bg-bg-primary/95 backdrop-blur px-3.5 py-1.5 text-xs font-medium text-text-heading border border-border shadow-sm">
+            {isFeatured ? "Read full case study ↗" : "Read case study ↗"}
           </div>
         </div>
       </div>
 
-      <div className="p-6 flex flex-col justify-between gap-6 h-full">
+      {/* Content Area */}
+      <div
+        className={`flex flex-col justify-between ${
+          isFeatured ? "w-full lg:w-2/5 p-6 lg:p-8" : "w-full p-6"
+        } gap-6 h-full`}
+      >
         <div>
           {subtitle && (
-            <p className="text-xs text-accent-secondary font-medium uppercase tracking-wider mb-2">
+            <p className="text-xs text-accent-primary font-semibold uppercase tracking-wider mb-2">
               {subtitle}
             </p>
           )}
 
-          <h3 className="text-xl font-semibold text-text-heading mb-3">
+          <h3
+            className={`font-bold text-text-heading mb-3 ${
+              isFeatured ? "text-2xl lg:text-3xl" : "text-xl"
+            }`}
+          >
             {title}
           </h3>
 
@@ -136,40 +128,40 @@ export default function ProjectCard({
           </p>
 
           {highlights && highlights.length > 0 && (
-            <ul className="space-y-1 mb-4">
+            <ul className="space-y-1.5 mb-5">
               {highlights.map((h, i) => (
-                <li key={i} className="text-text-body text-sm flex gap-2">
-                  <span className="text-accent-primary mt-1 shrink-0">•</span>
-                  {h}
+                <li key={i} className="text-text-body text-xs sm:text-sm flex gap-2 leading-relaxed">
+                  <span className="text-accent-primary font-bold shrink-0">•</span>
+                  <span>{h}</span>
                 </li>
               ))}
             </ul>
           )}
 
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
             {techTags.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
 
-          {/* Mobile touch affordance — hover-only hint tidak terlihat di touch */}
           {isInteractive && (
-            <p className="md:hidden text-xs text-text-body/50 mb-2 flex items-center gap-1">
-              <span aria-hidden="true">↗</span> Tap to read case study
+            <p className="lg:hidden text-xs text-text-body/60 mt-2 flex items-center gap-1">
+              <span>↗</span> Tap card for deep-dive case study
             </p>
           )}
         </div>
 
-        <div className="flex items-center gap-4 pt-2 border-t border-white/5">
+        {/* Action Links */}
+        <div className="flex items-center gap-4 pt-4 border-t border-border/70">
           {demoUrl && (
             <a
               href={demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-body hover:text-accent-primary transition-colors duration-300"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-text-heading hover:text-accent-primary transition-colors duration-300"
               aria-label={`View ${title} live demo`}
             >
-              <ExternalLink size={14} strokeWidth={1.5} />
+              <ExternalLink size={15} strokeWidth={1.75} />
               Live Demo
             </a>
           )}
@@ -177,10 +169,10 @@ export default function ProjectCard({
             href={repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-text-body hover:text-accent-primary transition-colors duration-300"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-text-heading hover:text-accent-primary transition-colors duration-300"
             aria-label={`View ${title} source code on GitHub`}
           >
-            <Github size={14} strokeWidth={1.5} />
+            <Github size={15} strokeWidth={1.75} />
             Source Code
           </a>
         </div>
@@ -188,4 +180,3 @@ export default function ProjectCard({
     </motion.article>
   );
 }
-

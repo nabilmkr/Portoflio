@@ -3,7 +3,6 @@
 /* State: none */
 /* 06_Content.md §5 — Contact links + tagline */
 /* 09_SEO_Accessibility_Spec.md §11 — aria-label on icon-only social links */
-/* 08_Development_Roadmap.md — All social links correct, opens in new tab */
 
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
@@ -32,11 +31,11 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer className="border-t border-border bg-bg-surface-alt/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Tagline */}
-          <p className="text-sm text-text-body italic">
+          <p className="text-sm text-text-body italic text-center md:text-left">
             &ldquo;Aut viam inveniam, Aut Faciam&rdquo;
           </p>
 
@@ -51,7 +50,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.ariaLabel}
-                  className="p-2 text-text-body hover:text-accent-secondary transition-colors duration-300"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-bg-surface border border-border text-text-body hover:text-accent-primary hover:border-accent-primary hover:bg-accent-soft transition-all duration-300"
                 >
                   <Icon size={18} strokeWidth={1.5} />
                 </a>
@@ -60,7 +59,7 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-xs text-text-body/60">
+          <p className="text-xs text-text-body/50 text-center md:text-right">
             &copy; {new Date().getFullYear()} Nabil Makarim
           </p>
         </div>

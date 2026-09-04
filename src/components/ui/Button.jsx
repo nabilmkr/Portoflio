@@ -7,9 +7,9 @@ import { useReducedMotion } from "framer-motion";
 
 const variants = {
   primary:
-    "bg-accent-primary text-bg-primary font-semibold hover:bg-accent-primary/90 transition-colors duration-300",
+    "bg-accent-primary text-white font-semibold hover:bg-accent-primary/90 transition-colors duration-300",
   secondary:
-    "border border-white/10 text-text-heading hover:border-accent-primary transition-colors duration-500 ease-out",
+    "border border-border text-text-heading hover:border-accent-primary hover:bg-accent-soft transition-colors duration-300",
 };
 
 const Button = forwardRef(function Button(
