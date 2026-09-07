@@ -1,7 +1,0 @@
-{
-    "kiroAgent.trustedCommands": [
-        "",
-        "npx *",
-        "npm list *"
-    ]
-}

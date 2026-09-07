@@ -1,0 +1,343 @@
+{
+  "communities": {
+    "0": [
+      "ref_react",
+      "src_app",
+      "src_app_app",
+      "src_app_contactsection",
+      "src_app_experiencesection",
+      "src_app_projectssection",
+      "src_app_sectionskeleton",
+      "src_app_skillssection",
+      "src_components_errorboundary",
+      "src_components_errorboundary_errorboundary",
+      "src_components_errorboundary_errorboundary_componentdidcatch",
+      "src_components_errorboundary_errorboundary_constructor",
+      "src_components_errorboundary_errorboundary_getderivedstatefromerror",
+      "src_components_errorboundary_errorboundary_render",
+      "src_components_footer",
+      "src_components_footer_footer",
+      "src_components_footer_social_links",
+      "src_components_ui_customcursor",
+      "src_components_ui_customcursor_customcursor",
+      "src_components_ui_hero3d",
+      "src_components_ui_hero3d_floatingmesh",
+      "src_components_ui_hero3d_hero3d",
+      "src_main"
+    ],
+    "1": [
+      "framer_motion",
+      "gsap",
+      "lenis",
+      "lucide_react",
+      "package_dependencies",
+      "package_dependencies_framer_motion",
+      "package_dependencies_gsap",
+      "package_dependencies_lenis",
+      "package_dependencies_lucide_react",
+      "package_dependencies_playwright",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_react_three_drei",
+      "package_dependencies_react_three_fiber",
+      "package_dependencies_three",
+      "playwright",
+      "react",
+      "react_dom",
+      "react_three_drei",
+      "react_three_fiber",
+      "three"
+    ],
+    "2": [
+      "src_components_casestudypanel_casestudypanel",
+      "src_components_hero",
+      "src_components_hero_hero",
+      "src_components_hero_hero3d",
+      "src_components_hero_hero3dplaceholder",
+      "src_components_projectssection",
+      "src_components_projectssection_projectssection",
+      "src_components_skillssection",
+      "src_components_skillssection_skillssection",
+      "src_components_ui_hero3dplaceholder",
+      "src_components_ui_hero3dplaceholder_hero3dplaceholder",
+      "src_data_projects",
+      "src_data_projects_projects",
+      "src_data_skills",
+      "src_data_skills_skills",
+      "src_styles_motion",
+      "src_styles_motion_fadein",
+      "src_styles_motion_fadeinup",
+      "src_styles_motion_heroportrait",
+      "src_styles_motion_motionconfig",
+      "src_styles_motion_staggercontainer"
+    ],
+    "3": [
+      "autoprefixer",
+      "oxlint",
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_oxlint",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_react",
+      "postcss",
+      "tailwindcss",
+      "types_react",
+      "types_react_dom",
+      "vite",
+      "vitejs_plugin_react"
+    ],
+    "4": [
+      "src_components_navbar",
+      "src_components_navbar_nav_links",
+      "src_components_navbar_navbar",
+      "src_components_projectcard",
+      "src_components_projectcard_projectcard",
+      "src_components_ui_tag",
+      "src_components_ui_tag_tag",
+      "src_utils_performance",
+      "src_utils_performance_debounce",
+      "src_utils_performance_rafthrottle",
+      "src_utils_performance_throttle"
+    ],
+    "5": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_type",
+      "package_version"
+    ],
+    "6": [
+      "src_components_casestudypanel",
+      "src_components_casestudypanel_challengessection",
+      "src_components_casestudypanel_decisioncards",
+      "src_components_casestudypanel_futureworksection",
+      "src_components_casestudypanel_gallerysection",
+      "src_components_casestudypanel_implementationsection",
+      "src_components_casestudypanel_overviewsection",
+      "src_components_casestudypanel_sectiongroup",
+      "src_data_projectcasestudies",
+      "src_data_projectcasestudies_casestudies"
+    ],
+    "7": [
+      "src_components_experiencesection",
+      "src_components_experiencesection_animatedcounter",
+      "src_components_experiencesection_experiencesection",
+      "src_components_ui_sectionwrapper",
+      "src_components_ui_sectionwrapper_sectionwrapper",
+      "src_data_experience",
+      "src_data_experience_orgexperience",
+      "src_data_experience_workhistory",
+      "src_hooks_useintersectionobserver",
+      "src_hooks_useintersectionobserver_useintersectionobserver"
+    ],
+    "8": [
+      "oxlintrc",
+      "oxlintrc_plugins",
+      "oxlintrc_rules",
+      "oxlintrc_rules_react_only_export_components",
+      "oxlintrc_rules_react_rules_of_hooks",
+      "oxlintrc_schema",
+      "ref_oxc",
+      "ref_warn"
+    ],
+    "9": [
+      "src_components_contactsection",
+      "src_components_contactsection_contact_links",
+      "src_components_contactsection_contactsection",
+      "src_components_ui_button",
+      "src_components_ui_button_button",
+      "src_components_ui_button_variants"
+    ],
+    "10": [
+      "api_contact",
+      "api_contact_handler",
+      "api_contact_rationale_13"
+    ],
+    "11": [
+      "test_case_study",
+      "test_case_study_chromium"
+    ],
+    "12": [
+      "vite_config",
+      "vite_config_manualchunks"
+    ],
+    "13": [
+      "postcss_config"
+    ],
+    "14": [
+      "tailwind_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11462450592885376,
+    "1": 0.09523809523809523,
+    "2": 0.13333333333333333,
+    "3": 0.11764705882352941,
+    "4": 0.2727272727272727,
+    "5": 0.2,
+    "6": 0.2222222222222222,
+    "7": 0.37777777777777777,
+    "8": 0.25,
+    "9": 0.4,
+    "10": 0.6666666666666666,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0
+  },
+  "gods": [
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 14
+    },
+    {
+      "id": "src_styles_motion_fadeinup",
+      "label": "fadeInUp",
+      "degree": 8
+    },
+    {
+      "id": "src_components_errorboundary_errorboundary",
+      "label": "ErrorBoundary",
+      "degree": 6
+    },
+    {
+      "id": "src_components_ui_sectionwrapper_sectionwrapper",
+      "label": "SectionWrapper()",
+      "degree": 6
+    },
+    {
+      "id": "src_styles_motion_motionconfig",
+      "label": "motionConfig",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "src_hooks_useintersectionobserver_useintersectionobserver",
+      "label": "useIntersectionObserver()",
+      "degree": 5
+    },
+    {
+      "id": "src_utils_performance_rafthrottle",
+      "label": "rafThrottle()",
+      "degree": 5
+    },
+    {
+      "id": "src_styles_motion_staggercontainer",
+      "label": "staggerContainer",
+      "degree": 4
+    },
+    {
+      "id": "oxlintrc_plugins",
+      "label": "plugins",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "App()",
+      "target": "lenis",
+      "source_files": [
+        "src/App.jsx",
+        "package.json"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "AnimatedCounter()",
+      "target": "useIntersectionObserver()",
+      "source_files": [
+        "src/components/ExperienceSection.jsx",
+        "src/hooks/useIntersectionObserver.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "peripheral node `AnimatedCounter()` unexpectedly reaches hub `useIntersectionObserver()`"
+    },
+    {
+      "source": "Navbar()",
+      "target": "rafThrottle()",
+      "source_files": [
+        "src/components/Navbar.jsx",
+        "src/utils/performance.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "ProjectCard()",
+      "target": "rafThrottle()",
+      "source_files": [
+        "src/components/ProjectCard.jsx",
+        "src/utils/performance.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "SectionWrapper()",
+      "target": "useIntersectionObserver()",
+      "source_files": [
+        "src/components/ui/SectionWrapper.jsx",
+        "src/hooks/useIntersectionObserver.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `dependencies` connect `Community 1` to `Community 5`?",
+      "why": "High betweenness centrality (0.453) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `lenis` connect `Community 1` to `Community 0`?",
+      "why": "High betweenness centrality (0.405) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `App()` connect `Community 0` to `Community 1`?",
+      "why": "High betweenness centrality (0.405) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `$schema`, `oxc`, `react/rules-of-hooks` to the rest of the system?",
+      "why": "44 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11462450592885376 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

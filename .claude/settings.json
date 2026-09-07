@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Start-Process -FilePath \"npm.cmd\" -ArgumentList \"run dev -- --host=127.0.0.1 --port=5173\" -WorkingDirectory \"E:\\\\Website\\\\Portofolio\"; Start-Sleep -Seconds 2; \\(Invoke-WebRequest -UseBasicParsing 'http://127.0.0.1:5173'\\).StatusCode)",
+      "PowerShell(node -e \"const { chromium } = require\\('playwright'\\); \\(async\\(\\)=>{ const b=await chromium.launch\\(\\); const p=await b.newPage\\({viewport:{width:1440,height:1000}}\\); await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\); console.log\\('title='+await p.title\\(\\)\\); console.log\\('buttons='+JSON.stringify\\(await p.getByRole\\('button'\\).allTextContents\\(\\)\\)\\); await p.screenshot\\({path:'run-screenshot.png',fullPage:true}\\); await b.close\\(\\); }\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "PowerShell(node -e \"const { chromium } = require\\('playwright'\\); \\(async\\(\\)=>{const b=await chromium.launch\\(\\);const p=await b.newPage\\(\\);await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\);console.log\\(await p.locator\\('button'\\).evaluateAll\\(bs=>bs.map\\(b=>\\({text:b.innerText.trim\\(\\).slice\\(0,80\\),aria:b.getAttribute\\('aria-label'\\)}\\)\\)\\)\\);await b.close\\(\\)}\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "PowerShell(node -e \"const { chromium }=require\\('playwright'\\);\\(async\\(\\)=>{const b=await chromium.launch\\(\\);const p=await b.newPage\\(\\);await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\);console.log\\(await p.locator\\('a'\\).evaluateAll\\(as=>as.map\\(a=>\\({text:a.innerText.trim\\(\\).slice\\(0,100\\),href:a.getAttribute\\('href'\\)}\\)\\).filter\\(x=>x.text.includes\\('View case study'\\)\\)\\)\\);await b.close\\(\\)}\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "PowerShell(node -e \"const { chromium }=require\\('playwright'\\);\\(async\\(\\)=>{const b=await chromium.launch\\(\\);const p=await b.newPage\\({viewport:{width:1440,height:1000}}\\);await p.goto\\('http://127.0.0.1:5173/',{waitUntil:'networkidle'}\\);await p.getByRole\\('button',{name:'Open details for Gap Sense'}\\).click\\(\\);const d=p.getByRole\\('dialog'\\);await d.waitFor\\(\\);console.log\\(JSON.stringify\\({title:await d.getByRole\\('heading',{name:'Gap Sense'}\\).textContent\\(\\),sections:await d.getByRole\\('heading',{level:3}\\).allTextContents\\(\\)}\\)\\);await p.screenshot\\({path:'run-case-study.png',fullPage:true}\\);await d.getByRole\\('button',{name:'Close case study'}\\).click\\(\\);await d.waitFor\\({state:'detached'}\\);console.log\\('dialog closed'\\);await b.close\\(\\)}\\)\\(\\).catch\\(e=>{console.error\\(e\\);process.exit\\(1\\)}\\)\")",
+      "Edit(/.claude/skills/run-portfolio/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/ACER/.local/bin/graphify.EXE hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/ACER/.local/bin/graphify.EXE hook-guard read"
+          }
+        ]
+      }
+    ]
+  }
+}

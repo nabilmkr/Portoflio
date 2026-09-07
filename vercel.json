@@ -1,13 +1,12 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "framework": "nextjs",
-  "env": {
-    "OWNER_GMAIL": "@owner_gmail",
-    "GMAIL_CLIENT_ID": "@gmail_client_id",
-    "GMAIL_CLIENT_SECRET": "@gmail_client_secret",
-    "GMAIL_REFRESH_TOKEN": "@gmail_refresh_token",
-    "RECAPTCHA_SECRET_KEY": "@recaptcha_secret_key",
-    "NEXT_PUBLIC_RECAPTCHA_SITE_KEY": "@recaptcha_site_key"
-  }
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

@@ -1,167 +1,119 @@
-# Portfolio Website
+# Nabil Makarim — Portfolio
 
-A modern portfolio website built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.
+Personal portfolio website showcasing production-grade full-stack web engineering, applied AI workflows, and software development leadership. Built with React 19, Vite 8, Tailwind CSS 3, Framer Motion 11, GSAP, and Lenis.
 
-## Features
+## 🚀 Overview
 
-- **Modern Design**: Clean, professional design with dark/light mode support
-- **Responsive Layout**: Fully responsive across all device sizes
-- **Performance Optimized**: Fast loading times with optimized images and code splitting
-- **Accessibility**: WCAG 2.1 AA compliant with proper semantic HTML and ARIA labels
-- **Interactive Components**: Smooth animations and transitions with Framer Motion
-- **Contact Form**: Integrated contact form with validation and email delivery
-- **Project Showcase**: Filterable project gallery with detailed views
-- **Skills Display**: Categorized skills with proficiency indicators
-- **Experience Timeline**: Chronological timeline of work experience and education
+- **Hero Section**: Asymmetric editorial bento grid with duotone portrait treatment, live status indicator, and engineering metrics.
+- **Projects Section**: Interactive featured project showcases with live demos, GitHub links, and accessible modal case studies (`aria-modal="true"`, Escape key dismissal).
+- **Tech Stack & Skills**: Structured capabilities bento grid highlighting full-stack architectures, applied AI / NLP pipelines, and data systems.
+- **Experience & Growth**: Multi-tab journey covering IT work experience, HIMATIK leadership metrics, academic background (GPA 3.49), and certifications with animated counters.
+- **Contact Section**: Direct outreach form powered by `@formspree/react` with real-time field validation, active availability badge, and direct communication links.
+- **Performance & Polish**: Zero-bundle-waste static export, Lenis smooth scrolling with GSAP ticker sync, and strict `prefers-reduced-motion` fallbacks.
 
-## Tech Stack
+## ⚙️ Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
+- **Framework & Runtime**: React 19, Vite 8
+- **Styling**: Tailwind CSS 3, PostCSS, Autoprefixer
+- **Animation & Scroll**: Framer Motion 11, GSAP 3 + ScrollTrigger, Lenis 1.3
 - **Icons**: Lucide React
-- **Theming**: next-themes
-- **Utilities**: clsx, tailwind-merge
+- **Forms**: `@formspree/react`
+- **Code Quality**: Oxlint (Rust-based linter)
+- **Deployment**: Vercel (Vite SPA preset)
 
-## Project Structure
+## 🎨 Design System
 
-```
-src/
-├── app/
-│   ├── layout.tsx           # Root layout with theme provider
-│   ├── page.tsx            # Main portfolio page
-│   └── globals.css         # Global styles and Tailwind directives
-├── components/
-│   ├── navigation.tsx      # Navigation component with smooth scrolling
-│   ├── hero.tsx            # Hero section with animated introduction
-│   ├── projects.tsx        # Project showcase with filtering
-│   ├── skills.tsx          # Skills display with proficiency indicators
-│   ├── experience.tsx       # Experience timeline
-│   ├── contact.tsx         # Contact form with validation
-│   └── theme-provider.tsx  # Theme switching provider
-└── lib/
-    └── utils.ts            # Utility functions (cn for class merging)
-```
+- **Aesthetic**: Warm Obsidian Editorial Dark (`#0d0d0c` ground, `#141412` cards, `#e8613a` burnt orange accent, `#f4f0e8` soft cream text).
+- **Typography Pairing**:
+  - `Syne` (700/800): Restricted exclusively to the Hero H1 for bold editorial impact.
+  - `Onest` (400–800): Applied to all H2–H6 section headings, metric counters (`GPA 3.49`, `6+`, `300+`), and UI body text with tight negative tracking (`tracking-tight` / `tracking-[-0.03em]`) for optimal reading density.
+- **Accessibility**: Semantic HTML5 landmarks (`<nav>`, `<main>`, `<contentinfo>`), ARIA-compliant tablists and dialogs, keyboard navigation, and focus-visible rings.
 
-## Getting Started
+## 📦 Getting Started
 
 ### Prerequisites
-- Node.js 18+ and npm
+
+- Node.js 18+ or 20+ (Node 22 recommended)
+- npm or pnpm
 
 ### Installation
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-3. Set up environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
-   Edit `.env.local` with your configuration:
-   - `OWNER_GMAIL`: Your Gmail address for contact form
-   - `GMAIL_CLIENT_ID`: Gmail API client ID
-   - `GMAIL_CLIENT_SECRET`: Gmail API client secret
-   - `GMAIL_REFRESH_TOKEN`: Gmail API refresh token
+```bash
+git clone https://github.com/nabilmkr/Portoflio.git
+cd Portoflio
+npm install
+```
 
-### Development
-Run the development server:
+### Development Server
+
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Runs the Vite dev server at `http://localhost:5173/` with hot module replacement (HMR).
+
+### Linting & Static Analysis
+
+```bash
+npm run lint
+```
+
+Runs `oxlint` across the codebase for fast static analysis.
 
 ### Production Build
-Build for production:
+
 ```bash
 npm run build
+npm run preview
 ```
 
-Start production server:
-```bash
-npm start
+Generates a minified, chunk-split production build in `dist/` and runs a local preview server at `http://localhost:4173/`.
+
+## 🚀 Deployment on Vercel
+
+The project is pre-configured for seamless deployment on [Vercel](https://vercel.com) via `vercel.json`:
+
+1. Import the repository `nabilmkr/Portoflio` into your Vercel dashboard.
+2. Ensure settings match:
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build` (or `vite build`)
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install`
+3. Deploy. The configured `rewrites` rule ensures all SPA deep links redirect to `index.html` without 404 errors.
+
+## 📁 Project Structure
+
+```text
+Portoflio/
+├── public/               # Static assets (images, PDF resume, SVG favicon)
+│   ├── images/           # Editorial portraits and project thumbnails
+│   └── resume/           # nabil-makarim-resume.pdf
+├── src/
+│   ├── components/       # UI sections & shared primitives
+│   │   ├── ui/           # Button, Tag, SectionWrapper
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── ProjectsSection.jsx
+│   │   ├── ProjectCard.jsx
+│   │   ├── CaseStudyPanel.jsx
+│   │   ├── SkillsSection.jsx
+│   │   ├── ExperienceSection.jsx
+│   │   ├── ContactSection.jsx
+│   │   ├── Footer.jsx
+│   │   └── ErrorBoundary.jsx
+│   ├── data/             # Content data (projects, skills, experience JSON)
+│   ├── hooks/            # Custom hooks (useIntersectionObserver)
+│   ├── styles/           # Global styles, typography hierarchy, motion config
+│   ├── utils/            # Performance utilities (rafThrottle)
+│   ├── App.jsx           # Root application with Lenis & Suspense
+│   └── main.jsx          # DOM entry point
+├── index.html            # HTML entry point with metadata and fonts
+├── tailwind.config.js    # Design tokens, obsidian palette, font stacks
+├── vite.config.js        # Vite 8 build & plugin configuration
+├── vercel.json           # Vercel deployment configuration & SPA rewrites
+└── README.md
 ```
 
-## Configuration
+## 📄 License
 
-### Tailwind CSS
-Customize design tokens in `tailwind.config.ts`:
-- Colors (light/dark mode)
-- Typography scale
-- Animation keyframes
-- Border radius scale
-
-### Email Integration
-The contact form uses Gmail API for email delivery. Configure in `.env.local`:
-1. Set up Google Cloud Console project
-2. Enable Gmail API
-3. Create OAuth 2.0 credentials
-4. Generate refresh token
-
-### Environment Variables
-See `.env.example` for all available environment variables.
-
-## Features in Detail
-
-### Navigation
-- Smooth scrolling between sections
-- Active section indicator
-- Mobile hamburger menu with touch-friendly targets
-- Keyboard navigation support
-- Responsive design
-
-### Projects Section
-- Filterable project grid by technology category
-- Project cards with hover animations
-- Technology badges
-- Live demo and GitHub links
-- Featured project highlighting
-
-### Skills Section
-- Categorized skills (Frontend, Design, Backend, Tools)
-- Visual proficiency indicators (1-5 scale)
-- Responsive grid layout
-- Average proficiency calculation per category
-
-### Experience Section
-- Chronological timeline with work/education/certification
-- Achievement badges
-- Location and duration information
-- Responsive layout with alternating sides
-
-### Contact Section
-- Form validation with real-time feedback
-- Loading states and success/error notifications
-- Alternative contact methods (email, social media)
-- Accessibility compliant form controls
-
-## Performance Optimization
-
-- **Image Optimization**: Next.js Image component with WebP format
-- **Code Splitting**: Automatic code splitting by Next.js
-- **Font Optimization**: Local font loading with `font-display: swap`
-- **Lazy Loading**: Images and components below the fold
-- **Minification**: Production builds are minified and optimized
-
-## Accessibility
-
-- **WCAG 2.1 AA Compliance**: Proper contrast ratios and semantic HTML
-- **Keyboard Navigation**: Full keyboard support throughout
-- **Screen Reader Support**: ARIA labels and proper landmark roles
-- **Focus Management**: Visible focus indicators and focus trapping
-- **Color Contrast**: Minimum 4.5:1 ratio for normal text
-
-## Deployment
-
-The project is configured for deployment on Vercel:
-
-1. Push your code to a Git repository
-2. Import the project in Vercel
-3. Configure environment variables
-4. Deploy automatically on push
-
-## License
-
-This project is open source and available under the MIT License.
+MIT © [Nabil Makarim](https://github.com/nabilmkr).
