@@ -1,55 +1,27 @@
 # Product
 
-<!-- impeccable:product-schema 1 -->
-
 ## Platform
 
-web
+Web (Single-Page Application)
 
 ## Stack
 
-React 19 + Vite + Tailwind CSS + Three.js / React Three Fiber + GSAP + Framer Motion (from package.json and portfolio specs)
+React 19 + Vite 8 + Tailwind CSS 3 + Framer Motion 11 + GSAP + Lenis Smooth Scroll
 
-## Users
+## Target Users
 
-1. **Tech Recruiters & HRD** — need quick evaluation (5-10 sec window), clean layout, fast access to Resume PDF and contact CTA.
-2. **Technical Reviewers & Engineering Leads** — evaluate code quality, 3D interactive craft, architecture, tech stack, and project depth.
-3. **Academics & Faculty** — assess technical rigor and project alignment.
+1. **Tech Recruiters & Engineering Hiring Managers** — Rapid evaluation (5-10 sec window), clear proof of work, immediate access to Resume PDF and contact channels.
+2. **Technical Leads & Architects** — Review code architecture, component structure, performance, and applied AI/ML depth.
+3. **Academic & Industry Collaborators** — Evaluate student achievements, GPA standing (3.49), organizational leadership, and competitive programming track record.
 
 ## Product Purpose
 
-High-craft interactive digital portfolio website to showcase Nabil Makarim's technical competence (Full-Stack Web & Applied AI Developer) and leadership track record. Main conversion goal: secure a Full-time Internship / Career opportunities.
+High-craft editorial digital portfolio showcasing Nabil Makarim's capabilities as a Full-Stack Web & Applied AI Developer, driving internship and full-time career opportunities.
 
-## Positioning
+## Key Capabilities
 
-Interactive 3D web experience combining Full-Stack Web Development, Applied AI/ML integrations, and production-grade 3D motion craft (R3F, GSAP, Lenis smooth scroll).
-
-## Operating Context
-
-Single-Page Application (SPA) with section navigation, interactive 3D hero/canvas, dark mode theme, filterable project grid, interactive timeline/experience modals, and resume viewer/downloader.
-
-## Capabilities and Constraints
-
-- **Selected Projects:** 4 primary featured projects (Gap Sense, Cuanify, Luxe News, Smart Fan CV Control).
-- **Core Stack:** React 19, Vite, Tailwind CSS, React Three Fiber (@react-three/fiber, @react-three/drei), GSAP, Framer Motion, Lenis.
-- **Performance Targets:** Lighthouse > 90 (Perf/A11y/Best Practices), LCP < 2.5s.
-- **Assets:** Pre-configured PDF Resume (`public/resume/resume.pdf`) and visual assets (`public/images/hero-portrait.png`).
-
-## Brand Commitments
-
-- **Name:** Nabil Makarim
-- **Title:** Software Developer Intern | Full-Stack Web & Applied AI Developer
-- **Design System Specs:** Detailed design system, motion spec, tech spec present under `portfolio-spec/` (files 01 through 14).
-
-## Evidence on Hand
-
-- `portfolio-spec/` — Complete specification documents (PRD, Design System, Tech Spec, Component Spec, Motion Spec, Content Spec).
-- `public/resume/resume.pdf` — Resume PDF asset.
-- `public/images/hero-portrait.png` — Hero section portrait visual asset.
-
-## Product Principles
-
-1. **Craft Over Template** — Bespoke interactive 3D elements and micro-interactions that feel engineered, not bootstrapped.
-2. **Scannable Depth** — Clear visual hierarchy for 5-second recruiter scans, with deep technical spec modals for technical reviewers.
-3. **Zero Friction Conversion** — Instant resume download, copyable contact info, and live demo links.
-4. **Performance Integrity** — 3D graphics and heavy animations stay butter-smooth on mobile and desktop alike.
+- **Curated Projects Showcase:** Gap Sense, Cuanify, Luxe News, and Smart Fan CV Control with detailed case studies.
+- **Applied AI & ML Emphasis:** Real-world NLP pipelines, computer vision prototypes, and enterprise logistics systems.
+- **Editorial Bento Hierarchy:** Asymmetric hero grid, structured technical capabilities, and multi-tab experience trajectory.
+- **Formspree Direct Outreach:** Frictionless contact form with live status availability indicators.
+- **Performance & Polish:** Zero unused bundle weight, sub-6s production builds, smooth 60fps animations with accessibility fallbacks.
