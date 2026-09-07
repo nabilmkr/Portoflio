@@ -4,7 +4,7 @@
 /* SPEC-13 §7 — Content hierarchy order */
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { X, ExternalLink, Github, Calendar, Users, Clock, Database, Layers } from "lucide-react";
+import { X, Calendar, Users, Clock, Database, Layers } from "lucide-react";
 import { motionConfig, fadeInUp } from "../styles/motion";
 import caseStudies from "../data/projectCaseStudies";
 

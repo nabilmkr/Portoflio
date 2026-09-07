@@ -13,7 +13,7 @@ import {
   Layers,
   ArrowDown,
 } from "lucide-react";
-import { motionConfig, staggerContainer, fadeInUp } from "../styles/motion";
+import { staggerContainer, fadeInUp } from "../styles/motion";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();

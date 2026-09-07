@@ -9,7 +9,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence, stagger } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { motionConfig } from "../styles/motion";
 import { rafThrottle } from "../utils/performance";
 
