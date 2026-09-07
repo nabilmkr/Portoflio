@@ -1,7 +1,9 @@
 # Dependencies
 node_modules
+# Deployment & Build Outputs
 dist
 dist-ssr
+.vercel
 
 # Environment Variables
 .env
