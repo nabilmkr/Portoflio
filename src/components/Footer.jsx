@@ -32,7 +32,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/10 bg-[#0d0d0c] text-white/50 relative overflow-hidden">
+    <footer className="border-t border-white/10 bg-[#0d0d0c] text-white/70 relative overflow-hidden">
       {/* Ambient background glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 bg-accent-primary/[0.04] blur-3xl pointer-events-none"
@@ -50,7 +50,7 @@ export default function Footer() {
             <p className="text-base sm:text-lg font-bold text-text-heading">
               Building useful software for complex ideas.
             </p>
-            <p className="text-xs text-white/40 italic">
+            <p className="text-xs text-white/60 italic">
               &ldquo;Aut viam inveniam, Aut Faciam&rdquo; · I shall either find a way or make one.
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom metadata row */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
           <p>
             Designed &amp; built with React, Vite &amp; Tailwind. Hosted in Indonesia.
           </p>

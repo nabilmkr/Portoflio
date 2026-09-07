@@ -79,7 +79,7 @@ export default function ContactSection() {
               <Sparkles size={13} className="text-accent-primary" />
               Get In Touch // 04
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-white/40 hidden sm:inline-block">
+            <span className="text-xs uppercase tracking-[0.2em] text-white/70 hidden sm:inline-block">
               Collaboration &amp; Inquiries
             </span>
           </div>
@@ -121,7 +121,7 @@ export default function ContactSection() {
                     type="text"
                     name="name"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/30 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none"
                     placeholder="Your full name"
                   />
                   <ValidationError field="name" prefix="Name" errors={state.errors} className="text-xs text-accent-primary mt-1.5" />
@@ -136,7 +136,7 @@ export default function ContactSection() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/30 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none"
                     placeholder="you@company.com"
                   />
                   <ValidationError field="email" prefix="Email" errors={state.errors} className="text-xs text-accent-primary mt-1.5" />
@@ -151,7 +151,7 @@ export default function ContactSection() {
                     name="message"
                     required
                     rows={5}
-                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/30 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none resize-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#0d0d0c] border border-white/10 text-text-heading text-sm placeholder:text-white/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 transition-all duration-200 outline-none resize-none"
                     placeholder="What would you like to build or discuss?"
                   />
                   <ValidationError field="message" prefix="Message" errors={state.errors} className="text-xs text-accent-primary mt-1.5" />
@@ -202,7 +202,7 @@ export default function ContactSection() {
                         <Icon size={16} strokeWidth={2} />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[11px] uppercase tracking-wider text-white/40 font-semibold">{item.label}</p>
+                        <p className="text-[11px] uppercase tracking-wider text-white/60 font-semibold">{item.label}</p>
                         {item.href ? (
                           <a
                             href={item.href}
@@ -222,7 +222,7 @@ export default function ContactSection() {
               </div>
 
               <div className="pt-6 border-t border-white/10">
-                <p className="text-xs text-white/50 font-medium mb-3">Connect Online</p>
+                <p className="text-xs text-white/70 font-medium mb-3">Connect Online</p>
                 <div className="flex items-center gap-3">
                   <a
                     href="https://linkedin.com/in/nabil-makarim16"

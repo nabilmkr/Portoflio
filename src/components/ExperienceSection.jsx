@@ -157,7 +157,7 @@ function WorkPanel() {
                   </div>
                   <p className="text-sm font-semibold text-accent-primary flex items-center gap-2">
                     {job.org}
-                    <span className="text-white/40 font-normal">· Makassar, Indonesia</span>
+                    <span className="text-white/60 font-normal">· Makassar, Indonesia</span>
                   </p>
                 </div>
               </div>
@@ -336,7 +336,7 @@ export default function ExperienceSection() {
             <Sparkles size={13} className="text-accent-primary" />
             Trajectory // 03
           </span>
-          <span className="text-xs uppercase tracking-[0.2em] text-white/40 hidden sm:inline-block">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/70 hidden sm:inline-block">
             Professional &amp; Academic Journey
           </span>
         </div>
@@ -380,7 +380,7 @@ export default function ExperienceSection() {
               <Icon
                 size={16}
                 strokeWidth={2}
-                className={`relative z-10 ${isActive ? "text-accent-primary" : "text-white/40"}`}
+                className={`relative z-10 ${isActive ? "text-accent-primary" : "text-white/60"}`}
               />
               <span className={`relative z-10 ${isActive ? "text-white" : ""}`}>
                 {tab.label}

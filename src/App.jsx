@@ -13,6 +13,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const ProjectsSection = lazy(() => import("./components/ProjectsSection"));
 const SkillsSection = lazy(() => import("./components/SkillsSection"));
@@ -94,6 +95,7 @@ export default function App() {
         </ErrorBoundary>
       </main>
       <Footer />
+      <Analytics />
     </div>
   );
 }

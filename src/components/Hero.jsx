@@ -68,7 +68,7 @@ export default function Hero() {
                   <span className="w-1.5 h-1.5 bg-accent-primary rounded-full animate-pulse" aria-hidden="true" />
                   Open to Full-time Internship · 2026
                 </span>
-                <span className="text-xs uppercase tracking-[0.2em] text-white/50 font-medium">
+                <span className="text-xs uppercase tracking-[0.2em] text-white/70 font-medium">
                   Makassar, Indonesia
                 </span>
               </div>
@@ -128,12 +128,12 @@ export default function Hero() {
             className="lg:col-span-5 group relative rounded-3xl border border-white/10 bg-[#141412] overflow-hidden shadow-2xl shadow-black/50 hover:border-white/25 transition-all duration-500 flex flex-col justify-between"
           >
             {/* Editorial Top Bar */}
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5 text-[11px] font-medium tracking-[0.22em] text-white/50 bg-[#171715]/90 backdrop-blur-sm uppercase z-10">
-              <span className="flex items-center gap-2 text-white/70">
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5 text-[11px] font-medium tracking-[0.22em] text-white/70 bg-[#171715]/90 backdrop-blur-sm uppercase z-10">
+              <span className="flex items-center gap-2 text-white/80">
                 <Code2 size={14} className="text-accent-primary" />
                 Editorial Portrait / 01
               </span>
-              <span className="flex items-center gap-1.5 text-white/60">
+              <span className="flex items-center gap-1.5 text-white/70">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
                 Makassar, ID
               </span>
@@ -185,13 +185,13 @@ export default function Hero() {
                     <p className="text-sm font-semibold text-text-heading">
                       IT Staff Intern · Kalla Logistik
                     </p>
-                    <p className="text-xs text-white/50 mt-0.5">
+                    <p className="text-xs text-white/70 mt-0.5">
                       Full-stack architecture &amp; applied AI systems
                     </p>
                   </div>
                   <div className="text-right hidden sm:block">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block">Focus</span>
-                    <span className="text-xs text-white/70 font-medium">Web &amp; LLM</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 block">Focus</span>
+                    <span className="text-xs text-white/80 font-medium">Web &amp; LLM</span>
                   </div>
                 </div>
               </div>
@@ -213,7 +213,7 @@ export default function Hero() {
                     Professional Context &amp; Focus
                   </h3>
                 </div>
-                <span className="text-xs text-white/40">2024 — Present</span>
+                <span className="text-xs text-white/65">2024 — Present</span>
               </div>
 
               <p className="text-base sm:text-lg font-bold text-text-heading mb-2">
@@ -259,26 +259,26 @@ export default function Hero() {
               <div className="grid grid-cols-3 gap-3 my-2">
                 <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5">
                   <span className="block text-2xl sm:text-3xl font-extrabold text-white font-sans tracking-tight">5+</span>
-                  <span className="text-[11px] text-white/50 leading-tight block mt-1">
+                  <span className="text-[11px] text-white/70 leading-tight block mt-1">
                     Production &amp; AI Projects
                   </span>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5">
                   <span className="block text-2xl sm:text-3xl font-extrabold text-white font-sans tracking-tight">2+ yrs</span>
-                  <span className="text-[11px] text-white/50 leading-tight block mt-1">
+                  <span className="text-[11px] text-white/70 leading-tight block mt-1">
                     Web &amp; ML Building
                   </span>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5">
                   <span className="block text-2xl sm:text-3xl font-extrabold text-accent-primary font-sans tracking-tight">3.49</span>
-                  <span className="text-[11px] text-white/50 leading-tight block mt-1">
+                  <span className="text-[11px] text-white/70 leading-tight block mt-1">
                     GPA · Informatics Eng
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/50">
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/70">
               <span className="flex items-center gap-1.5">
                 <MapPin size={13} className="text-accent-primary" />
                 Makassar / Remote
