@@ -50,7 +50,7 @@ export default function SkillsSection() {
             <Sparkles size={13} className="text-accent-primary" />
             Capabilities // 02
           </span>
-          <span className="text-xs uppercase tracking-[0.2em] text-white/40 hidden sm:inline-block">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/70 hidden sm:inline-block">
             Production &amp; Applied AI
           </span>
         </div>
@@ -98,7 +98,7 @@ export default function SkillsSection() {
                         {group.category}
                       </h3>
                       {subtitle && (
-                        <p className="text-xs text-white/50 mt-0.5">
+                        <p className="text-xs text-white/70 mt-0.5">
                           {subtitle}
                         </p>
                       )}
@@ -111,7 +111,7 @@ export default function SkillsSection() {
                       Core Emphasis
                     </span>
                   ) : (
-                    <span className="text-[11px] font-medium text-white/40 tabular-nums shrink-0">
+                    <span className="text-[11px] font-medium text-white/65 tabular-nums shrink-0">
                       {group.items.length} items
                     </span>
                   )}
@@ -126,7 +126,7 @@ export default function SkillsSection() {
               </div>
 
               {/* Bottom micro-metadata */}
-              <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] text-white/40">
+              <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] text-white/60">
                 <span>Verified in production / lab</span>
                 <span className="group-hover:text-accent-primary transition-colors">↗</span>
               </div>

@@ -2,8 +2,6 @@
 /* 09_SEO_Accessibility_Spec.md §10 — Focus Ring */
 /* 09_SEO_Accessibility_Spec.md §12 — Reduced Motion */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Onest:wght@400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
