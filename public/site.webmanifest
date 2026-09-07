@@ -1,24 +1,17 @@
 {
   "name": "Nabil Makarim Portfolio",
-  "short_name": "NM Portfolio",
+  "short_name": "Nabil Makarim",
+  "description": "Portfolio of Nabil Makarim, Full-Stack Web & Applied AI Developer.",
+  "start_url": "/",
   "icons": [
     {
-      "src": "/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#111317",
-  "background_color": "#111317",
+  "theme_color": "#0d0d0c",
+  "background_color": "#0d0d0c",
   "display": "standalone"
 }
