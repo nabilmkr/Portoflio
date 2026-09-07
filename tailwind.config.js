@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg-primary': '#FAFAF8',
-        'bg-surface': '#F2F0EC',
-        'bg-surface-alt': '#E8E5DF',
+        'bg-primary': '#0d0d0c',
+        'bg-surface': '#141412',
+        'bg-surface-alt': '#1c1b18',
         'accent-primary': '#E8613A',
-        'accent-soft': 'rgba(232, 97, 58, 0.1)',
-        border: '#E0DDD7',
-        'text-heading': '#1A1A1A',
-        'text-body': '#6B6B6B',
+        'accent-soft': 'rgba(232, 97, 58, 0.12)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        'text-heading': '#f4f0e8',
+        'text-body': 'rgba(244, 240, 232, 0.7)',
       },
       fontFamily: {
         sans: ['Onest', 'system-ui', '-apple-system', 'sans-serif'],

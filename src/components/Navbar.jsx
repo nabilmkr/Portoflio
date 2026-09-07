@@ -81,8 +81,18 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  const handleNavClick = () => {
+  const handleNavClick = (e, href) => {
     setIsMenuOpen(false);
+    document.body.style.overflow = "";
+    if (href && href.startsWith("#")) {
+      e.preventDefault();
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 50);
+    }
   };
 
   const mobileMenuVariants = {
@@ -113,7 +123,7 @@ export default function Navbar() {
       aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-bg-primary/95 backdrop-blur-md border-b border-border"
+          ? "bg-[#0d0d0c]/90 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/60"
           : "bg-transparent"
       }`}
     >
@@ -182,7 +192,7 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
             variants={mobileMenuVariants}
-            className="md:hidden fixed inset-0 bg-bg-primary/98 backdrop-blur-xl z-[9990]"
+            className="md:hidden fixed inset-0 bg-[#0d0d0c]/95 backdrop-blur-xl z-[9990]"
           >
             <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-20">
               <div className="absolute top-5 right-5">
@@ -199,7 +209,7 @@ export default function Navbar() {
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    onClick={handleNavClick}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     variants={mobileItemVariants}
                     custom={index}
                     className={`text-2xl md:text-3xl font-medium transition-colors duration-300 ${

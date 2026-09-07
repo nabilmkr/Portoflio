@@ -2,7 +2,7 @@
 /* 09_SEO_Accessibility_Spec.md §10 — Focus Ring */
 /* 09_SEO_Accessibility_Spec.md §12 — Reduced Motion */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Onest:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Onest:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,6 +10,7 @@
 
 @layer base {
   html {
+    @apply bg-[#0d0d0c];
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -18,13 +19,14 @@
 
   /* Anchor offset for fixed header */
   body {
+    @apply bg-[#0d0d0c] text-text-body font-sans;
+    margin: 0;
+    padding: 0;
     scroll-padding-top: 5rem;
   }
 
-  body {
-    @apply bg-bg-primary text-text-body font-sans;
-    margin: 0;
-    padding: 0;
+  ::selection {
+    @apply bg-[#e8613a]/30 text-white;
   }
 
   /* 09_SEO_Accessibility_Spec.md §10 — Custom Focus Ring */
@@ -46,25 +48,25 @@
   @layer utilities {
     .hero-grain {
       background-image:
-        radial-gradient(circle at 20% 20%, rgba(232, 97, 58, 0.1), transparent 35%),
-        radial-gradient(circle at 80% 10%, rgba(232, 97, 58, 0.06), transparent 30%);
+        radial-gradient(circle at 20% 20%, rgba(232, 97, 58, 0.14), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(244, 240, 232, 0.04), transparent 30%);
     }
   }
 
   /* Typography hierarchy — 02_Design_System.md §2 */
-  h1, h2, h3, h4, h5, h6 {
-    @apply text-text-heading font-bold tracking-tight font-display text-balance;
+  h1 {
+    @apply text-text-heading font-extrabold tracking-[-0.04em] leading-[1.06] font-display text-balance;
   }
 
-  h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.04em] leading-[1.05];
+  h2, h3, h4, h5, h6 {
+    @apply text-text-heading font-bold tracking-[-0.03em] font-sans text-balance;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-bold tracking-tight leading-[1.15];
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.12];
   }
 
   h3 {
-    @apply text-xl md:text-2xl font-semibold tracking-tight leading-[1.25];
+    @apply text-xl md:text-2xl font-semibold leading-[1.25];
   }
 }

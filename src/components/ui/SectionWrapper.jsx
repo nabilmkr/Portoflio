@@ -8,7 +8,7 @@ import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { staggerContainer, clipReveal } from "../../styles/motion";
 
 export default function SectionWrapper({ id, children, className = "", variant = "stagger" }) {
-  const { ref, hasIntersected } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, hasIntersected } = useIntersectionObserver({ threshold: 0.02, rootMargin: "50px" });
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants = shouldReduceMotion

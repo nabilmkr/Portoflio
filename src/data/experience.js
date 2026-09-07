@@ -1,5 +1,5 @@
-/* 05_Tech_Spec.md §6 — WorkHistoryItem schema */
-/* 06_Content.md §4 — Experience & Leadership */
+/* 05_Tech_Spec.md §6 — Experience data */
+/* 06_Content.md §4 — Leadership, education, certifications, and IT work */
 
 export const orgExperience = {
   id: "himatik-pnup",
@@ -7,7 +7,7 @@ export const orgExperience = {
   role: "Vice Chairperson for Internal Affairs",
   period: "Sep 2025 – Present",
   description:
-    "Coordinate and supervise 4 internal departments (Education, Cadre, Secretariat, Talent) to streamline operations and ensure strategic alignment.",
+    "Coordinate and supervise four internal departments—Education, Cadre, Secretariat, and Talent—to keep programs aligned, documented, and moving forward.",
   achievements: [
     {
       text: "Orchestrated cross-institutional collaboration with DCC Universitas Dipa for D-VERSE 2026 (GreenTech Era)",
@@ -19,10 +19,10 @@ export const orgExperience = {
         programmingTeams: 20,
       },
       detail:
-        "Secured 6 corporate sponsorships (including Dicoding & idCloudHost), 9 community partners (including GDG chapters), 5 media partners; attracted 300+ seminar attendees and 20+ competitive programming teams.",
+        "Secured 6 corporate sponsorships, 9 community partners, and 5 media partners; attracted 300+ seminar attendees and 20+ competitive programming teams.",
     },
     {
-      text: "Oversaw Mini Bootcamp HIMATIK — 100% session completion rate, all participant teams shipped Web Development projects.",
+      text: "Oversaw Mini Bootcamp HIMATIK with a 100% session completion rate; every participant team shipped a Web Development project.",
       metrics: {
         completionRate: 100,
       },
@@ -35,7 +35,7 @@ export const orgExperience = {
         attendees: 800,
       },
       detail:
-        "2 corporate sponsorships, 800+ attendees, formal recognition from university director and department heads.",
+        "Built the execution plan around 2 corporate sponsorships and 800+ attendees, earning formal recognition from university and department leadership.",
     },
   ],
 };
@@ -47,7 +47,7 @@ export const certifications = [
     issuer: "Microsoft",
     period: "Jun 2025 – Jun 2026",
     description:
-      "Apprenticeship across 5 tracks: Python Programming, Machine Learning, Data Processing Fundamentals, Data Science with Microsoft Fabric, and Generative AI Applications using Microsoft Azure.",
+      "Apprenticeship across Python Programming, Machine Learning, Data Processing, Microsoft Fabric, and Generative AI Applications with Azure.",
   },
   {
     id: "dicoding-ai",
@@ -55,7 +55,7 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     period: "Oct 2025 – Apr 2026",
     description:
-      "Intensive bootcamp covering machine learning, deep learning architectures, semantic search embeddings, and end-to-end AI project engineering.",
+      "Intensive track covering machine learning, deep learning, semantic-search embeddings, and end-to-end AI project engineering.",
   },
   {
     id: "aws-cloud",
@@ -63,7 +63,7 @@ export const certifications = [
     issuer: "Amazon Web Services (AWS)",
     period: "Issued Jul 2026",
     description:
-      "Trained in AWS Architecture, Cloud Core Services, Security, Pricing Models, and Support Infrastructure.",
+      "Training across AWS architecture, core cloud services, security, pricing models, and support infrastructure.",
   },
 ];
 
@@ -84,19 +84,21 @@ export const education = {
 
 export const workHistory = [
   {
+    id: "kalla-logistik",
+    org: "Kalla Logistik",
+    role: "IT Staff Intern",
+    period: "Sep 2026 – Present",
+    current: true,
+    note:
+      "Contributing to an internal software project, translating operational needs into practical product improvements and supporting the team through implementation, testing, and iteration.",
+  },
+  {
     id: "cv-aydin-perkasa",
     org: "CV Aydin Perkasa",
     role: "Administrative Assistant",
     period: "Jan–Mar 2024",
-    note: "Managed marketplace listings, maintained sales/inventory data in Excel.",
-    order: 1,
-  },
-  {
-    id: "waroeng-lago",
-    org: "Waroeng Lago",
-    role: "Barista",
-    period: "Oct–Dec 2022",
-    note: "Maintained service quality and flow during peak hours.",
-    order: 2,
+    current: false,
+    note:
+      "Maintained structured sales and inventory data, improved marketplace listings, and supported day-to-day digital operations with careful spreadsheet workflows.",
   },
 ];

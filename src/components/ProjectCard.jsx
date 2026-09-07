@@ -5,10 +5,9 @@
 /* Soft Modern: Horizontal split bento for featured item on desktop, lift + shadow hover */
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ExternalLink, Github, Sparkles } from "lucide-react";
 import Tag from "./ui/Tag";
-import { clipReveal } from "../styles/motion";
 
 export default function ProjectCard({
   id,
@@ -24,7 +23,6 @@ export default function ProjectCard({
   isFeatured = false,
 }) {
   const [imgError, setImgError] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
   const isInteractive = typeof onOpen === "function";
 
   const handleCardClick = (event) => {
@@ -45,11 +43,7 @@ export default function ProjectCard({
     <motion.article
       layout={isInteractive}
       layoutId={isInteractive ? `project-card-${id}` : undefined}
-      variants={clipReveal}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className={`group relative rounded-2xl border border-border hover:border-accent-primary bg-bg-surface transition-all duration-500 ease-out overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 h-full flex ${
+      className={`group relative rounded-2xl border border-border hover:border-[#e8613a]/40 bg-bg-surface transition-all duration-500 ease-out overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 h-full flex ${
         isFeatured ? "flex-col lg:flex-row" : "flex-col"
       } focus-within:ring-2 focus-within:ring-accent-primary/20 ${isInteractive ? "cursor-pointer" : ""}`}
       onClick={handleCardClick}

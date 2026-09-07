@@ -1,10 +1,7 @@
 /* 04_Component_Spec.md §8 — Footer */
-/* Props: none (static) */
-/* State: none */
-/* 06_Content.md §5 — Contact links + tagline */
-/* 09_SEO_Accessibility_Spec.md §11 — aria-label on icon-only social links */
+/* Editorial obsidian footer with smooth back-to-top and refined social links */
 
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Phone, Sparkles } from "lucide-react";
 
 const SOCIAL_LINKS = [
   {
@@ -30,17 +27,36 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
-  return (
-    <footer className="border-t border-border bg-bg-surface-alt/50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 md:py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Tagline */}
-          <p className="text-sm text-text-body italic text-center md:text-left">
-            &ldquo;Aut viam inveniam, Aut Faciam&rdquo;
-          </p>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-          {/* Social links */}
-          <div className="flex items-center gap-4">
+  return (
+    <footer className="border-t border-white/10 bg-[#0d0d0c] text-white/50 relative overflow-hidden">
+      {/* Ambient background glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 bg-accent-primary/[0.04] blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b border-white/10">
+          {/* Col 1: Identity & Motto */}
+          <div className="md:col-span-6 space-y-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-accent-primary">
+              <Sparkles size={13} />
+              <span>Nabil Makarim</span>
+            </div>
+            <p className="text-base sm:text-lg font-bold text-text-heading">
+              Building useful software for complex ideas.
+            </p>
+            <p className="text-xs text-white/40 italic">
+              &ldquo;Aut viam inveniam, Aut Faciam&rdquo; · I shall either find a way or make one.
+            </p>
+          </div>
+
+          {/* Col 2: Socials & Back to Top */}
+          <div className="md:col-span-6 flex flex-wrap items-center justify-start md:justify-end gap-3">
             {SOCIAL_LINKS.map((link) => {
               const Icon = link.icon;
               return (
@@ -50,18 +66,34 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.ariaLabel}
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-bg-surface border border-border text-text-body hover:text-accent-primary hover:border-accent-primary hover:bg-accent-soft transition-all duration-300"
+                  className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-[#141412] border border-white/10 text-white/70 hover:text-white hover:border-accent-primary/40 hover:bg-accent-soft transition-all duration-300 shadow-md"
                 >
-                  <Icon size={18} strokeWidth={1.5} />
+                  <Icon size={18} strokeWidth={1.75} />
                 </a>
               );
             })}
-          </div>
 
-          {/* Copyright */}
-          <p className="text-xs text-text-body/50 text-center md:text-right">
-            &copy; {new Date().getFullYear()} Nabil Makarim
+            <button
+              type="button"
+              onClick={scrollToTop}
+              aria-label="Back to top of page"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-[#141412] border border-white/10 text-xs font-semibold text-white/70 hover:text-white hover:border-white/30 transition-all duration-300 ml-2"
+            >
+              <ArrowUp size={14} />
+              <span>Top</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom metadata row */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <p>
+            Designed &amp; built with React, Vite &amp; Tailwind. Hosted in Indonesia.
           </p>
+          <div className="flex items-center gap-4">
+            <span>Makassar, ID (UTC+8)</span>
+            <span>&copy; {new Date().getFullYear()} Nabil Makarim</span>
+          </div>
         </div>
       </div>
     </footer>

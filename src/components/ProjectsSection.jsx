@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import SectionWrapper from "./ui/SectionWrapper";
 import ProjectCard from "./ProjectCard";
 import CaseStudyPanel from "./CaseStudyPanel";
-import { fadeInUp, staggerContainer, clipReveal } from "../styles/motion";
+import { fadeInUp, staggerContainer } from "../styles/motion";
 import projects from "../data/projects";
 
 export default function ProjectsSection() {
@@ -54,9 +54,9 @@ export default function ProjectsSection() {
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
     : staggerContainer;
 
-  const clipVariants = shouldReduceMotion
+  const cardVariants = shouldReduceMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : clipReveal;
+    : fadeInUp;
 
   return (
     <SectionWrapper id="projects" className="bg-bg-primary">
@@ -82,10 +82,7 @@ export default function ProjectsSection() {
           <motion.div
             layout
             layoutId={`project-featured-${featuredProject.id}`}
-            variants={clipVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            variants={cardVariants}
             className="lg:col-span-2"
           >
             <ProjectCard {...featuredProject} onOpen={openProject} isFeatured />
@@ -102,10 +99,7 @@ export default function ProjectsSection() {
               key={project.id}
               layout
               layoutId={`project-${project.id}`}
-              variants={clipVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              variants={cardVariants}
               style={{ transitionDelay: `${index * 80}ms` }}
             >
               <ProjectCard {...project} onOpen={openProject} />
