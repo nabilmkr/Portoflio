@@ -1,14 +1,8 @@
 /* 04_Component_Spec.md §1 — Navbar */
-/* State: isMenuOpen (mobile only), activeSection (scroll-spy) */
-/* Responsive: hamburger below md, full horizontal from md up */
-/* Animation: active link dot indicator transitions 300ms */
-/* Scroll state: warm cream backdrop-blur */
-/* Mobile overlay: stagger entrance from center */
-/* 09_SEO_Accessibility_Spec.md §9 — Keyboard nav, Escape closes menu */
-/* 09_SEO_Accessibility_Spec.md §11 — aria-label on nav and menu toggle */
+/* Redesigned into a Floating Liquid Glass Island Capsule */
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { motionConfig } from "../styles/motion";
 import { rafThrottle } from "../utils/performance";
@@ -27,13 +21,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = rafThrottle(() => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 25);
     });
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Scroll-spy: track which section is in view */
+  /* Scroll-spy: track which section is currently in view */
   useEffect(() => {
     const sectionIds = NAV_LINKS.map((link) => link.href.replace("#", ""));
     const observers = [];
@@ -48,7 +42,7 @@ export default function Navbar() {
             setActiveSection(id);
           }
         },
-        { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
+        { threshold: 0.25, rootMargin: "-80px 0px 0px 0px" }
       );
 
       observer.observe(element);
@@ -58,7 +52,7 @@ export default function Navbar() {
     return () => observers.forEach((obs) => obs.disconnect());
   }, []);
 
-  /* Escape key closes mobile menu — 09_SEO_Accessibility_Spec.md §9 */
+  /* Escape key closes mobile menu */
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -69,21 +63,8 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isMenuOpen]);
 
-  /* Lock body scroll when mobile menu is open */
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
   const handleNavClick = (e, href) => {
     setIsMenuOpen(false);
-    document.body.style.overflow = "";
     if (href && href.startsWith("#")) {
       e.preventDefault();
       setTimeout(() => {
@@ -95,137 +76,131 @@ export default function Navbar() {
     }
   };
 
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      transition: { duration: 0.2, staggerChildren: 0.02, staggerDirection: -1 },
-    },
-  };
-
-  const mobileItemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: motionConfig.ease.entrance } },
-    exit: { opacity: 0, y: -10, transition: { duration: 0.15 } },
-  };
-
   return (
-    <nav
-      aria-label="Main navigation"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[#0d0d0c]/90 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/60"
-          : "bg-transparent"
-      }`}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: motionConfig.duration.normal,
-          ease: motionConfig.ease.entrance,
-          delay: 0.1,
-        }}
-        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+    <header className="fixed top-3.5 sm:top-5 inset-x-0 z-50 flex justify-center pointer-events-none px-3">
+      {/* Floating Liquid Glass Capsule */}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        aria-label="Main navigation"
+        className={`pointer-events-auto relative flex items-center justify-between gap-2 sm:gap-4 rounded-full px-3.5 sm:px-5 py-2 transition-all duration-500 ${
+          isScrolled
+            ? "bg-[#141412]/80 backdrop-blur-2xl border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_14px_36px_rgba(0,0,0,0.65),0_2px_8px_rgba(0,0,0,0.4)] scale-[0.98]"
+            : "bg-[#141412]/60 backdrop-blur-xl border border-white/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_8px_24px_rgba(0,0,0,0.4)]"
+        }`}
       >
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo / Name — lowercase "nabil makarim" */}
-          <a
-            href="#"
-            className="text-text-heading font-medium text-lg tracking-wide hover:text-accent-primary transition-colors duration-300"
-          >
-            nabil makarim
-          </a>
+        {/* Specular Liquid Top Glow Line */}
+        <div
+          className="pointer-events-none absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
+          aria-hidden="true"
+        />
 
-          {/* Desktop nav — visible from md up */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
+        {/* Logo / Monogram */}
+        <a
+          href="#"
+          className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wide text-text-heading hover:text-accent-primary transition-colors py-1 pl-1"
+        >
+          <span className="w-2 h-2 rounded-full bg-accent-primary animate-pulse shadow-[0_0_8px_#e8613a]" />
+          <span className="font-mono tracking-tight text-white/90">nabil.makarim</span>
+        </a>
+
+        {/* Glass Divider */}
+        <div className="hidden sm:block w-px h-4 bg-white/15 mx-0.5" aria-hidden="true" />
+
+        {/* Desktop Nav Links */}
+        <div className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => {
+            const isActive = activeSection === link.href.replace("#", "");
+            return (
               <a
                 key={link.href}
                 href={link.href}
-                className={`relative text-sm font-medium transition-colors duration-300 ${
-                  activeSection === link.href.replace("#", "")
-                    ? "text-accent-primary"
-                    : "text-text-body hover:text-text-heading"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`relative px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-300 ${
+                  isActive
+                    ? "text-white font-semibold"
+                    : "text-white/65 hover:text-white hover:bg-white/[0.04]"
                 }`}
               >
-                {link.label}
-                {/* Active dot indicator (not underline) */}
-                <span
-                  className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-primary transition-all duration-300 ${
-                    activeSection === link.href.replace("#", "")
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-50"
-                  }`}
-                  aria-hidden="true"
-                />
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavPill"
+                    className="absolute inset-0 rounded-full bg-white/[0.1] border border-white/20 shadow-sm"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{link.label}</span>
               </a>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
-          {/* Mobile menu toggle — below md */}
+        {/* Action CTA Pill */}
+        <div className="flex items-center gap-2">
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, "#contact")}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-accent-primary text-white hover:bg-accent-primary/90 transition-all shadow-sm shadow-accent-primary/30 hover:scale-[1.03] active:scale-[0.97]"
+          >
+            <span>Let's Talk</span>
+            <ArrowUpRight size={13} />
+          </a>
+
+          {/* Mobile Menu Toggle Button */}
           <button
-            className="md:hidden p-2 text-text-body hover:text-text-heading transition-colors duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-1.5 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+            {isMenuOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
           </button>
         </div>
-      </motion.div>
+      </motion.nav>
 
-      {/* Mobile menu overlay — below md with stagger entrance */}
-      <AnimatePresence mode="wait">
+      {/* Mobile Floating Dropdown Island */}
+      <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={mobileMenuVariants}
-            className="md:hidden fixed inset-0 bg-[#0d0d0c]/95 backdrop-blur-xl z-[9990]"
+            initial={{ opacity: 0, y: -10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.96 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="pointer-events-auto md:hidden fixed top-16 inset-x-4 mx-auto max-w-sm rounded-3xl bg-[#141412]/90 backdrop-blur-2xl border border-white/20 p-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_20px_45px_rgba(0,0,0,0.7)] z-50 flex flex-col gap-1.5"
           >
-            <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-20">
-              <div className="absolute top-5 right-5">
-                <button
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label="Close mobile menu"
-                  className="inline-flex items-center justify-center rounded-full border border-border bg-bg-surface-alt p-2 text-text-body hover:bg-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+            {NAV_LINKS.map((link) => {
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-white/10 text-white font-semibold border border-white/15"
+                      : "text-white/70 hover:bg-white/[0.04] hover:text-white"
+                  }`}
                 >
-                  <X size={20} strokeWidth={1.5} />
-                </button>
-              </div>
-              <motion.div className="flex flex-col items-center justify-center gap-6 w-full max-w-md text-center" role="navigation">
-                {NAV_LINKS.map((link, index) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    variants={mobileItemVariants}
-                    custom={index}
-                    className={`text-2xl md:text-3xl font-medium transition-colors duration-300 ${
-                      activeSection === link.href.replace("#", "")
-                        ? "text-accent-primary"
-                        : "text-text-heading hover:text-accent-primary"
-                    }`}
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
-              </motion.div>
+                  <span>{link.label}</span>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />}
+                </a>
+              );
+            })}
+
+            <div className="pt-2 mt-1 border-t border-white/10">
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "#contact")}
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl text-sm font-semibold bg-accent-primary text-white shadow-md shadow-accent-primary/20"
+              >
+                <span>Get in Touch</span>
+                <ArrowUpRight size={15} />
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

@@ -85,20 +85,11 @@ export const education = {
 export const workHistory = [
   {
     id: "kalla-logistik",
-    org: "Kalla Logistik",
-    role: "IT Staff Intern",
+    org: "Kalla Transport & Logistik",
+    role: "Software Engineer Intern",
     period: "Sep 2026 – Present",
     current: true,
     note:
       "Contributing to an internal software project, translating operational needs into practical product improvements and supporting the team through implementation, testing, and iteration.",
-  },
-  {
-    id: "cv-aydin-perkasa",
-    org: "CV Aydin Perkasa",
-    role: "Administrative Assistant",
-    period: "Jan–Mar 2024",
-    current: false,
-    note:
-      "Maintained structured sales and inventory data, improved marketplace listings, and supported day-to-day digital operations with careful spreadsheet workflows.",
   },
 ];

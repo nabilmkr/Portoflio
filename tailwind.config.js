@@ -16,6 +16,15 @@ export default {
         'text-heading': '#f4f0e8',
         'text-body': 'rgba(244, 240, 232, 0.7)',
       },
+      keyframes: {
+        shine: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+      },
+      animation: {
+        shine: 'shine 4s linear infinite',
+      },
       fontFamily: {
         sans: ['Onest', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['Syne', 'system-ui', 'sans-serif'],

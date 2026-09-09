@@ -34,7 +34,7 @@ const projects = [
     focusDescription:
       "AI-powered personal finance assistant combining Random Forest financial-health classification (Kritis/Sehat/Waspada) with Google Gemini 2.5 Flash advisory narratives. Features synthetic dataset generation pipeline for cold-start and full-stack integration with React Native, Laravel 11, and FastAPI.",
     highlights: [
-      "Self-generated synthetic dataset pipeline achieving 100% accuracy on synthetic test set.",
+      "Engineered synthetic data generation pipeline to resolve cold-start data scarcity in financial health modeling.",
       "Secured with Google OAuth and Laravel Sanctum in a clean monorepo architecture.",
     ],
     techTags: [

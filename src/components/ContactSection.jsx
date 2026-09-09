@@ -4,8 +4,9 @@
 import { useForm, ValidationError } from "@formspree/react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone, Linkedin, Github, Send, CheckCircle, Loader2, MapPin, Calendar, Sparkles, MessageSquare } from "lucide-react";
-import SectionWrapper from "./ui/SectionWrapper";
 import Button from "./ui/Button";
+import Waves from "./reactbits/Waves";
+import Footer from "./Footer";
 import { fadeInUp, staggerContainer } from "../styles/motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -64,15 +65,36 @@ export default function ContactSection() {
   }, [shouldReduceMotion]);
 
   return (
-    <SectionWrapper id="contact" className="relative overflow-hidden">
+    <div className="relative bg-[#0d0d0c] text-white border-t border-[#e3e1d8] overflow-hidden">
+      {/* Interactive Perlin noise waves background — Exact Hero Match */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-90" aria-hidden="true">
+        <Waves
+          lineColor="rgba(232, 97, 58, 0.35)"
+          backgroundColor="transparent"
+          waveSpeedX={0.018}
+          waveSpeedY={0.008}
+          waveAmpX={42}
+          waveAmpY={24}
+          xGap={15}
+          yGap={32}
+          friction={0.92}
+          tension={0.007}
+          maxCursorMove={140}
+        />
+      </div>
+
+      {/* Ambient warm gradient glow overlay — Exact Hero Match */}
+      <div className="absolute inset-0 hero-grain pointer-events-none z-[1]" aria-hidden="true" />
+
       {/* Background glow on scroll */}
       <div
         ref={gradientRef}
-        className="absolute inset-0 bg-gradient-to-br from-[#e8613a]/20 via-transparent to-transparent opacity-0 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-br from-[#e8613a]/20 via-transparent to-transparent opacity-0 pointer-events-none z-[2]"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
+      <section id="contact" className="relative scroll-mt-20 md:scroll-mt-28 pt-20 sm:pt-28 pb-10 sm:pb-14 z-10">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div ref={sectionRef} variants={fadeInUp} className="mb-10 lg:mb-12">
           <div className="flex items-center gap-2 mb-3">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-accent-primary bg-accent-soft rounded-full border border-accent-primary/20">
@@ -255,6 +277,10 @@ export default function ContactSection() {
           </motion.div>
         </motion.div>
       </div>
-    </SectionWrapper>
-  );
+    </section>
+
+    {/* Seamless Integrated Footer */}
+    <Footer />
+  </div>
+);
 }

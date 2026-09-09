@@ -32,15 +32,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/10 bg-[#0d0d0c] text-white/70 relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-24 bg-accent-primary/[0.04] blur-3xl pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b border-white/10">
+    <footer className="relative text-white/70 z-10">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-12 md:pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b border-white/10 pt-8 border-t border-white/[0.08]">
           {/* Col 1: Identity & Motto */}
           <div className="md:col-span-6 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-accent-primary">
